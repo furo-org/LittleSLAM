@@ -1,8 +1,8 @@
-project(LittleSLAM)
+Ôªøproject(LittleSLAM)
 
 cmake_minimum_required(VERSION 2.8)
 
-# C++11ÇégÇ§
+# C++11„Çí‰Ωø„ÅÜ
 if(UNIX)
   include(CheckCXXCompilerFlag)
   CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)

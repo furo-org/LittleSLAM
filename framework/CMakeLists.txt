@@ -1,4 +1,4 @@
-PROJECT(framework)
+﻿PROJECT(framework)
 
 cmake_minimum_required(VERSION 2.8)
 
