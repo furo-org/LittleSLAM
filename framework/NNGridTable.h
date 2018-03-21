@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -21,30 +21,30 @@
 
 struct NNGridCell
 {
-  std::vector<const LPoint2D*> lps;         // ‚±‚ÌƒZƒ‹‚ÉŠi”[‚³‚ê‚½ƒXƒLƒƒƒ““_ŒQ
+  std::vector<const LPoint2D*> lps;         // ã“ã®ã‚»ãƒ«ã«æ ¼ç´ã•ã‚ŒãŸã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
 
   void clear() {
-    lps.clear();                            // ‹ó‚É‚·‚é
+    lps.clear();                            // ç©ºã«ã™ã‚‹
   }
 };
 
 ///////
 
-// Šiqƒe[ƒuƒ‹
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«
 class NNGridTable
 {
 private:
-  double csize;                       // ƒZƒ‹ƒTƒCƒY[m]
-  double rsize;                       // ‘ÎÛ—Ìˆæ‚ÌƒTƒCƒY[m]B³•ûŒ`‚Ì1•Ó‚Ì”¼•ªB
-  int tsize;                          // ƒe[ƒuƒ‹ƒTƒCƒY‚Ì”¼•ª
-  std::vector<NNGridCell> table;      // ƒe[ƒuƒ‹–{‘Ì
+  double csize;                       // ã‚»ãƒ«ã‚µã‚¤ã‚º[m]
+  double rsize;                       // å¯¾è±¡é ˜åŸŸã®ã‚µã‚¤ã‚º[m]ã€‚æ­£æ–¹å½¢ã®1è¾ºã®åŠåˆ†ã€‚
+  int tsize;                          // ãƒ†ãƒ¼ãƒ–ãƒ«ã‚µã‚¤ã‚ºã®åŠåˆ†
+  std::vector<NNGridCell> table;      // ãƒ†ãƒ¼ãƒ–ãƒ«æœ¬ä½“
 
 public:
-  NNGridTable() : csize(0.05), rsize(40){            // ƒZƒ‹5cmA‘ÎÛ—Ìˆæ40x2ml•û
-    tsize = static_cast<int>(rsize/csize);           // ƒe[ƒuƒ‹ƒTƒCƒY‚Ì”¼•ª
-    size_t w = static_cast<int>(2*tsize+1);          // ƒe[ƒuƒ‹ƒTƒCƒY
-    table.resize(w*w);                               // —ÌˆæŠm•Û
-    clear();                                         // table‚Ì‰Šú‰»
+  NNGridTable() : csize(0.05), rsize(40){            // ã‚»ãƒ«5cmã€å¯¾è±¡é ˜åŸŸ40x2må››æ–¹
+    tsize = static_cast<int>(rsize/csize);           // ãƒ†ãƒ¼ãƒ–ãƒ«ã‚µã‚¤ã‚ºã®åŠåˆ†
+    size_t w = static_cast<int>(2*tsize+1);          // ãƒ†ãƒ¼ãƒ–ãƒ«ã‚µã‚¤ã‚º
+    table.resize(w*w);                               // é ˜åŸŸç¢ºä¿
+    clear();                                         // tableã®åˆæœŸåŒ–
   }
 
   ~NNGridTable() {
@@ -52,7 +52,7 @@ public:
   
   void clear() {
     for (size_t i=0; i<table.size(); i++)
-      table[i].clear();                         // ŠeƒZƒ‹‚ğ‹ó‚É‚·‚é
+      table[i].clear();                         // å„ã‚»ãƒ«ã‚’ç©ºã«ã™ã‚‹
   }
   
 ////////////

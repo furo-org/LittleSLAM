@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,8 +24,8 @@
 class DataAssociator
 {
 public:
-  std::vector<const LPoint2D*> curLps;            // ‘Î‰‚ª‚Æ‚ê‚½Œ»İƒXƒLƒƒƒ“‚Ì“_ŒQ
-  std::vector<const LPoint2D*> refLps;            // ‘Î‰‚ª‚Æ‚ê‚½QÆƒXƒLƒƒƒ“‚Ì“_ŒQ
+  std::vector<const LPoint2D*> curLps;            // å¯¾å¿œãŒã¨ã‚ŒãŸç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤
+  std::vector<const LPoint2D*> refLps;            // å¯¾å¿œãŒã¨ã‚ŒãŸå‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤
 
   DataAssociator() {
   }

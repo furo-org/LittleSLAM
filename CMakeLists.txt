@@ -1,8 +1,8 @@
-project(LittleSLAM)
+Ôªøproject(LittleSLAM)
 
 cmake_minimum_required(VERSION 2.8)
 
-# C++11ÇégÇ§
+# C++11„Çí‰Ωø„ÅÜ
 if(UNIX)
   include(CheckCXXCompilerFlag)
   CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -14,11 +14,6 @@ if(UNIX)
   else()
     message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Use a different C++ compiler.")
   endif()
-endif()
-
-if(UNIX)   # gccÇ≈SHIFT-JISÇì«ÇﬁÇΩÇﬂ
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=cp932")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexec-charset=cp932")
 endif()
 
 SET(CMAKE_BUILD_TYPE "Release")

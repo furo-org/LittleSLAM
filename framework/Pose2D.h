@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -22,10 +22,10 @@
 
 struct Pose2D
 {
-  double tx;                           // •Àix
-  double ty;                           // •Àiy
-  double th;                           // ‰ñ“]Šp(“x)
-  double Rmat[2][2];                   // p¨‚Ì‰ñ“]s—ñ
+  double tx;                           // ä¸¦é€²x
+  double ty;                           // ä¸¦é€²y
+  double th;                           // å›è»¢è§’(åº¦)
+  double Rmat[2][2];                   // å§¿å‹¢ã®å›è»¢è¡Œåˆ—
 
   Pose2D() : tx(0), ty(0), th(0) {
     for(int i=0;i<2;i++) {

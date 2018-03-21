@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -34,18 +34,18 @@
 class SlamLauncher
 {
 private:
-  int startN;                      // ŠJnƒXƒLƒƒƒ“”Ô†
-  int drawSkip;                    // •`‰æŠÔŠu
-  bool odometryOnly;               // ƒIƒhƒƒgƒŠ‚É‚æ‚é’n}\’z‚©
-  Pose2D ipose;                    // ƒIƒhƒƒgƒŠ’n}\’z‚Ì•â•ƒf[ƒ^B‰ŠúˆÊ’u‚ÌŠp“x‚ğ0‚É‚·‚é
+  int startN;                      // é–‹å§‹ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
+  int drawSkip;                    // æç”»é–“éš”
+  bool odometryOnly;               // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰ã‹
+  Pose2D ipose;                    // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªåœ°å›³æ§‹ç¯‰ã®è£œåŠ©ãƒ‡ãƒ¼ã‚¿ã€‚åˆæœŸä½ç½®ã®è§’åº¦ã‚’0ã«ã™ã‚‹
 
-  Pose2D lidarOffset;              // ƒŒ[ƒUƒXƒLƒƒƒi‚Æƒƒ{ƒbƒg‚Ì‘Š‘ÎˆÊ’u
+  Pose2D lidarOffset;              // ãƒ¬ãƒ¼ã‚¶ã‚¹ã‚­ãƒ£ãƒŠã¨ãƒ­ãƒœãƒƒãƒˆã®ç›¸å¯¾ä½ç½®
 
-  SensorDataReader sreader;        // ƒtƒ@ƒCƒ‹‚©‚ç‚ÌƒZƒ“ƒTƒf[ƒ^“Ç‚İ‚İ
-  PointCloudMap *pcmap;            // “_ŒQ’n}
-  SlamFrontEnd sfront;             // SLAMƒtƒƒ“ƒgƒGƒ“ƒh
-  MapDrawer mdrawer;               // gnuplot‚É‚æ‚é•`‰æ
-  FrameworkCustomizer fcustom;     // ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰ü‘¢
+  SensorDataReader sreader;        // ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã®ã‚»ãƒ³ã‚µãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
+  PointCloudMap *pcmap;            // ç‚¹ç¾¤åœ°å›³
+  SlamFrontEnd sfront;             // SLAMãƒ•ãƒ­ãƒ³ãƒˆã‚¨ãƒ³ãƒ‰
+  MapDrawer mdrawer;               // gnuplotã«ã‚ˆã‚‹æç”»
+  FrameworkCustomizer fcustom;     // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®æ”¹é€ 
 
 public:
   SlamLauncher() : startN(0), drawSkip(10), odometryOnly(false), pcmap(nullptr) {

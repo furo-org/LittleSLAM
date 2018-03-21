@@ -1,4 +1,4 @@
-/****************************************************************************
+п»ї/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,11 +24,11 @@
 class ScanPointAnalyser
 {
 private:
-  static const double FPDMIN;               // —ЧђЪ“_‚Ж‚МЌЕЏ¬‹——Ј[m]ЃB‚±‚к‚ж‚иЏ¬‚і‚ў‚ЖЊлЌ·‚Є‘е‚«‚­‚И‚й‚М‚Е–@ђьЊvЋZ‚ЙЋg‚н‚И‚ўЃB
-  static const double FPDMAX;               // —ЧђЪ“_‚Ж‚МЌЕ‘е‹——Ј[m]ЃB‚±‚к‚ж‚и‘е‚«‚ў‚Ж•sA‘±‚Ж‚Э‚И‚µ‚Д–@ђьЊvЋZ‚ЙЋg‚н‚И‚ўЃB
-  static const int CRTHRE = 45;             // –@ђь•ыЊь•П‰»‚Ми‡’l[“x]ЃB‚±‚к‚ж‚и‘е‚«‚ў‚ЖѓRЃ[ѓi“_‚Ж‚Э‚И‚·ЃB
+  static const double FPDMIN;               // йљЈжЋҐз‚№гЃЁгЃ®жњЂе°Џи·ќй›ў[m]гЂ‚гЃ“г‚Њг‚€г‚Ље°ЏгЃ•гЃ„гЃЁиЄ¤е·®гЃЊе¤§гЃЌгЃЏгЃЄг‚‹гЃ®гЃ§жі•з·љиЁ€з®—гЃ«дЅїг‚ЏгЃЄгЃ„гЂ‚
+  static const double FPDMAX;               // йљЈжЋҐз‚№гЃЁгЃ®жњЂе¤§и·ќй›ў[m]гЂ‚гЃ“г‚Њг‚€г‚Ље¤§гЃЌгЃ„гЃЁдёЌйЂЈз¶љгЃЁгЃїгЃЄгЃ—гЃ¦жі•з·љиЁ€з®—гЃ«дЅїг‚ЏгЃЄгЃ„гЂ‚
+  static const int CRTHRE = 45;             // жі•з·љж–№еђ‘е¤‰еЊ–гЃ®й–ѕеЂ¤[еє¦]гЂ‚гЃ“г‚Њг‚€г‚Ље¤§гЃЌгЃ„гЃЁг‚ігѓјгѓЉз‚№гЃЁгЃїгЃЄгЃ™гЂ‚
   static const int INVALID = -1;
-  double costh;                             // Ќ¶‰E‚М–@ђь•ыЊь‚МђH‚ў€б‚ў‚Ми‡’l
+  double costh;                             // е·¦еЏігЃ®жі•з·љж–№еђ‘гЃ®йЈџгЃ„йЃ•гЃ„гЃ®й–ѕеЂ¤
 
 public:
   ScanPointAnalyser() : costh(cos(DEG2RAD(CRTHRE))) {

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,7 +17,7 @@
 
 #include "PointCloudMap.h"
 
-// ƒXƒLƒƒƒ““_‚ğ‚·‚×‚Ä•Û‘¶‚·‚é“_ŒQ’n}
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã‚’ã™ã¹ã¦ä¿å­˜ã™ã‚‹ç‚¹ç¾¤åœ°å›³
 class PointCloudMapBS : public PointCloudMap
 {
 public:

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,67 +18,67 @@ using namespace std;
 
 ////////////
 
-// ƒ‹[ƒvŒŸo
-// Œ»İˆÊ’ucurPose‚É‹ß‚­AŒ»İƒXƒLƒƒƒ“curScan‚ÉŒ`‚ªˆê’v‚·‚éêŠ‚ğƒƒ{ƒbƒg‹OÕ‚©‚çŒ©‚Â‚¯‚Äƒ|[ƒYƒA[ƒN‚ğ’£‚éB
+// ãƒ«ãƒ¼ãƒ—æ¤œå‡º
+// ç¾åœ¨ä½ç½®curPoseã«è¿‘ãã€ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³curScanã«å½¢ãŒä¸€è‡´ã™ã‚‹å ´æ‰€ã‚’ãƒ­ãƒœãƒƒãƒˆè»Œè·¡ã‹ã‚‰è¦‹ã¤ã‘ã¦ãƒãƒ¼ã‚ºã‚¢ãƒ¼ã‚¯ã‚’å¼µã‚‹ã€‚
 bool LoopDetectorSS::detectLoop(Scan2D *curScan, Pose2D &curPose, int cnt) {
   printf("-- detectLoop -- \n");
 
-  // Å‚à‹ß‚¢•”•ª’n}‚ğ’T‚·
-  double atd = pcmap->atd;                             // Œ»İ‚ÌÀÛ‚Ì—İÏ‘–s‹——£
-  double atdR = 0;                                     // ‰º‹L‚Ìˆ—‚Å‹OÕ‚ğ‚È‚¼‚é‚Ì—İÏ‘–s‹——£
-  const vector<Submap> &submaps = pcmap->submaps;      // •”•ª’n}
-  const vector<Pose2D> &poses = pcmap->poses;          // ƒƒ{ƒbƒg‹OÕ
-  double dmin=HUGE_VAL;                                // ‘O‰ñ–K–â“_‚Ü‚Å‚Ì‹——£‚ÌÅ¬’l
-  size_t imin=0, jmin=0;                               // ‹——£Å¬‚Ì‘O‰ñ–K–â“_‚ÌƒCƒ“ƒfƒbƒNƒX
-  Pose2D prevP;                                        // ’¼‘O‚Ìƒƒ{ƒbƒgˆÊ’u
-  for (size_t i=0; i<submaps.size()-1; i++) {          // Œ»İ‚Ì•”•ª’n}ˆÈŠO‚ğ’T‚·
-    const Submap &submap = submaps[i];                 // i”Ô–Ú‚Ì•”•ª’n}
-    for (size_t j=submap.cntS; j<=submap.cntE; j++) {  // •”•ª’n}‚ÌŠeƒƒ{ƒbƒgˆÊ’u‚É‚Â‚¢‚Ä
-      Pose2D p = poses[j];                             // ƒƒ{ƒbƒgˆÊ’u
+  // æœ€ã‚‚è¿‘ã„éƒ¨åˆ†åœ°å›³ã‚’æ¢ã™
+  double atd = pcmap->atd;                             // ç¾åœ¨ã®å®Ÿéš›ã®ç´¯ç©èµ°è¡Œè·é›¢
+  double atdR = 0;                                     // ä¸‹è¨˜ã®å‡¦ç†ã§è»Œè·¡ã‚’ãªãã‚‹æ™‚ã®ç´¯ç©èµ°è¡Œè·é›¢
+  const vector<Submap> &submaps = pcmap->submaps;      // éƒ¨åˆ†åœ°å›³
+  const vector<Pose2D> &poses = pcmap->poses;          // ãƒ­ãƒœãƒƒãƒˆè»Œè·¡
+  double dmin=HUGE_VAL;                                // å‰å›è¨ªå•ç‚¹ã¾ã§ã®è·é›¢ã®æœ€å°å€¤
+  size_t imin=0, jmin=0;                               // è·é›¢æœ€å°ã®å‰å›è¨ªå•ç‚¹ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+  Pose2D prevP;                                        // ç›´å‰ã®ãƒ­ãƒœãƒƒãƒˆä½ç½®
+  for (size_t i=0; i<submaps.size()-1; i++) {          // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³ä»¥å¤–ã‚’æ¢ã™
+    const Submap &submap = submaps[i];                 // iç•ªç›®ã®éƒ¨åˆ†åœ°å›³
+    for (size_t j=submap.cntS; j<=submap.cntE; j++) {  // éƒ¨åˆ†åœ°å›³ã®å„ãƒ­ãƒœãƒƒãƒˆä½ç½®ã«ã¤ã„ã¦
+      Pose2D p = poses[j];                             // ãƒ­ãƒœãƒƒãƒˆä½ç½®
       atdR += sqrt((p.tx - prevP.tx)*(p.tx - prevP.tx) + (p.ty - prevP.ty)*(p.ty - prevP.ty));
-      if (atd-atdR < atdthre) {                        // Œ»İˆÊ’u‚Ü‚Å‚Ì‘–s‹——£‚ª’Z‚¢‚Æƒ‹[ƒv‚Æ‚İ‚È‚³‚¸A‚à‚¤‚â‚ß‚é
-        i = submaps.size();                            // ‚±‚ê‚ÅŠO‘¤‚Ìƒ‹[ƒv‚©‚ç‚à”²‚¯‚é
+      if (atd-atdR < atdthre) {                        // ç¾åœ¨ä½ç½®ã¾ã§ã®èµ°è¡Œè·é›¢ãŒçŸ­ã„ã¨ãƒ«ãƒ¼ãƒ—ã¨ã¿ãªã•ãšã€ã‚‚ã†ã‚„ã‚ã‚‹
+        i = submaps.size();                            // ã“ã‚Œã§å¤–å´ã®ãƒ«ãƒ¼ãƒ—ã‹ã‚‰ã‚‚æŠœã‘ã‚‹
         break;
       }
       prevP = p;
 
       double d = (curPose.tx - p.tx)*(curPose.tx - p.tx) + (curPose.ty - p.ty)*(curPose.ty - p.ty);
-      if (d < dmin) {                                  // Œ»İˆÊ’u‚Æp‚Æ‚Ì‹——£‚ª‚±‚ê‚Ü‚Å‚ÌÅ¬‚©
+      if (d < dmin) {                                  // ç¾åœ¨ä½ç½®ã¨pã¨ã®è·é›¢ãŒã“ã‚Œã¾ã§ã®æœ€å°ã‹
         dmin = d;
-        imin = i;                                      // Œó•â‚Æ‚È‚é•”•ª’n}‚ÌƒCƒ“ƒfƒbƒNƒX
-        jmin = j;                                      // ‘O‰ñ–K–â“_‚ÌƒCƒ“ƒfƒbƒNƒX
+        imin = i;                                      // å€™è£œã¨ãªã‚‹éƒ¨åˆ†åœ°å›³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+        jmin = j;                                      // å‰å›è¨ªå•ç‚¹ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
       }
-//      printf("i=%lu, j=%lu: atd=%g, atdR=%g, atdthre=%g\n", i, j, atd, atdR, atdthre);             // Šm”F—p
+//      printf("i=%lu, j=%lu: atd=%g, atdR=%g, atdthre=%g\n", i, j, atd, atdR, atdthre);             // ç¢ºèªç”¨
     }
   }
 
-  printf("dmin=%g, radius=%g, imin=%lu, jmin=%lu\n", sqrt(dmin), radius, imin, jmin);  // Šm”F—p
+  printf("dmin=%g, radius=%g, imin=%lu, jmin=%lu\n", sqrt(dmin), radius, imin, jmin);  // ç¢ºèªç”¨
 
-  if (dmin > radius*radius)                            // ‘O‰ñ–K–â“_‚Ü‚Å‚Ì‹——£‚ª‰“‚¢‚Æƒ‹[ƒvŒŸo‚µ‚È‚¢
+  if (dmin > radius*radius)                            // å‰å›è¨ªå•ç‚¹ã¾ã§ã®è·é›¢ãŒé ã„ã¨ãƒ«ãƒ¼ãƒ—æ¤œå‡ºã—ãªã„
     return(false);
 
-  Submap &refSubmap = pcmap->submaps[imin];            // Å‚à‹ß‚¢•”•ª’n}‚ğQÆƒXƒLƒƒƒ“‚É‚·‚é
+  Submap &refSubmap = pcmap->submaps[imin];            // æœ€ã‚‚è¿‘ã„éƒ¨åˆ†åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã«ã™ã‚‹
   const Pose2D &initPose = poses[jmin];
   printf("curPose:  tx=%g, ty=%g, th=%g\n", curPose.tx, curPose.ty, curPose.th);
   printf("initPose: tx=%g, ty=%g, th=%g\n", initPose.tx, initPose.ty, initPose.th);
 
-  // Ä–K“_‚ÌˆÊ’u‚ğ‹‚ß‚é
+  // å†è¨ªç‚¹ã®ä½ç½®ã‚’æ±‚ã‚ã‚‹
   Pose2D revisitPose;
   bool flag = estimateRevisitPose(curScan, refSubmap.mps, curPose, revisitPose);
 //  bool flag = estimateRelativePose(curScan, refSubmap.mps, initPose, revisitPose);
 
-  if (flag) {                                          // ƒ‹[ƒv‚ğŒŸo‚µ‚½
-    Eigen::Matrix3d icpCov;                                                  // ICP‚Ì‹¤•ªU
-    double ratio = pfu->calIcpCovariance(revisitPose, curScan, icpCov);      // ICP‚Ì‹¤•ªU‚ğŒvZ
+  if (flag) {                                          // ãƒ«ãƒ¼ãƒ—ã‚’æ¤œå‡ºã—ãŸ
+    Eigen::Matrix3d icpCov;                                                  // ICPã®å…±åˆ†æ•£
+    double ratio = pfu->calIcpCovariance(revisitPose, curScan, icpCov);      // ICPã®å…±åˆ†æ•£ã‚’è¨ˆç®—
 
-    LoopInfo info;                                     // ƒ‹[ƒvŒŸoŒ‹‰Ê
-    info.pose = revisitPose;                           // ƒ‹[ƒvƒA[ƒNî•ñ‚ÉÄ–K“_ˆÊ’u‚ğİ’è
-    info.cov = icpCov;                                 // ƒ‹[ƒvƒA[ƒNî•ñ‚É‹¤•ªU‚ğİ’èB
-    info.curId = cnt;                                  // Œ»İˆÊ’u‚Ìƒm[ƒhid
-    info.refId = static_cast<int>(jmin);               // ‘O‰ñ–K–â“_‚Ìƒm[ƒhid
-    makeLoopArc(info);                                 // ƒ‹[ƒvƒA[ƒN¶¬
+    LoopInfo info;                                     // ãƒ«ãƒ¼ãƒ—æ¤œå‡ºçµæœ
+    info.pose = revisitPose;                           // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯æƒ…å ±ã«å†è¨ªç‚¹ä½ç½®ã‚’è¨­å®š
+    info.cov = icpCov;                                 // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯æƒ…å ±ã«å…±åˆ†æ•£ã‚’è¨­å®šã€‚
+    info.curId = cnt;                                  // ç¾åœ¨ä½ç½®ã®ãƒãƒ¼ãƒ‰id
+    info.refId = static_cast<int>(jmin);               // å‰å›è¨ªå•ç‚¹ã®ãƒãƒ¼ãƒ‰id
+    makeLoopArc(info);                                 // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ç”Ÿæˆ
 
-    // Šm”F—p
+    // ç¢ºèªç”¨
     Scan2D refScan;
     Pose2D spose = poses[refSubmap.cntS];
     refScan.setSid(info.refId);
@@ -94,25 +94,25 @@ bool LoopDetectorSS::detectLoop(Scan2D *curScan, Pose2D &curPose, int cnt) {
 
 //////////
 
-// ‘O‰ñ–K–â“_(refId)‚ğn“_ƒm[ƒhAŒ»İˆÊ’u(curId)‚ğI“_ƒm[ƒh‚É‚µ‚ÄAƒ‹[ƒvƒA[ƒN‚ğ¶¬‚·‚éB
+// å‰å›è¨ªå•ç‚¹(refId)ã‚’å§‹ç‚¹ãƒãƒ¼ãƒ‰ã€ç¾åœ¨ä½ç½®(curId)ã‚’çµ‚ç‚¹ãƒãƒ¼ãƒ‰ã«ã—ã¦ã€ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ã‚’ç”Ÿæˆã™ã‚‹ã€‚
 void LoopDetectorSS::makeLoopArc(LoopInfo &info) {
-  if (info.arcked)                                             // info‚ÌƒA[ƒN‚Í‚·‚Å‚É’£‚Á‚Ä‚ ‚é
+  if (info.arcked)                                             // infoã®ã‚¢ãƒ¼ã‚¯ã¯ã™ã§ã«å¼µã£ã¦ã‚ã‚‹
     return;
   info.setArcked(true);
 
-  Pose2D srcPose = pcmap->poses[info.refId];                   // ‘O‰ñ–K–â“_‚ÌˆÊ’u
-  Pose2D dstPose(info.pose.tx, info.pose.ty, info.pose.th);    // Ä–K“_‚ÌˆÊ’u
+  Pose2D srcPose = pcmap->poses[info.refId];                   // å‰å›è¨ªå•ç‚¹ã®ä½ç½®
+  Pose2D dstPose(info.pose.tx, info.pose.ty, info.pose.th);    // å†è¨ªç‚¹ã®ä½ç½®
   Pose2D relPose;
-  Pose2D::calRelativePose(dstPose, srcPose, relPose);          // ƒ‹[ƒvƒA[ƒN‚ÌS‘©
+  Pose2D::calRelativePose(dstPose, srcPose, relPose);          // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ã®æ‹˜æŸ
 
-  // ƒA[ƒN‚ÌS‘©‚Ín“_ƒm[ƒh‚©‚ç‚Ì‘Š‘ÎˆÊ’u‚È‚Ì‚ÅA‹¤•ªU‚ğƒ‹[ƒvƒA[ƒN‚Ìn“_ƒm[ƒhÀ•WŒn‚É•ÏŠ·
+  // ã‚¢ãƒ¼ã‚¯ã®æ‹˜æŸã¯å§‹ç‚¹ãƒãƒ¼ãƒ‰ã‹ã‚‰ã®ç›¸å¯¾ä½ç½®ãªã®ã§ã€å…±åˆ†æ•£ã‚’ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ã®å§‹ç‚¹ãƒãƒ¼ãƒ‰åº§æ¨™ç³»ã«å¤‰æ›
   Eigen::Matrix3d cov;
-  CovarianceCalculator::rotateCovariance(srcPose, info.cov, cov, true);    // ‹¤•ªU‚Ì‹t‰ñ“]
+  CovarianceCalculator::rotateCovariance(srcPose, info.cov, cov, true);    // å…±åˆ†æ•£ã®é€†å›è»¢
 
-  PoseArc *arc = pg->makeArc(info.refId, info.curId, relPose, cov);        // ƒ‹[ƒvƒA[ƒN¶¬
-  pg->addArc(arc);                                                         // ƒ‹[ƒvƒA[ƒN“o˜^
+  PoseArc *arc = pg->makeArc(info.refId, info.curId, relPose, cov);        // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ç”Ÿæˆ
+  pg->addArc(arc);                                                         // ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯ç™»éŒ²
 
-  // Šm”F—p
+  // ç¢ºèªç”¨
   printf("makeLoopArc: pose arc added\n");
   printf("srcPose: tx=%g, ty=%g, th=%g\n", srcPose.tx, srcPose.ty, srcPose.th);
   printf("dstPose: tx=%g, ty=%g, th=%g\n", dstPose.tx, dstPose.ty, dstPose.th);
@@ -126,77 +126,77 @@ void LoopDetectorSS::makeLoopArc(LoopInfo &info) {
 
 //////////
 
-// Œ»İƒXƒLƒƒƒ“curScan‚Æ•”•ª’n}‚Ì“_ŒQrefLps‚ÅICP‚ğs‚¢AÄ–K“_‚ÌˆÊ’u‚ğ‹‚ß‚éB
+// ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³curScanã¨éƒ¨åˆ†åœ°å›³ã®ç‚¹ç¾¤refLpsã§ICPã‚’è¡Œã„ã€å†è¨ªç‚¹ã®ä½ç½®ã‚’æ±‚ã‚ã‚‹ã€‚
 bool LoopDetectorSS::estimateRevisitPose(const Scan2D *curScan, const vector<LPoint2D> &refLps, const Pose2D &initPose, Pose2D &revisitPose) {
-  dass->setRefBase(refLps);                              // ƒf[ƒ^‘Î‰‚Ã‚¯Ší‚ÉQÆ“_ŒQ‚ğİ’è
-  cfunc->setEvlimit(0.2);                                // ƒRƒXƒgŠÖ”‚ÌŒë·è‡’l
+  dass->setRefBase(refLps);                              // ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘å™¨ã«å‚ç…§ç‚¹ç¾¤ã‚’è¨­å®š
+  cfunc->setEvlimit(0.2);                                // ã‚³ã‚¹ãƒˆé–¢æ•°ã®èª¤å·®é–¾å€¤
 
-  printf("initPose: tx=%g, ty=%g, th=%g\n", initPose.tx, initPose.ty, initPose.th);       // Šm”F—p
+  printf("initPose: tx=%g, ty=%g, th=%g\n", initPose.tx, initPose.ty, initPose.th);       // ç¢ºèªç”¨
 
   size_t usedNumMin = 50; 
 //  size_t usedNumMin = 100;
 
-  // ‰ŠúˆÊ’uinitPose‚ÌüˆÍ‚ğ‚µ‚ç‚İ‚Â‚Ô‚µ‚É’²‚×‚éB
-  // Œø—¦‰»‚Ì‚½‚ßAICP‚Ís‚í‚¸AŠeˆÊ’u‚Å’Pƒ‚Éƒ}ƒbƒ`ƒ“ƒOƒXƒRƒA‚ğ’²‚×‚éB
-  double rangeT = 1;                                     // •Ài‚Ì’Tõ”ÍˆÍ[m]
-  double rangeA = 45;                                    // ‰ñ“]‚Ì’Tõ”ÍˆÍ[“x]
-  double dd = 0.2;                                       // •Ài‚Ì’TõŠÔŠu[m]
-  double da = 2;                                         // ‰ñ“]‚Ì’TõŠÔŠu[“x]
+  // åˆæœŸä½ç½®initPoseã®å‘¨å›²ã‚’ã—ã‚‰ã¿ã¤ã¶ã—ã«èª¿ã¹ã‚‹ã€‚
+  // åŠ¹ç‡åŒ–ã®ãŸã‚ã€ICPã¯è¡Œã‚ãšã€å„ä½ç½®ã§å˜ç´”ã«ãƒãƒƒãƒãƒ³ã‚°ã‚¹ã‚³ã‚¢ã‚’èª¿ã¹ã‚‹ã€‚
+  double rangeT = 1;                                     // ä¸¦é€²ã®æ¢ç´¢ç¯„å›²[m]
+  double rangeA = 45;                                    // å›è»¢ã®æ¢ç´¢ç¯„å›²[åº¦]
+  double dd = 0.2;                                       // ä¸¦é€²ã®æ¢ç´¢é–“éš”[m]
+  double da = 2;                                         // å›è»¢ã®æ¢ç´¢é–“éš”[åº¦]
   double pnrateMax=0;
   vector<double> pnrates;
   double scoreMin=1000;
   vector<double> scores;
-  vector<Pose2D> candidates;                             // ƒXƒRƒA‚Ì‚æ‚¢Œó•âˆÊ’u
-  for (double dy=-rangeT; dy<=rangeT; dy+=dd) {          // •Àiy‚Ì’TõŒJ‚è•Ô‚µ
-    double y = initPose.ty + dy;                         // ‰ŠúˆÊ’u‚É•ÏˆÊ•ªdy‚ğ‰Á‚¦‚é
-    for (double dx=-rangeT; dx<=rangeT; dx+=dd) {        // •Àix‚Ì’TõŒJ‚è•Ô‚µ
-      double x = initPose.tx + dx;                       // ‰ŠúˆÊ’u‚É•ÏˆÊ•ªdx‚ğ‰Á‚¦‚é
-      for (double dth=-rangeA; dth<=rangeA; dth+=da) {   // ‰ñ“]‚Ì’TõŒJ‚è•Ô‚µ
-        double th = MyUtil::add(initPose.th, dth);       // ‰ŠúˆÊ’u‚É•ÏˆÊ•ªdth‚ğ‰Á‚¦‚é
+  vector<Pose2D> candidates;                             // ã‚¹ã‚³ã‚¢ã®ã‚ˆã„å€™è£œä½ç½®
+  for (double dy=-rangeT; dy<=rangeT; dy+=dd) {          // ä¸¦é€²yã®æ¢ç´¢ç¹°ã‚Šè¿”ã—
+    double y = initPose.ty + dy;                         // åˆæœŸä½ç½®ã«å¤‰ä½åˆ†dyã‚’åŠ ãˆã‚‹
+    for (double dx=-rangeT; dx<=rangeT; dx+=dd) {        // ä¸¦é€²xã®æ¢ç´¢ç¹°ã‚Šè¿”ã—
+      double x = initPose.tx + dx;                       // åˆæœŸä½ç½®ã«å¤‰ä½åˆ†dxã‚’åŠ ãˆã‚‹
+      for (double dth=-rangeA; dth<=rangeA; dth+=da) {   // å›è»¢ã®æ¢ç´¢ç¹°ã‚Šè¿”ã—
+        double th = MyUtil::add(initPose.th, dth);       // åˆæœŸä½ç½®ã«å¤‰ä½åˆ†dthã‚’åŠ ãˆã‚‹
         Pose2D pose(x, y, th);
-        double mratio = dass->findCorrespondence(curScan, pose);   // ˆÊ’upose‚Åƒf[ƒ^‘Î‰‚Ã‚¯
+        double mratio = dass->findCorrespondence(curScan, pose);   // ä½ç½®poseã§ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
         size_t usedNum = dass->curLps.size();
-//        printf("usedNum=%lu, mratio=%g\n", usedNum, mratio);          // Šm”F—p
-        if (usedNum < usedNumMin || mratio < 0.9)        // ‘Î‰—¦‚ªˆ«‚¢‚Æ”ò‚Î‚·
+//        printf("usedNum=%lu, mratio=%g\n", usedNum, mratio);          // ç¢ºèªç”¨
+        if (usedNum < usedNumMin || mratio < 0.9)        // å¯¾å¿œç‡ãŒæ‚ªã„ã¨é£›ã°ã™
           continue;
-        cfunc->setPoints(dass->curLps, dass->refLps);    // ƒRƒXƒgŠÖ”‚É“_ŒQ‚ğİ’è
-        double score =  cfunc->calValue(x, y, th);       // ƒRƒXƒg’liƒ}ƒbƒ`ƒ“ƒOƒXƒRƒAj
-        double pnrate = cfunc->getPnrate();              // Ú×‚È“_‚Ì‘Î‰—¦
-//        printf("score=%g, pnrate=%g\n", score, pnrate);                    // Šm”F—p
+        cfunc->setPoints(dass->curLps, dass->refLps);    // ã‚³ã‚¹ãƒˆé–¢æ•°ã«ç‚¹ç¾¤ã‚’è¨­å®š
+        double score =  cfunc->calValue(x, y, th);       // ã‚³ã‚¹ãƒˆå€¤ï¼ˆãƒãƒƒãƒãƒ³ã‚°ã‚¹ã‚³ã‚¢ï¼‰
+        double pnrate = cfunc->getPnrate();              // è©³ç´°ãªç‚¹ã®å¯¾å¿œç‡
+//        printf("score=%g, pnrate=%g\n", score, pnrate);                    // ç¢ºèªç”¨
         if (pnrate > 0.8) {
           candidates.emplace_back(pose);
           if (score < scoreMin)
             scoreMin = score;
           scores.push_back(score);
-//          printf("pose: tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);  // Šm”F—p
-//          printf("score=%g, pnrate=%g\n", score, pnrate);                    // Šm”F—p
+//          printf("pose: tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);  // ç¢ºèªç”¨
+//          printf("score=%g, pnrate=%g\n", score, pnrate);                    // ç¢ºèªç”¨
         }
       }
     }
   }
-  printf("candidates.size=%lu\n", candidates.size());                           // Šm”F—p
+  printf("candidates.size=%lu\n", candidates.size());                           // ç¢ºèªç”¨
   if (candidates.size() == 0)
     return(false);
 
-  // Œó•âˆÊ’ucandidates‚Ì’†‚©‚çÅ‚à‚æ‚¢‚à‚Ì‚ğICP‚Å‘I‚Ô
-  Pose2D best;                                              // Å—ÇŒó•â
-  double smin=1000000;                                      // ICPƒXƒRƒAÅ¬’l
-  estim->setScanPair(curScan, refLps);                      // ICP‚ÉƒXƒLƒƒƒ“İ’è
+  // å€™è£œä½ç½®candidatesã®ä¸­ã‹ã‚‰æœ€ã‚‚ã‚ˆã„ã‚‚ã®ã‚’ICPã§é¸ã¶
+  Pose2D best;                                              // æœ€è‰¯å€™è£œ
+  double smin=1000000;                                      // ICPã‚¹ã‚³ã‚¢æœ€å°å€¤
+  estim->setScanPair(curScan, refLps);                      // ICPã«ã‚¹ã‚­ãƒ£ãƒ³è¨­å®š
   for (size_t i=0; i<candidates.size(); i++) {
-    Pose2D p = candidates[i];                               // Œó•âˆÊ’u
-    printf("score=%g\n", scores[i]);    // Šm”F—p
+    Pose2D p = candidates[i];                               // å€™è£œä½ç½®
+    printf("score=%g\n", scores[i]);    // ç¢ºèªç”¨
     Pose2D estP;
-    double score = estim->estimatePose(p, estP);            // ICP‚Åƒ}ƒbƒ`ƒ“ƒOˆÊ’u‚ğ‹‚ß‚é
-    double pnrate = estim->getPnrate();                     // ICP‚Å‚Ì“_‚Ì‘Î‰—¦
-    size_t usedNum = estim->getUsedNum();                   // ICP‚Åg—p‚µ‚½“_”
-    if (score < smin && pnrate >= 0.9 && usedNum >= usedNumMin) {  // ƒ‹[ƒvŒŸo‚ÍğŒŒµ‚µ‚­
+    double score = estim->estimatePose(p, estP);            // ICPã§ãƒãƒƒãƒãƒ³ã‚°ä½ç½®ã‚’æ±‚ã‚ã‚‹
+    double pnrate = estim->getPnrate();                     // ICPã§ã®ç‚¹ã®å¯¾å¿œç‡
+    size_t usedNum = estim->getUsedNum();                   // ICPã§ä½¿ç”¨ã—ãŸç‚¹æ•°
+    if (score < smin && pnrate >= 0.9 && usedNum >= usedNumMin) {  // ãƒ«ãƒ¼ãƒ—æ¤œå‡ºã¯æ¡ä»¶å³ã—ã
       smin = score;
       best = estP;
-      printf("smin=%g, pnrate=%g, usedNum=%lu\n", smin, pnrate, usedNum);    // Šm”F—p
+      printf("smin=%g, pnrate=%g, usedNum=%lu\n", smin, pnrate, usedNum);    // ç¢ºèªç”¨
     }
   }
 
-  // Å¬ƒXƒRƒA‚ªè‡’l‚æ‚è¬‚³‚¯‚ê‚ÎŒ©‚Â‚¯‚½
+  // æœ€å°ã‚¹ã‚³ã‚¢ãŒé–¾å€¤ã‚ˆã‚Šå°ã•ã‘ã‚Œã°è¦‹ã¤ã‘ãŸ
   if (smin <= scthre) {
     revisitPose = best;
     return(true);

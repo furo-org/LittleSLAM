@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,7 +18,7 @@ using namespace std;
 
 ////////////
 
-// ƒ‹[ƒvŒŸo‚Ìƒ_ƒ~[ŠÖ”
+// ãƒ«ãƒ¼ãƒ—æ¤œå‡ºã®ãƒ€ãƒŸãƒ¼é–¢æ•°
 bool LoopDetector::detectLoop(Scan2D *curScan, Pose2D &curPose, int cnt) {
   return(false);
 }

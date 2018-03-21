@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -23,12 +23,12 @@ struct PoseArc;
 
 /////////
 
-// ƒ|[ƒYƒOƒ‰ƒt‚Ì’¸“_
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã®é ‚ç‚¹
 struct PoseNode
 {
-  int nid;                       // ƒm[ƒhIDBPoseGraph‚Ìnodes‚ÌƒCƒ“ƒfƒbƒNƒXi’Ê‚µ”Ô†j
-  Pose2D pose;                   // ‚±‚Ìƒm[ƒh‚Ìƒƒ{ƒbƒgˆÊ’u
-  std::vector<PoseArc*> arcs;    // ‚±‚Ìƒm[ƒh‚É‚Â‚È‚ª‚éƒA[ƒN
+  int nid;                       // ãƒãƒ¼ãƒ‰IDã€‚PoseGraphã®nodesã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆé€šã—ç•ªå·ï¼‰
+  Pose2D pose;                   // ã“ã®ãƒãƒ¼ãƒ‰ã®ãƒ­ãƒœãƒƒãƒˆä½ç½®
+  std::vector<PoseArc*> arcs;    // ã“ã®ãƒãƒ¼ãƒ‰ã«ã¤ãªãŒã‚‹ã‚¢ãƒ¼ã‚¯
 
   PoseNode(): nid(-1) {
   }
@@ -63,13 +63,13 @@ struct PoseNode
 
 ////////
 
-// ƒ|[ƒYƒOƒ‰ƒt‚Ì•Ó
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã®è¾º
 struct PoseArc
 {
-  PoseNode *src;                      // ‚±‚ÌƒA[ƒN‚Ìn“_‘¤‚Ìƒm[ƒh
-  PoseNode *dst;                      // ‚±‚ÌƒA[ƒN‚ÌI“_‘¤‚Ìƒm[ƒh
-  Pose2D relPose;                     // ‚±‚ÌƒA[ƒN‚Ì‚à‚Â‘Š‘ÎˆÊ’u(Œv‘ª’l)
-  Eigen::Matrix3d inf;                // î•ñs—ñ
+  PoseNode *src;                      // ã“ã®ã‚¢ãƒ¼ã‚¯ã®å§‹ç‚¹å´ã®ãƒãƒ¼ãƒ‰
+  PoseNode *dst;                      // ã“ã®ã‚¢ãƒ¼ã‚¯ã®çµ‚ç‚¹å´ã®ãƒãƒ¼ãƒ‰
+  Pose2D relPose;                     // ã“ã®ã‚¢ãƒ¼ã‚¯ã®ã‚‚ã¤ç›¸å¯¾ä½ç½®(è¨ˆæ¸¬å€¤)
+  Eigen::Matrix3d inf;                // æƒ…å ±è¡Œåˆ—
 
   PoseArc(void) : src(nullptr), dst(nullptr){
   }
@@ -92,21 +92,21 @@ struct PoseArc
 
 };
 
-////////// ƒ|[ƒYƒOƒ‰ƒt //////////
+////////// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ• //////////
 
 class PoseGraph
 {
 private:
   static const int POOL_SIZE=100000;
-  std::vector<PoseNode> nodePool;     // ƒm[ƒh¶¬—p‚Ìƒƒ‚ƒŠƒv[ƒ‹
-  std::vector<PoseArc> arcPool;       // ƒA[ƒN¶¬—p‚Ìƒƒ‚ƒŠƒv[ƒ‹
+  std::vector<PoseNode> nodePool;     // ãƒãƒ¼ãƒ‰ç”Ÿæˆç”¨ã®ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«
+  std::vector<PoseArc> arcPool;       // ã‚¢ãƒ¼ã‚¯ç”Ÿæˆç”¨ã®ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«
 
 public:
-  std::vector<PoseNode*> nodes;       // ƒm[ƒh‚ÌW‡
-  std::vector<PoseArc*> arcs;         // ƒA[ƒN‚ÌW‡BƒA[ƒN‚Í•Ğ•ûŒü‚Ì‚İ‚à‚Â
+  std::vector<PoseNode*> nodes;       // ãƒãƒ¼ãƒ‰ã®é›†åˆ
+  std::vector<PoseArc*> arcs;         // ã‚¢ãƒ¼ã‚¯ã®é›†åˆã€‚ã‚¢ãƒ¼ã‚¯ã¯ç‰‡æ–¹å‘ã®ã¿ã‚‚ã¤
 
   PoseGraph() {
-    nodePool.reserve(POOL_SIZE);      // ƒƒ‚ƒŠƒv[ƒ‹‚Ì—Ìˆæ‚ğÅ‰‚ÉŠm•ÛBvector‚ÍƒTƒCƒY‚ª•Ï‚í‚é‚Æ’†g‚ªˆÚ“®‚·‚é‚Ì‚Å‚±‚¤‚µ‚È‚¢‚ÆŠëŒ¯
+    nodePool.reserve(POOL_SIZE);      // ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«ã®é ˜åŸŸã‚’æœ€åˆã«ç¢ºä¿ã€‚vectorã¯ã‚µã‚¤ã‚ºãŒå¤‰ã‚ã‚‹ã¨ä¸­èº«ãŒç§»å‹•ã™ã‚‹ã®ã§ã“ã†ã—ãªã„ã¨å±é™º
     arcPool.reserve(POOL_SIZE);
   }
 
@@ -122,7 +122,7 @@ public:
     arcPool.clear();
   }
 
-  // ƒm[ƒh‚Ì¶¬
+  // ãƒãƒ¼ãƒ‰ã®ç”Ÿæˆ
   PoseNode *allocNode() {
     if (nodePool.size() >= POOL_SIZE) {
       printf("Error: exceeds nodePool capacity\n");
@@ -130,11 +130,11 @@ public:
     }
    
     PoseNode node;
-    nodePool.emplace_back(node);      // ƒƒ‚ƒŠƒv[ƒ‹‚É’Ç‰Á‚µ‚ÄA‚»‚ê‚ğQÆ‚·‚éB
+    nodePool.emplace_back(node);      // ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«ã«è¿½åŠ ã—ã¦ã€ãã‚Œã‚’å‚ç…§ã™ã‚‹ã€‚
     return(&(nodePool.back()));
   }
 
-  // ƒA[ƒN‚Ì¶¬
+  // ã‚¢ãƒ¼ã‚¯ã®ç”Ÿæˆ
   PoseArc *allocArc() {
     if (arcPool.size() >= POOL_SIZE) {
       printf("Error: exceeds arcPool capacity\n");
@@ -142,7 +142,7 @@ public:
     }
 
     PoseArc arc;
-    arcPool.emplace_back(arc);       // ƒƒ‚ƒŠƒv[ƒ‹‚É’Ç‰Á‚µ‚ÄA‚»‚ê‚ğQÆ‚·‚éB
+    arcPool.emplace_back(arc);       // ãƒ¡ãƒ¢ãƒªãƒ—ãƒ¼ãƒ«ã«è¿½åŠ ã—ã¦ã€ãã‚Œã‚’å‚ç…§ã™ã‚‹ã€‚
     return(&(arcPool.back()));
   }
 

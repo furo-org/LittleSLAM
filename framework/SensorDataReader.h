@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -28,8 +28,8 @@
 class SensorDataReader
 {
 private:
-  int angleOffset;                      // ƒŒ[ƒUƒXƒLƒƒƒi‚Æƒƒ{ƒbƒg‚ÌŒü‚«‚ÌƒIƒtƒZƒbƒg
-  std::ifstream inFile;                 // ƒf[ƒ^ƒtƒ@ƒCƒ‹
+  int angleOffset;                      // ãƒ¬ãƒ¼ã‚¶ã‚¹ã‚­ãƒ£ãƒŠã¨ãƒ­ãƒœãƒƒãƒˆã®å‘ãã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+  std::ifstream inFile;                 // ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 
 public:
   SensorDataReader() : angleOffset(180) {

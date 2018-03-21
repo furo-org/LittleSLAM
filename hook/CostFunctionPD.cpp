@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,7 +16,7 @@
 
 using namespace std;
 
-// ‚’¼‹——£‚É‚æ‚éƒRƒXƒgŠÖ”
+// å‚ç›´è·é›¢ã«ã‚ˆã‚‹ã‚³ã‚¹ãƒˆé–¢æ•°
 double CostFunctionPD::calValue(double tx, double ty, double th) {
   double a = DEG2RAD(th);
 
@@ -24,33 +24,33 @@ double CostFunctionPD::calValue(double tx, double ty, double th) {
   int pn=0;
   int nn=0;
   for (size_t i=0; i<curLps.size(); i++) {
-    const LPoint2D *clp = curLps[i];             // Œ»İƒXƒLƒƒƒ“‚Ì“_
-    const LPoint2D *rlp = refLps[i];             // clp‚É‘Î‰‚·‚éQÆƒXƒLƒƒƒ“‚Ì“_
+    const LPoint2D *clp = curLps[i];             // ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹
+    const LPoint2D *rlp = refLps[i];             // clpã«å¯¾å¿œã™ã‚‹å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹
 
-    if (rlp->type != LINE)                       // ’¼üã‚Ì“_‚Å‚È‚¯‚ê‚Îg‚í‚È‚¢
+    if (rlp->type != LINE)                       // ç›´ç·šä¸Šã®ç‚¹ã§ãªã‘ã‚Œã°ä½¿ã‚ãªã„
       continue;
  
     double cx = clp->x;
     double cy = clp->y;
-    double x = cos(a)*cx - sin(a)*cy + tx;       // clp‚ğQÆƒXƒLƒƒƒ“‚ÌÀ•WŒn‚É•ÏŠ·
+    double x = cos(a)*cx - sin(a)*cy + tx;       // clpã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®åº§æ¨™ç³»ã«å¤‰æ›
     double y = sin(a)*cx + cos(a)*cy + ty;
 
-    double pdis = (x - rlp->x)*rlp->nx + (y - rlp->y)*rlp->ny;         // ‚’¼‹——£
+    double pdis = (x - rlp->x)*rlp->nx + (y - rlp->y)*rlp->ny;         // å‚ç›´è·é›¢
 
     double er = pdis*pdis;
     if (er <= evlimit*evlimit)
-      ++pn;                                      // Œë·‚ª¬‚³‚¢“_‚Ì”
+      ++pn;                                      // èª¤å·®ãŒå°ã•ã„ç‚¹ã®æ•°
 
-    error += er;                                 // Še“_‚ÌŒë·‚ğ—İÏ
+    error += er;                                 // å„ç‚¹ã®èª¤å·®ã‚’ç´¯ç©
     ++nn;
   }
 
-  error = (nn>0)? error/nn : HUGE_VAL;           // —LŒø“_”‚ª0‚È‚çA’l‚ÍHUGE_VAL
-  pnrate = 1.0*pn/nn;                            // Œë·‚ª¬‚³‚¢“_‚Ì”ä—¦
+  error = (nn>0)? error/nn : HUGE_VAL;           // æœ‰åŠ¹ç‚¹æ•°ãŒ0ãªã‚‰ã€å€¤ã¯HUGE_VAL
+  pnrate = 1.0*pn/nn;                            // èª¤å·®ãŒå°ã•ã„ç‚¹ã®æ¯”ç‡
 
-//  printf("CostFunctionPD: error=%g, pnrate=%g, evlimit=%g\n", error, pnrate, evlimit);     // Šm”F—p
+//  printf("CostFunctionPD: error=%g, pnrate=%g, evlimit=%g\n", error, pnrate, evlimit);     // ç¢ºèªç”¨
 
-  error *= 100;                                  // •]‰¿’l‚ª¬‚³‚­‚È‚è‚·‚¬‚È‚¢‚æ‚¤100‚©‚¯‚éB
+  error *= 100;                                  // è©•ä¾¡å€¤ãŒå°ã•ããªã‚Šã™ããªã„ã‚ˆã†100ã‹ã‘ã‚‹ã€‚
 
   return(error);
 }

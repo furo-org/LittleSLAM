@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -19,83 +19,83 @@ using namespace std;
 
 ////////
 
-// ƒf[ƒ^‘Î‰‚Ã‚¯ŒÅ’è‚Ì‚à‚ÆA‰Šú’linitPose‚ğ—^‚¦‚Äƒƒ{ƒbƒgˆÊ’u‚Ì„’è’lestPose‚ğ‹‚ß‚é
+// ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘å›ºå®šã®ã‚‚ã¨ã€åˆæœŸå€¤initPoseã‚’ä¸ãˆã¦ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®æ¨å®šå€¤estPoseã‚’æ±‚ã‚ã‚‹
 double PoseOptimizerSL::optimizePose(Pose2D &initPose, Pose2D &estPose) {
   double th = initPose.th;
   double tx = initPose.tx;
   double ty = initPose.ty;
-  double txmin=tx, tymin=ty, thmin=th;           // ƒRƒXƒgÅ¬‚Ì‰ğ
-  double evmin = HUGE_VAL;                       // ƒRƒXƒg‚ÌÅ¬’l
-  double evold = evmin;                          // 1‚Â‘O‚ÌƒRƒXƒg’lBû‘©”»’è‚Ég‚¤
+  double txmin=tx, tymin=ty, thmin=th;           // ã‚³ã‚¹ãƒˆæœ€å°ã®è§£
+  double evmin = HUGE_VAL;                       // ã‚³ã‚¹ãƒˆã®æœ€å°å€¤
+  double evold = evmin;                          // 1ã¤å‰ã®ã‚³ã‚¹ãƒˆå€¤ã€‚åæŸåˆ¤å®šã«ä½¿ã†
   Pose2D pose, dir;
 
-  double ev = cfunc->calValue(tx, ty, th);       // ƒRƒXƒgŒvZ
-  int nn=0;                                      // ŒJ‚è•Ô‚µ‰ñ”BŠm”F—p
-  while (abs(evold-ev) > evthre) {               // û‘©”»’èB’l‚Ì•Ï‰»‚ª¬‚³‚¢‚ÆI—¹
+  double ev = cfunc->calValue(tx, ty, th);       // ã‚³ã‚¹ãƒˆè¨ˆç®—
+  int nn=0;                                      // ç¹°ã‚Šè¿”ã—å›æ•°ã€‚ç¢ºèªç”¨
+  while (abs(evold-ev) > evthre) {               // åæŸåˆ¤å®šã€‚å€¤ã®å¤‰åŒ–ãŒå°ã•ã„ã¨çµ‚äº†
     nn++;
     evold = ev;
 
-    // ”’lŒvZ‚É‚æ‚é•Î”÷•ª
+    // æ•°å€¤è¨ˆç®—ã«ã‚ˆã‚‹åå¾®åˆ†
     double dx = (cfunc->calValue(tx+dd, ty, th) - ev)/dd;
     double dy = (cfunc->calValue(tx, ty+dd, th) - ev)/dd;
     double dth = (cfunc->calValue(tx, ty, th+da) - ev)/da;
-    tx += dx;  ty += dy;  th += dth;              // ‚¢‚Á‚½‚ñŸ‚Ì’TõˆÊ’u‚ğŒˆ‚ß‚é
+    tx += dx;  ty += dy;  th += dth;              // ã„ã£ãŸã‚“æ¬¡ã®æ¢ç´¢ä½ç½®ã‚’æ±ºã‚ã‚‹
 
-    // ƒuƒŒƒ“ƒg–@‚É‚æ‚é’¼ü’Tõ
-    pose.tx = tx;  pose.ty = ty;  pose.th = th;   // ’TõŠJn“_
-    dir.tx = dx;   dir.ty = dy;   dir.th = dth;   // ’Tõ•ûŒü
-    search(ev, pose, dir);                        // ’¼ü’TõÀs
-    tx = pose.tx;  ty = pose.ty;  th = pose.th;   // ’¼ü’Tõ‚Å‹‚ß‚½ˆÊ’u
+    // ãƒ–ãƒ¬ãƒ³ãƒˆæ³•ã«ã‚ˆã‚‹ç›´ç·šæ¢ç´¢
+    pose.tx = tx;  pose.ty = ty;  pose.th = th;   // æ¢ç´¢é–‹å§‹ç‚¹
+    dir.tx = dx;   dir.ty = dy;   dir.th = dth;   // æ¢ç´¢æ–¹å‘
+    search(ev, pose, dir);                        // ç›´ç·šæ¢ç´¢å®Ÿè¡Œ
+    tx = pose.tx;  ty = pose.ty;  th = pose.th;   // ç›´ç·šæ¢ç´¢ã§æ±‚ã‚ãŸä½ç½®
 
-    ev = cfunc->calValue(tx, ty, th);             // ‹‚ß‚½ˆÊ’u‚ÅƒRƒXƒgŒvZ
+    ev = cfunc->calValue(tx, ty, th);             // æ±‚ã‚ãŸä½ç½®ã§ã‚³ã‚¹ãƒˆè¨ˆç®—
 
-    if (ev < evmin) {                             // ƒRƒXƒg‚ª‚±‚ê‚Ü‚Å‚ÌÅ¬‚È‚çXV
+    if (ev < evmin) {                             // ã‚³ã‚¹ãƒˆãŒã“ã‚Œã¾ã§ã®æœ€å°ãªã‚‰æ›´æ–°
       evmin = ev;
       txmin = tx;  tymin = ty;  thmin = th;
     }
 
-//    printf("nn=%d, ev=%g, evold=%g, abs(evold-ev)=%g\n", nn, ev, evold, abs(evold-ev));         // Šm”F—p
+//    printf("nn=%d, ev=%g, evold=%g, abs(evold-ev)=%g\n", nn, ev, evold, abs(evold-ev));         // ç¢ºèªç”¨
   }
   ++allN;
   if (allN > 0 && evmin < 100) 
     sum += evmin;
-//  printf("allN=%d, nn=%d, evmin=%g, avg=%g, evthre=%g\n", allN, nn, evmin, (sum/allN), evthre);         // Šm”F—p
+//  printf("allN=%d, nn=%d, evmin=%g, avg=%g, evthre=%g\n", allN, nn, evmin, (sum/allN), evthre);         // ç¢ºèªç”¨
 
-//  printf("nn=%d, evmin=%g\n", nn, evmin);       // Šm”F—p
+//  printf("nn=%d, evmin=%g\n", nn, evmin);       // ç¢ºèªç”¨
 
-  estPose.setVal(txmin, tymin, thmin);            // Å¬’l‚ğ—^‚¦‚é‰ğ‚ğ•Û‘¶
+  estPose.setVal(txmin, tymin, thmin);            // æœ€å°å€¤ã‚’ä¸ãˆã‚‹è§£ã‚’ä¿å­˜
 
   return(evmin);
 }
 
 ////////// Line search ///////////
 
-// boostƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒuƒŒƒ“ƒg–@‚Å’¼ü’Tõ‚ğs‚¤B
-// pose‚ğn“_‚ÉAdp•ûŒü‚É‚Ç‚ê‚¾‚¯i‚ß‚Î‚æ‚¢‚©ƒXƒeƒbƒv•‚ğŒ©‚Â‚¯‚éB
+// boostãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ–ãƒ¬ãƒ³ãƒˆæ³•ã§ç›´ç·šæ¢ç´¢ã‚’è¡Œã†ã€‚
+// poseã‚’å§‹ç‚¹ã«ã€dpæ–¹å‘ã«ã©ã‚Œã ã‘é€²ã‚ã°ã‚ˆã„ã‹ã‚¹ãƒ†ãƒƒãƒ—å¹…ã‚’è¦‹ã¤ã‘ã‚‹ã€‚
 double PoseOptimizerSL::search(double ev0, Pose2D &pose, Pose2D &dp) {
-  int bits = numeric_limits<double>::digits;         // ’Tõ¸“x
-  boost::uintmax_t maxIter=40;                       // Å‘åŒJ‚è•Ô‚µ‰ñ”BŒoŒ±“I‚ÉŒˆ‚ß‚é
+  int bits = numeric_limits<double>::digits;         // æ¢ç´¢ç²¾åº¦
+  boost::uintmax_t maxIter=40;                       // æœ€å¤§ç¹°ã‚Šè¿”ã—å›æ•°ã€‚çµŒé¨“çš„ã«æ±ºã‚ã‚‹
   pair<double, double> result = 
     boost::math::tools::brent_find_minima(
     [this, &pose, &dp](double tt) {return (objFunc(tt, pose, dp));},
-    -2.0, 2.0, bits, maxIter);                       // ’Tõ”ÍˆÍ(-2.0,2.0)
+    -2.0, 2.0, bits, maxIter);                       // æ¢ç´¢ç¯„å›²(-2.0,2.0)
 
-  double t = result.first;                           // ‹‚ß‚éƒXƒeƒbƒv•
-  double v = result.second;                          // ‹‚ß‚éÅ¬’l
+  double t = result.first;                           // æ±‚ã‚ã‚‹ã‚¹ãƒ†ãƒƒãƒ—å¹…
+  double v = result.second;                          // æ±‚ã‚ã‚‹æœ€å°å€¤
 
-  pose.tx = pose.tx + t*dp.tx;                       // ‹‚ß‚éÅ¬‰ğ‚ğpose‚ÉŠi”[
+  pose.tx = pose.tx + t*dp.tx;                       // æ±‚ã‚ã‚‹æœ€å°è§£ã‚’poseã«æ ¼ç´
   pose.ty = pose.ty + t*dp.ty;
   pose.th = MyUtil::add(pose.th, t*dp.th);
 
   return(v);
 }  
 
-// ’¼ü’Tõ‚Ì–Ú“IŠÖ”Btt‚ªƒXƒeƒbƒv•
+// ç›´ç·šæ¢ç´¢ã®ç›®çš„é–¢æ•°ã€‚ttãŒã‚¹ãƒ†ãƒƒãƒ—å¹…
 double PoseOptimizerSL::objFunc(double tt, Pose2D &pose, Pose2D &dp) {
-  double tx = pose.tx + tt*dp.tx;                     // pose‚©‚çdp•ûŒü‚Étt‚¾‚¯i‚Ş
+  double tx = pose.tx + tt*dp.tx;                     // poseã‹ã‚‰dpæ–¹å‘ã«ttã ã‘é€²ã‚€
   double ty = pose.ty + tt*dp.ty;
   double th = MyUtil::add(pose.th, tt*dp.th);
-  double v = cfunc->calValue(tx, ty, th);             // ƒRƒXƒgŠÖ”’l
+  double v = cfunc->calValue(tx, ty, th);             // ã‚³ã‚¹ãƒˆé–¢æ•°å€¤
 
   return(v);
 }

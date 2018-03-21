@@ -1,129 +1,129 @@
-## LittleSLAM�̎g���� �iWindows�̏ꍇ�j
+﻿## LittleSLAMの使い方 （Windowsの場合）
 
-### (1) �֘A�\�t�g�E�F�A�̃C���X�g�[��
+### (1) 関連ソフトウェアのインストール
 
 - Boost  
-[Boost](http://www.boost.org/)���_�E�����[�h���āA�K���ȃt�H���_�ɉ𓀂��܂��B  
-LiitleSLAM�ł́ABoost�̃w�b�_�t�@�C���������g�p����̂ŁA�r���h�͕K�v����܂���B
+[Boost](http://www.boost.org/)をダウンロードして、適当なフォルダに解凍します。  
+LiitleSLAMでは、Boostのヘッダファイルだけを使用するので、ビルドは必要ありません。
 
 - Eigen3  
-[Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)��
-�_�E�����[�h���āA�K���ȃt�H���_�ɉ𓀂��܂��B  
-Eigen�̓w�b�_�t�@�C�������Ŏg�p���郉�C�u�����Ȃ̂ŁA�r���h�͕K�v����܂���B
+[Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)を
+ダウンロードして、適当なフォルダに解凍します。  
+Eigenはヘッダファイルだけで使用するライブラリなので、ビルドは必要ありません。
 
 - gnuplot  
-[gnuplot](http://www.gnuplot.info/)���_�E�����[�h���ăC���X�g�[�����܂��B 
-LittleSLAM����́AAPI�ł͂Ȃ��A���s�R�}���h�ŌĂяo���̂ŁA
-Windows�̊��ϐ�Path��gnuplot�̃p�X��ݒ肵�Ă����܂��B  
-���Ƃ��΁Agnuplot���t�H���_C:\gnuplot�ɃC���X�g�[�������ꍇ�A"Path=... ;C:\gnuplot\bin; ..."�Ƃ��܂��B  
-�i�C���X�g�[���������Őݒ肵�Ă���邱�Ƃ�����܂��j
+[gnuplot](http://www.gnuplot.info/)をダウンロードしてインストールします。 
+LittleSLAMからは、APIではなく、実行コマンドで呼び出すので、
+Windowsの環境変数Pathにgnuplotのパスを設定しておきます。  
+たとえば、gnuplotをフォルダC:\gnuplotにインストールした場合、"Path=... ;C:\gnuplot\bin; ..."とします。  
+（インストーラが自動で設定してくれることもあります）
 
 - CMake  
-[CMake](https://cmake.org/)���_�E�����[�h���ăC���X�g�[�����܂��B
+[CMake](https://cmake.org/)をダウンロードしてインストールします。
 
 - p2o  
-[p2o](https://github.com/furo-org/p2o)��Github�T�C�g���J���܂��B�ȉ��̂ǂ��炩�̕��@��p2o���_�E�����[�h���܂��B  
-(A) Github��ʂ�"Clone or download"�{�^���������āA"Download ZIP"��I�����A
-p2o-master.zip���_�E�����[�h���܂��Bzip�t�@�C���̓W�J���@�͌�q���܂��B  
-(B) git���g���āA���|�W�g����clone���܂��B  
+[p2o](https://github.com/furo-org/p2o)のGithubサイトを開きます。以下のどちらかの方法でp2oをダウンロードします。  
+(A) Github画面の"Clone or download"ボタンを押して、"Download ZIP"を選択し、
+p2o-master.zipをダウンロードします。zipファイルの展開方法は後述します。  
+(B) gitを使って、リポジトリをcloneします。  
 
-### (2) LittleSLAM�̃C���X�g�[��
+### (2) LittleSLAMのインストール
 
-- LittleSLAM�̓W�J  
-[LittleSLAM](https://github.com/furo-org/LittleSLAM)��Github�T�C�g���J���܂��B
-�ȉ��̂ǂ��炩�̕��@��LittleSLAM���_�E�����[�h���܂��B  
-(A) Github��ʂ�"Clone or download"�{�^���������āA"Download ZIP"��I�����A
-LittleSLAM-master.zip���_�E�����[�h���܂��B
-�����āA����zip�t�@�C����K���ȃt�H���_�ɓW�J���܂��B
-�����ł́A���Ƃ��΁A"C:\abc\LittleSLAM"�ɓW�J����Ƃ��܂��B
-"abc"�̓��[�U�����߂�C�ӂ̃t�H���_�ł��B
-LittleSLAM-master.zip�̒���"LittleSLAM-master"�t�H���_�̉���
-4�̃t�H���_��3�̃t�@�C����"C:\abc\LittleSLAM"�̉��ɃR�s�[���܂��B  
-(B) git���g���āA���|�W�g����clone���܂��B  
+- LittleSLAMの展開  
+[LittleSLAM](https://github.com/furo-org/LittleSLAM)のGithubサイトを開きます。
+以下のどちらかの方法でLittleSLAMをダウンロードします。  
+(A) Github画面の"Clone or download"ボタンを押して、"Download ZIP"を選択し、
+LittleSLAM-master.zipをダウンロードします。
+そして、このzipファイルを適当なフォルダに展開します。
+ここでは、たとえば、"C:\abc\LittleSLAM"に展開するとします。
+"abc"はユーザが決める任意のフォルダです。
+LittleSLAM-master.zipの中の"LittleSLAM-master"フォルダの下の
+4個のフォルダと3個のファイルを"C:\abc\LittleSLAM"の下にコピーします。  
+(B) gitを使って、リポジトリをcloneします。  
 
-- p2o�̓W�J   
-"C:\abc\LittleSLAM"�̉���"p2o"�t�H���_���쐬���܂��B  
-�O�q��p2o-master.zip�̒��̃t�@�C��"p2o.h"��"C:\abc\LittleSLAM\p2o"�̉��ɃR�s�[���܂��B  
+- p2oの展開   
+"C:\abc\LittleSLAM"の下に"p2o"フォルダを作成します。  
+前述のp2o-master.zipの中のファイル"p2o.h"を"C:\abc\LittleSLAM\p2o"の下にコピーします。  
 
-- build�t�H���_�̍쐬  
-"C:\abc\LittleSLAM"�̉���build�t�H���_���쐬���܂��B  
-�����܂ł̃t�H���_�\���͈ȉ��̂悤�ɂȂ�܂��B
+- buildフォルダの作成  
+"C:\abc\LittleSLAM"の下にbuildフォルダを作成します。  
+ここまでのフォルダ構成は以下のようになります。
 
-![�t�H���_�\��](images/folders.png)
+![フォルダ構成](images/folders.png)
 
-- CMake�̎��s  
-CMake(GUI)�����s���āALittleSLAM.sln�𐶐����܂��B  
-�܂��A"Where is the source code"�������"Where to buid the binaries"���ɉ��}�̃t�H���_���w�肵�܂��B  
-���ɁA Configure�{�^���������܂��B  
-LittleSLAM�ɑ΂��ď��߂�CMake�����s����ꍇ�A���}�̂悤��C++�R���p�C���𕷂����̂ŁA
-�g�p���Ă���C++�R���p�C�����w�肵�A"Use default native compliers"��I�����āAFinish�{�^���������܂��B  
-�����āA������x�AConfigure�{�^���������A�Ō��Generate�{�^���������܂��B
+- CMakeの実行  
+CMake(GUI)を実行して、LittleSLAM.slnを生成します。  
+まず、"Where is the source code"欄および"Where to buid the binaries"欄に下図のフォルダを指定します。  
+次に、 Configureボタンを押します。  
+LittleSLAMに対して初めてCMakeを実行する場合、下図のようにC++コンパイラを聞かれるので、
+使用しているC++コンパイラを指定し、"Use default native compliers"を選択して、Finishボタンを押します。  
+そして、もう一度、Configureボタンを押し、最後にGenerateボタンを押します。
 
 
 ![cmake](images/cmake.png)
 
-- Eigen3�̎w��   
-�����ACMake��Eigen3�̏ꏊ�iEIGEN3_INCLUDE_DIR�j��������ꂸ�ɃG���[���o���ꍇ�́A
-���̂����ꂩ���s���āACMake���ċN������Configure��Generate����蒼���Ă��������B  
-(A) Windows�̃V�X�e�����ϐ���EIGEN3_ROOT_DIR��ǉ����āA
-������Eigen3��W�J�����t�H���_��ݒ肵�܂��B  
-����ƁA���}�̂悤�ɁA"C:\abc\LittleSLAM"����cui, framework, hook�̊eCMakeLists.txt�̒��ŁA
-EIGEN3_ROOT_DIR�Ŏw�肳�ꂽ�t�H���_��EIGEN3_INCLUDE_DIR�ɐݒ肳��܂��B  
-(B) �eCMakeLists.txt��Eigen3�̃t�H���_����Őݒ肵�܂��B
-���Ƃ��΁AEigen3��"C:\eigen"�ɓW�J�����ꍇ�́A���}��
-$ENV{EIGEN3_ROOT_DIR}�̕�����C:\eigen�ɏ��������܂��B  
+- Eigen3の指定   
+もし、CMakeがEigen3の場所（EIGEN3_INCLUDE_DIR）を見つけられずにエラーが出た場合は、
+次のいずれかを行って、CMakeを再起動してConfigureとGenerateをやり直してください。  
+(A) Windowsのシステム環境変数にEIGEN3_ROOT_DIRを追加して、
+そこにEigen3を展開したフォルダを設定します。  
+すると、下図のように、"C:\abc\LittleSLAM"下のcui, framework, hookの各CMakeLists.txtの中で、
+EIGEN3_ROOT_DIRで指定されたフォルダがEIGEN3_INCLUDE_DIRに設定されます。  
+(B) 各CMakeLists.txtのEigen3のフォルダを手で設定します。
+たとえば、Eigen3を"C:\eigen"に展開した場合は、下図の
+$ENV{EIGEN3_ROOT_DIR}の部分をC:\eigenに書き換えます。  
 
 ```
--- CMakeLists.txt��蔲�� --
+-- CMakeLists.txtより抜粋 --
 
 find_package(Eigen3)  
-IF(NOT EIGEN3_INCLUDE_DIR)          # Eigen3�̃p�X��������Ȃ�
+IF(NOT EIGEN3_INCLUDE_DIR)          # Eigen3のパスが見つからない
   set(EIGEN3_INCLUDE_DIR $ENV{EIGEN3_ROOT_DIR})
 ENDIF() 
 ```  
 
-- Visual studio�̋N��  
-"C:\abc\LittleSLAM\build"�̉���LittleSLAM.sln���ł��Ă���̂ŁA
-������_�u���N���b�N����ƁAVisual studio���N�����܂��B
+- Visual studioの起動  
+"C:\abc\LittleSLAM\build"の下にLittleSLAM.slnができているので、
+それをダブルクリックすると、Visual studioが起動します。
 
-- �r���h  
-���}�̂悤�ɁAVisual studio�ŁARelease, x64�i64�r�b�g�̏ꍇ�j���w�肵�ABuild���j���[����Build Solution�����s���܂��B
+- ビルド  
+下図のように、Visual studioで、Release, x64（64ビットの場合）を指定し、BuildメニューからBuild Solutionを実行します。
 
 ![cmake](images/build.png)
 
 
-�r���h����������ƁA"build\cui\Release"�t�H���_�ɁA���s�t�@�C��LittleSLAM.exe����������܂��B  
+ビルドが成功すると、"build\cui\Release"フォルダに、実行ファイルLittleSLAM.exeが生成されます。  
 
 ![cmake](images/exefile.png)
 
-### (3) ���s
+### (3) 実行
 
-Windows�R�}���h�v�����v�g����ȉ��̃R�}���h�ɂ��ALittleSLAM�����s���܂��B
+Windowsコマンドプロンプトから以下のコマンドにより、LittleSLAMを実行します。
 
 </code></pre>
-<pre><code> LittleSLAM [-so] �f�[�^�t�@�C���� [�J�n�X�L�����ԍ�]
+<pre><code> LittleSLAM [-so] データファイル名 [開始スキャン番号]
 </code></pre>
 
--s�I�v�V�������w�肷��ƁA�X�L������1���`�悵�܂��B�e�X�L�����`����m�F�������ꍇ��
-�g���܂��B  
--o�I�v�V�������w�肷��ƁA�X�L�������I�h���g���f�[�^�ŕ��ׂ��n�}
-�iSLAM�ɂ��n�}�ł͂Ȃ��j�𐶐����܂��B  
-�I�v�V�����w�肪�Ȃ���΁ASLAM�����s���܂��B  
-�J�n�X�L�����ԍ����w�肷��ƁA���̔ԍ��܂ŃX�L������ǂݔ�΂��Ă�����s���܂��B
+-sオプションを指定すると、スキャンを1個ずつ描画します。各スキャン形状を確認したい場合に
+使います。  
+-oオプションを指定すると、スキャンをオドメトリデータで並べた地図
+（SLAMによる地図ではない）を生成します。  
+オプション指定がなければ、SLAMを実行します。  
+開始スキャン番号を指定すると、その番号までスキャンを読み飛ばしてから実行します。
 
-��Ƃ��āA�ȉ��̃R�}���h��SLAM�����s���܂��B  
-���̗�ł�"C:\abc\dataset"�t�H���_��"corridor.lsc"�Ƃ����f�[�^�t�@�C�����u����Ă��܂��B  
+例として、以下のコマンドでSLAMを実行します。  
+この例では"C:\abc\dataset"フォルダに"corridor.lsc"というデータファイルが置かれています。  
 </code></pre>
 <pre><code> C:\abc\LittleSLAM\build\cui\Release> LittleSLAM C:\abc\dataset\corridor.lsc
 </code></pre>
 
 ![cmake](images/command.png)  
   
-�R�}���h�����s����ƁALittleSLAM�̓t�@�C������f�[�^��ǂݍ���Œn�}����������
-�\�z���Ă����܂��B���̗l�q��gnuplot�ɕ`�悳��܂��B  
-�ŏI�I�ɁA���}�̂悤�Ȓn�}����������܂��B  
-�������I����Ă��A�v���O�����͏I�������A�n�}�͂��̂܂ܕ\������Ă��܂��B  
-�v���O�������I������ɂ�Ctrl-C�������Ă��������B
+コマンドを実行すると、LittleSLAMはファイルからデータを読み込んで地図を少しずつ
+構築していきます。その様子がgnuplotに描画されます。  
+最終的に、下図のような地図が生成されます。  
+処理が終わっても、プログラムは終了せず、地図はそのまま表示されています。  
+プログラムを終了するにはCtrl-Cを押してください。
 
 
 ![cmake](images/result.png)

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -22,16 +22,16 @@
 #include "DataAssociator.h"
 #include "CovarianceCalculator.h"
 
-// ƒZƒ“ƒT—Z‡ŠíBICP‚ÆƒIƒhƒƒgƒŠ‚Ì„’è’l‚ð—Z‡‚·‚éB
+// ã‚»ãƒ³ã‚µèžåˆå™¨ã€‚ICPã¨ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®æŽ¨å®šå€¤ã‚’èžåˆã™ã‚‹ã€‚
 class PoseFuser
 {
 public:
-  Eigen::Matrix3d ecov;                      // ICP‚Ì‹¤•ªŽUs—ñ
-  Eigen::Matrix3d mcov;                      // ƒIƒhƒƒgƒŠ‚Ì‹¤•ªŽUs—ñ
+  Eigen::Matrix3d ecov;                      // ICPã®å…±åˆ†æ•£è¡Œåˆ—
+  Eigen::Matrix3d mcov;                      // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®å…±åˆ†æ•£è¡Œåˆ—
   Eigen::Matrix3d totalCov;
   
-  DataAssociator *dass;                      // ƒf[ƒ^‘Î‰ž‚Ã‚¯Ší
-  CovarianceCalculator cvc;                 // ‹¤•ªŽUŒvŽZŠí
+  DataAssociator *dass;                      // ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘å™¨
+  CovarianceCalculator cvc;                 // å…±åˆ†æ•£è¨ˆç®—å™¨
 
 public:
   PoseFuser() {
@@ -54,11 +54,11 @@ public:
     dass->setRefBase(refLps);
   }
 
-  // ICP‚Ì‹¤•ªŽUs—ñ‚ÌŒvŽZBsetRefLps‚ÌŒã‚És‚¤‚±‚ÆB
+  // ICPã®å…±åˆ†æ•£è¡Œåˆ—ã®è¨ˆç®—ã€‚setRefLpsã®å¾Œã«è¡Œã†ã“ã¨ã€‚
   double calIcpCovariance(const Pose2D &estMotion, const Scan2D *curScan, Eigen::Matrix3d &cov) {
     dass->findCorrespondence(curScan, estMotion);
 
-    // ICP‚Ì‹¤•ªŽUB‚±‚±‚Å“¾‚ç‚ê‚é‚Ì‚ÍA¢ŠEÀ•WŒn‚Å‚Ì‹¤•ªŽU
+    // ICPã®å…±åˆ†æ•£ã€‚ã“ã“ã§å¾—ã‚‰ã‚Œã‚‹ã®ã¯ã€ä¸–ç•Œåº§æ¨™ç³»ã§ã®å…±åˆ†æ•£
     double ratio = cvc.calIcpCovariance(estMotion, dass->curLps, dass->refLps, cov);
     return(ratio);
   }

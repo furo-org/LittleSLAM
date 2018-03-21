@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -28,16 +28,16 @@
 class PoseEstimatorICP
 {
 private:
-  const Scan2D *curScan;       // ���݃X�L����
-  size_t usedNum;              // ICP�Ɏg��ꂽ�_���BLoopDetector�ŐM�����`�F�b�N�Ɏg��
-  double pnrate;               // �������Ή��Â����ꂽ�_�̔䗦
+  const Scan2D *curScan;       // 現在スキャン
+  size_t usedNum;              // ICPに使われた点数。LoopDetectorで信頼性チェックに使う
+  double pnrate;               // 正しく対応づけされた点の比率
   
-  PoseOptimizer *popt;         // �œK���N���X
-  DataAssociator *dass;        // �f�[�^�Ή��Â��N���X
+  PoseOptimizer *popt;         // 最適化クラス
+  DataAssociator *dass;        // データ対応づけクラス
 
 public:
-  double totalError;           // �덷���v
-  double totalTime;            // �������ԍ��v
+  double totalError;           // 誤差合計
+  double totalTime;            // 処理時間合計
 
 public:
 
@@ -67,12 +67,12 @@ public:
   
   void setScanPair(const Scan2D *c, const Scan2D *r) {
     curScan = c;
-    dass->setRefBase(r->lps);           // �f�[�^�Ή��Â��̂��߂ɎQ�ƃX�L�����_��o�^
+    dass->setRefBase(r->lps);           // データ対応づけのために参照スキャン点を登録
   }
 
   void setScanPair(const Scan2D *c, const std::vector<LPoint2D> &refLps) {
     curScan = c;
-    dass->setRefBase(refLps);           // �f�[�^�Ή��Â��̂��߂ɎQ�ƃX�L�����_��o�^
+    dass->setRefBase(refLps);           // データ対応づけのために参照スキャン点を登録
   }
 
 ////////////

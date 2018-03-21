@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -19,56 +19,56 @@ using namespace std;
 /////////
 
 void ScanPointResampler::resamplePoints(Scan2D *scan) {
-  vector<LPoint2D> &lps = scan->lps;           // ƒXƒLƒƒƒ““_ŒQ
+  vector<LPoint2D> &lps = scan->lps;           // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
   if (lps.size() == 0)
     return;
 
-  vector<LPoint2D> newLps;                     // ƒŠƒTƒ“ƒvƒ‹Œã‚Ì“_ŒQ
+  vector<LPoint2D> newLps;                     // ãƒªã‚µãƒ³ãƒ—ãƒ«å¾Œã®ç‚¹ç¾¤
 
-  dis = 0;                                     // dis‚Í—İÏ‹——£
+  dis = 0;                                     // disã¯ç´¯ç©è·é›¢
   LPoint2D lp = lps[0];
   LPoint2D prevLp = lp;
   LPoint2D np(lp.sid, lp.x, lp.y);
-  newLps.emplace_back(np);                     // Å‰‚Ì“_‚Í“ü‚ê‚é
+  newLps.emplace_back(np);                     // æœ€åˆã®ç‚¹ã¯å…¥ã‚Œã‚‹
   for (size_t i=1; i<lps.size(); i++) {
-    lp = lps[i];                               // ƒXƒLƒƒƒ““_
+    lp = lps[i];                               // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹
     bool inserted=false;
 
     bool exist = findInterpolatePoint(lp, prevLp, np, inserted);
 
-    if (exist) {                               // “ü‚ê‚é“_‚ª‚ ‚é
-      newLps.emplace_back(np);                 // V‚µ‚¢“_np‚ğ“ü‚ê‚é
-      prevLp = np;                             // np‚ª’¼‘O“_‚É‚È‚é
-      dis = 0;                                 // —İÏ‹——£‚ğƒŠƒZƒbƒg
-      if (inserted)                            // lp‚Ì‘O‚Å•âŠÔ“_‚ğ“ü‚ê‚½‚Ì‚ÅAlp‚ğ‚à‚¤ˆê“x‚â‚é
+    if (exist) {                               // å…¥ã‚Œã‚‹ç‚¹ãŒã‚ã‚‹
+      newLps.emplace_back(np);                 // æ–°ã—ã„ç‚¹npã‚’å…¥ã‚Œã‚‹
+      prevLp = np;                             // npãŒç›´å‰ç‚¹ã«ãªã‚‹
+      dis = 0;                                 // ç´¯ç©è·é›¢ã‚’ãƒªã‚»ãƒƒãƒˆ
+      if (inserted)                            // lpã®å‰ã§è£œé–“ç‚¹ã‚’å…¥ã‚ŒãŸã®ã§ã€lpã‚’ã‚‚ã†ä¸€åº¦ã‚„ã‚‹
         i--;
     }
     else
-      prevLp = lp;                             // ¡‚Ìlp‚ª’¼‘O“_‚É‚È‚é
+      prevLp = lp;                             // ä»Šã®lpãŒç›´å‰ç‚¹ã«ãªã‚‹
   }
 
   scan->setLps(newLps);
 
-  printf("lps.size=%lu, newLps.size=%lu\n", lps.size(), newLps.size());    // Šm”F—p
+  printf("lps.size=%lu, newLps.size=%lu\n", lps.size(), newLps.size());    // ç¢ºèªç”¨
 }
 
 bool ScanPointResampler::findInterpolatePoint(const LPoint2D &cp, const LPoint2D &pp, LPoint2D &np, bool &inserted) {
   double dx = cp.x - pp.x;
   double dy = cp.y - pp.y;
-  double L = sqrt(dx*dx+dy*dy);             // Œ»İ“_cp‚Æ’¼‘O“_pp‚Ì‹——£
-  if (dis+L < dthreS) {                     // —\‘ª—İÏ‹——£(dis+L)‚ªdthreS‚æ‚è¬‚³‚¢“_‚Ííœ
-    dis += L;                               // dis‚É‰ÁZ
+  double L = sqrt(dx*dx+dy*dy);             // ç¾åœ¨ç‚¹cpã¨ç›´å‰ç‚¹ppã®è·é›¢
+  if (dis+L < dthreS) {                     // äºˆæ¸¬ç´¯ç©è·é›¢(dis+L)ãŒdthreSã‚ˆã‚Šå°ã•ã„ç‚¹ã¯å‰Šé™¤
+    dis += L;                               // disã«åŠ ç®—
     return(false);
   }
-  else if (dis+L >= dthreL) {               // —\‘ª—İÏ‹——£‚ªdthreL‚æ‚è‘å‚«‚¢“_‚Í•âŠÔ‚¹‚¸A‚»‚Ì‚Ü‚Üc‚·
+  else if (dis+L >= dthreL) {               // äºˆæ¸¬ç´¯ç©è·é›¢ãŒdthreLã‚ˆã‚Šå¤§ãã„ç‚¹ã¯è£œé–“ã›ãšã€ãã®ã¾ã¾æ®‹ã™
     np.setData(cp.sid, cp.x, cp.y);
   }
-  else {                                    // —\‘ª—İÏ‹——£‚ªdthreS‚ğ’´‚¦‚½‚çAdthreS‚É‚È‚é‚æ‚¤‚É•âŠÔ‚·‚é
+  else {                                    // äºˆæ¸¬ç´¯ç©è·é›¢ãŒdthreSã‚’è¶…ãˆãŸã‚‰ã€dthreSã«ãªã‚‹ã‚ˆã†ã«è£œé–“ã™ã‚‹
     double ratio = (dthreS-dis)/L;
-    double x2 = dx*ratio + pp.x;            // ­‚µL‚Î‚µ‚Ä‹——£‚ªdthreS‚É‚È‚éˆÊ’u
+    double x2 = dx*ratio + pp.x;            // å°‘ã—ä¼¸ã°ã—ã¦è·é›¢ãŒdthreSã«ãªã‚‹ä½ç½®
     double y2 = dy*ratio + pp.y;
     np.setData(cp.sid, x2, y2);
-    inserted = true;                        // cp‚æ‚è‘O‚Énp‚ğ“ü‚ê‚½‚Æ‚¢‚¤ƒtƒ‰ƒO
+    inserted = true;                        // cpã‚ˆã‚Šå‰ã«npã‚’å…¥ã‚ŒãŸã¨ã„ã†ãƒ•ãƒ©ã‚°
   }
  
   return(true);

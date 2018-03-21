@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -25,8 +25,8 @@
 class RefScanMaker
 {
 protected:
-  const PointCloudMap *pcmap;           // “_ŒQ’n}
-  Scan2D refScan;                       // QÆƒXƒLƒƒƒ“–{‘ÌB‚±‚ê‚ğŠO‚É’ñ‹Ÿ
+  const PointCloudMap *pcmap;           // ç‚¹ç¾¤åœ°å›³
+  Scan2D refScan;                       // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³æœ¬ä½“ã€‚ã“ã‚Œã‚’å¤–ã«æä¾›
 
 public:
   RefScanMaker() : pcmap(nullptr) {

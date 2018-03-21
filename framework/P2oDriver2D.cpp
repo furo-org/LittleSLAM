@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -19,22 +19,22 @@ using namespace std;
 
 ////////
 
-// kslam‚ğ—p‚¢‚Äƒ|[ƒYƒOƒ‰ƒtpg‚ğƒ|[ƒY’²®‚µA‚»‚ÌŒ‹‰Ê‚Ìƒƒ{ƒbƒg‹OÕ‚ğnewPoses‚ÉŠi”[‚·‚éB
+// kslamã‚’ç”¨ã„ã¦ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•pgã‚’ãƒãƒ¼ã‚ºèª¿æ•´ã—ã€ãã®çµæœã®ãƒ­ãƒœãƒƒãƒˆè»Œè·¡ã‚’newPosesã«æ ¼ç´ã™ã‚‹ã€‚
 void P2oDriver2D::doP2o( PoseGraph &pg, vector<Pose2D> &newPoses, int N) {
-  vector<PoseNode*> &nodes = pg.nodes;                        // ƒ|[ƒYƒm[ƒh
-  vector<PoseArc*> &arcs = pg.arcs;                           // ƒ|[ƒYƒA[ƒN
+  vector<PoseNode*> &nodes = pg.nodes;                        // ãƒãƒ¼ã‚ºãƒãƒ¼ãƒ‰
+  vector<PoseArc*> &arcs = pg.arcs;                           // ãƒãƒ¼ã‚ºã‚¢ãƒ¼ã‚¯
 
-  // ƒ|[ƒYƒm[ƒh‚ğp2o—p‚É•ÏŠ·
-  vector<p2o::Pose2D> pnodes;                                  // p2o‚Ìƒ|[ƒYƒm[ƒhW‡
+  // ãƒãƒ¼ã‚ºãƒãƒ¼ãƒ‰ã‚’p2oç”¨ã«å¤‰æ›
+  vector<p2o::Pose2D> pnodes;                                  // p2oã®ãƒãƒ¼ã‚ºãƒãƒ¼ãƒ‰é›†åˆ
   for (size_t i=0; i<nodes.size(); i++) {
     PoseNode *node = nodes[i];
-    Pose2D pose = node->pose;                                  // ƒm[ƒh‚ÌˆÊ’u
-    pnodes.push_back(p2o::Pose2D(pose.tx, pose.ty, DEG2RAD(pose.th)));   // ˆÊ’u‚¾‚¯“ü‚ê‚é
+    Pose2D pose = node->pose;                                  // ãƒãƒ¼ãƒ‰ã®ä½ç½®
+    pnodes.push_back(p2o::Pose2D(pose.tx, pose.ty, DEG2RAD(pose.th)));   // ä½ç½®ã ã‘å…¥ã‚Œã‚‹
   }
 
 
-  // ƒ|[ƒYƒA[ƒN‚ğkslam—p‚É•ÏŠ·
-  p2o::Con2DVec pcons;                             // p2o‚Ìƒ|[ƒYƒA[ƒNW‡
+  // ãƒãƒ¼ã‚ºã‚¢ãƒ¼ã‚¯ã‚’kslamç”¨ã«å¤‰æ›
+  p2o::Con2DVec pcons;                             // p2oã®ãƒãƒ¼ã‚ºã‚¢ãƒ¼ã‚¯é›†åˆ
   for (size_t i=0; i<arcs.size(); i++) {
     PoseArc *arc = arcs[i];
     PoseNode *src = arc->src;
@@ -50,14 +50,14 @@ void P2oDriver2D::doP2o( PoseGraph &pg, vector<Pose2D> &newPoses, int N) {
     pcons.push_back(con);
   }
 
-//  printf("knodes.size=%lu, kcons.size=%lu\n", knodes.size(), kcons.size());    // Šm”F—p
+//  printf("knodes.size=%lu, kcons.size=%lu\n", knodes.size(), kcons.size());    // ç¢ºèªç”¨
 
-  p2o::Optimizer2D opt;                                          // p2oƒCƒ“ƒXƒ^ƒ“ƒX
-  std::vector<p2o::Pose2D> result = opt.optimizePath(pnodes, pcons, N);  // N‰ñÀs
+  p2o::Optimizer2D opt;                                          // p2oã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+  std::vector<p2o::Pose2D> result = opt.optimizePath(pnodes, pcons, N);  // Nå›å®Ÿè¡Œ
 
-   // Œ‹‰Ê‚ğnewPose‚ÉŠi”[‚·‚é
+   // çµæœã‚’newPoseã«æ ¼ç´ã™ã‚‹
   for (size_t i=0; i<result.size(); i++) {
-    p2o::Pose2D newPose = result[i];                                      // i”Ô–Ú‚Ìƒm[ƒh‚ÌC³‚³‚ê‚½ˆÊ’u
+    p2o::Pose2D newPose = result[i];                                      // iç•ªç›®ã®ãƒãƒ¼ãƒ‰ã®ä¿®æ­£ã•ã‚ŒãŸä½ç½®
     Pose2D pose(newPose.x, newPose.y, RAD2DEG(newPose.th));
     newPoses.emplace_back(pose);
   }

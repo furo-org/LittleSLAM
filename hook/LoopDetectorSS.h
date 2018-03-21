@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -27,15 +27,15 @@
 class LoopDetectorSS : public LoopDetector
 {
 private:
-  double radius;                               // ’Tõ”¼Œa[m]iŒ»İˆÊ’u‚ÆÄ–K“_‚Ì‹——£è‡’lj
-  double atdthre;                              // —İÏ‘–s‹——£‚Ì·‚Ìè‡’l[m]
-  double scthre;                               // ICPƒXƒRƒA‚Ìè‡’l
+  double radius;                               // æ¢ç´¢åŠå¾„[m]ï¼ˆç¾åœ¨ä½ç½®ã¨å†è¨ªç‚¹ã®è·é›¢é–¾å€¤ï¼‰
+  double atdthre;                              // ç´¯ç©èµ°è¡Œè·é›¢ã®å·®ã®é–¾å€¤[m]
+  double scthre;                               // ICPã‚¹ã‚³ã‚¢ã®é–¾å€¤
 
-  PointCloudMapLP *pcmap;                      // “_ŒQ’n}
-  CostFunction *cfunc;                         // ƒRƒXƒgŠÖ”(ICP‚Æ‚Í•Ê‚Ég‚¤)
-  PoseEstimatorICP *estim;                     // ƒƒ{ƒbƒgˆÊ’u„’èŠí(ICP)
-  DataAssociator *dass;                        // ƒf[ƒ^‘Î‰‚Ã‚¯Ší
-  PoseFuser *pfu;                              // ƒZƒ“ƒT—Z‡Ší
+  PointCloudMapLP *pcmap;                      // ç‚¹ç¾¤åœ°å›³
+  CostFunction *cfunc;                         // ã‚³ã‚¹ãƒˆé–¢æ•°(ICPã¨ã¯åˆ¥ã«ä½¿ã†)
+  PoseEstimatorICP *estim;                     // ãƒ­ãƒœãƒƒãƒˆä½ç½®æ¨å®šå™¨(ICP)
+  DataAssociator *dass;                        // ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘å™¨
+  PoseFuser *pfu;                              // ã‚»ãƒ³ã‚µèåˆå™¨
 
 public:
   LoopDetectorSS() : radius(4), atdthre(10), scthre(0.2) {
