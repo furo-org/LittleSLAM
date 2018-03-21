@@ -1,45 +1,45 @@
-## LittleSLAM�̎g�����iLinux�̏ꍇ�j
+﻿## LittleSLAMの使い方（Linuxの場合）
 
-### (1) �֘A�\�t�g�E�F�A�̃C���X�g�[��
+### (1) 関連ソフトウェアのインストール
 
-- C++�R���p�C��(gcc)�ABoost�AEigen�ACMake, gnuplot  
-�ȉ��̃R�}���h�ŁA�܂Ƃ߂ăC���X�g�[�����܂��B
+- C++コンパイラ(gcc)、Boost、Eigen、CMake, gnuplot  
+以下のコマンドで、まとめてインストールします。
 
 </code></pre>
 <pre><code> $ sudo apt-get install build-essential cmake libboost-all-dev libeigen3-dev gnuplot gnuplot-x11
 </code></pre>
 
 - p2o  
-[p2o](https://github.com/furo-org/p2o)��Github�T�C�g���J���܂��B�ȉ��̂ǂ��炩�̕��@��p2o���_�E�����[�h���܂��B  
-(A) Github��ʂ�"Clone or download"�{�^���������āA"Download ZIP"��I�����A
-p2o-master.zip���_�E�����[�h���܂��Bzip�t�@�C���̓W�J���@�͌�q���܂��B  
-(B) git���g���āA���|�W�g����clone���܂��B  
+[p2o](https://github.com/furo-org/p2o)のGithubサイトを開きます。以下のどちらかの方法でp2oをダウンロードします。  
+(A) Github画面の"Clone or download"ボタンを押して、"Download ZIP"を選択し、
+p2o-master.zipをダウンロードします。zipファイルの展開方法は後述します。  
+(B) gitを使って、リポジトリをcloneします。  
 
-### (2) LittleSLAM�̃C���X�g�[��
+### (2) LittleSLAMのインストール
 
-- LittleSLAM�̓W�J  
-[LittleSLAM](https://github.com/furo-org/LittleSLAM)��Github�T�C�g���J���܂��B
-�ȉ��̂ǂ��炩�̕��@��LittleSLAM���_�E�����[�h���܂��B  
-(A) Github��ʂ�"Clone or download"�{�^���������āA"Download ZIP"��I�����A
-LittleSLAM-master.zip���_�E�����[�h���܂��B
-�����āA����zip�t�@�C����K���ȃf�B���N�g���ɓW�J���܂��B
-�����ł́A���Ƃ��΁A"\~/LittleSLAM"�ɓW�J����Ƃ��܂��B
-LittleSLAM-master.zip�̒���"LittleSLAM-master"�f�B���N�g���̉���
-4�̃f�B���N�g����3�̃t�@�C����"\~/LittleSLAM"�̉��ɃR�s�[���܂��B  
-(B) git���g���āA���|�W�g����clone���܂��B
+- LittleSLAMの展開  
+[LittleSLAM](https://github.com/furo-org/LittleSLAM)のGithubサイトを開きます。
+以下のどちらかの方法でLittleSLAMをダウンロードします。  
+(A) Github画面の"Clone or download"ボタンを押して、"Download ZIP"を選択し、
+LittleSLAM-master.zipをダウンロードします。
+そして、このzipファイルを適当なディレクトリに展開します。
+ここでは、たとえば、"\~/LittleSLAM"に展開するとします。
+LittleSLAM-master.zipの中の"LittleSLAM-master"ディレクトリの下の
+4個のディレクトリと3個のファイルを"\~/LittleSLAM"の下にコピーします。  
+(B) gitを使って、リポジトリをcloneします。
 
-- p2o�̓W�J  
-"\~/LittleSLAM"�̉���p2o�f�B���N�g�����쐬���܂��B  
-�O�q��p2o-master.zip�̒��̃t�@�C��"p2o.h"��"\~/LittleSLAM/p2o"�ɃR�s�[���܂��B  
+- p2oの展開  
+"\~/LittleSLAM"の下にp2oディレクトリを作成します。  
+前述のp2o-master.zipの中のファイル"p2o.h"を"\~/LittleSLAM/p2o"にコピーします。  
 
-- build�f�B���N�g���̍쐬  
-"\~/LittleSLAM"�̉���build�f�B���N�g�����쐬���܂��B  
-�����܂ł̃f�B���N�g���\���͈ȉ��̂悤�ɂȂ�܂��B
+- buildディレクトリの作成  
+"\~/LittleSLAM"の下にbuildディレクトリを作成します。  
+ここまでのディレクトリ構成は以下のようになります。
 
-![�f�B���N�g���\��](images/folders-lnx.png)
+![ディレクトリ構成](images/folders-lnx.png)
 
-- CMake�̎��s  
-�R���\�[���ŁAbuild�f�B���N�g���Ɉړ����Acmake�����s���܂��B
+- CMakeの実行  
+コンソールで、buildディレクトリに移動し、cmakeを実行します。
 
 </code></pre>
 <pre><code> ~/LittleSLAM$ cd build
@@ -47,50 +47,50 @@ LittleSLAM-master.zip�̒���"LittleSLAM-master"�f�B���N�g���̉���
 <pre><code> ~/LittleSLAM/build$ cmake ..
 </code></pre>
 
-���}��cmake�̎��s��������܂��B
+下図にcmakeの実行例を示します。
 
 ![cmake](images/cmake-lnx.png)
 
-���邢�́ACMake��GUI�ł��C���X�g�[�����āAWindows�̏ꍇ�Ɠ����悤��
-GUI��CMake�����s���邱�Ƃ��ł��܂��B
+あるいは、CMakeのGUI版をインストールして、Windowsの場合と同じように
+GUIでCMakeを実行することもできます。
 
-- �r���h  
-�R���\�[���ŁAbuild�f�B���N�g���ɂ�����make�����s���܂��B  
+- ビルド  
+コンソールで、buildディレクトリにおいてmakeを実行します。  
 </code></pre>
 <pre><code> ~/LittleSLAM/build$ make
 </code></pre>
-�r���h����������ƁA"\~/LittleSLAM/build/cui"�f�B���N�g���ɁA���s�t�@�C��LittleSLAM����������܂��B  
+ビルドが成功すると、"\~/LittleSLAM/build/cui"ディレクトリに、実行ファイルLittleSLAMが生成されます。  
 
 ![cmake](images/exefile-lnx.png)
 
-### (3) ���s
+### (3) 実行
 
-�ȉ��̃R�}���h�ŁALittleSLAM�����s���܂��B
+以下のコマンドで、LittleSLAMを実行します。
 
 </code></pre>
-<pre><code> ./LittleSLAM [-so] �f�[�^�t�@�C���� [�J�n�X�L�����ԍ�]
+<pre><code> ./LittleSLAM [-so] データファイル名 [開始スキャン番号]
 </code></pre>
 
--s�I�v�V�������w�肷��ƁA�X�L������1���`�悵�܂��B�e�X�L�����`����m�F�������ꍇ��
-�g���܂��B  
--o�I�v�V�������w�肷��ƁA�X�L�������I�h���g���f�[�^�ŕ��ׂ��n�}
-�iSLAM�ɂ��n�}�ł͂Ȃ��j�𐶐����܂��B  
-�I�v�V�����w�肪�Ȃ���΁ASLAM�����s���܂��B  
-�J�n�X�L�����ԍ����w�肷��ƁA���̔ԍ��܂ŃX�L������ǂݔ�΂��Ă�����s���܂��B
+-sオプションを指定すると、スキャンを1個ずつ描画します。各スキャン形状を確認したい場合に
+使います。  
+-oオプションを指定すると、スキャンをオドメトリデータで並べた地図
+（SLAMによる地図ではない）を生成します。  
+オプション指定がなければ、SLAMを実行します。  
+開始スキャン番号を指定すると、その番号までスキャンを読み飛ばしてから実行します。
 
-��Ƃ��āA�ȉ��̃R�}���h��SLAM�����s���܂��B  
-���̗�ł�"\~/LittleSLAM/dataset"�f�B���N�g����"corridor.lsc"�Ƃ����f�[�^�t�@�C�����u����Ă��܂��B  
+例として、以下のコマンドでSLAMを実行します。  
+この例では"\~/LittleSLAM/dataset"ディレクトリに"corridor.lsc"というデータファイルが置かれています。  
 </code></pre>
 <pre><code> ~/LittleSLAM/build/cui$ ./LittleSLAM ~/LittleSLAM/dataset/corridor.lsc
 </code></pre>
 
 ![cmake](images/command-lnx.png)  
   
-�R�}���h�����s����ƁALittleSLAM�̓t�@�C������f�[�^��ǂݍ���Œn�}����������
-�\�z���Ă����܂��B���̗l�q��gnuplot�ɕ`�悳��܂��B  
-�ŏI�I�ɁA���}�̂悤�Ȓn�}����������܂��B  
-�������I����Ă��A�v���O�����͏I�������A�n�}�͂��̂܂ܕ\������Ă��܂��B  
-�v���O�������I������ɂ�Ctrl-C�������Ă��������B
+コマンドを実行すると、LittleSLAMはファイルからデータを読み込んで地図を少しずつ
+構築していきます。その様子がgnuplotに描画されます。  
+最終的に、下図のような地図が生成されます。  
+処理が終わっても、プログラムは終了せず、地図はそのまま表示されています。  
+プログラムを終了するにはCtrl-Cを押してください。
 
-�@
+　
 ![cmake](images/result-lnx.png)
