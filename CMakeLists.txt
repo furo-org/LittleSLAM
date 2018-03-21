@@ -16,11 +16,6 @@ if(UNIX)
   endif()
 endif()
 
-if(UNIX)   # gcc‚ÅSHIFT-JIS‚ð“Ç‚Þ‚½‚ß
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -finput-charset=cp932")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexec-charset=cp932")
-endif()
-
 SET(CMAKE_BUILD_TYPE "Release")
 
 add_subdirectory(cui cui)
