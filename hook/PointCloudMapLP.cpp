@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -21,16 +21,16 @@ double PointCloudMapLP::atdThre = 10;
 
 ///////////
 
-// Šiqƒe[ƒuƒ‹‚ğ—p‚¢‚ÄA•”•ª’n}‚Ì‘ã•\“_‚ğ“¾‚é
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç”¨ã„ã¦ã€éƒ¨åˆ†åœ°å›³ã®ä»£è¡¨ç‚¹ã‚’å¾—ã‚‹
 vector<LPoint2D> Submap::subsamplePoints(int nthre) {
-  NNGridTable nntab;                     // Šiqƒe[ƒuƒ‹
+  NNGridTable nntab;                     // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«
   for (size_t i=0; i<mps.size(); i++) {
     LPoint2D &lp = mps[i];
-    nntab.addPoint(&lp);                 // ‘S“_‚ğ“o˜^
+    nntab.addPoint(&lp);                 // å…¨ç‚¹ã‚’ç™»éŒ²
   }
 
   vector<LPoint2D> sps;
-  nntab.makeCellPoints(nthre, sps);      // nthreŒÂˆÈã‚ÌƒZƒ‹‚Ì‘ã•\“_‚ğsps‚É“ü‚ê‚é
+  nntab.makeCellPoints(nthre, sps);      // nthreå€‹ä»¥ä¸Šã®ã‚»ãƒ«ã®ä»£è¡¨ç‚¹ã‚’spsã«å…¥ã‚Œã‚‹
   printf("mps.size=%lu, sps.size=%lu\n", mps.size(), sps.size());
 
   return(sps);
@@ -38,9 +38,9 @@ vector<LPoint2D> Submap::subsamplePoints(int nthre) {
 
 /////////
 
-// ƒƒ{ƒbƒgˆÊ’u‚Ì’Ç‰Á
+// ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®è¿½åŠ 
 void PointCloudMapLP::addPose(const Pose2D &p) {
-  // —İÏ‘–s‹——£(atd)‚ÌŒvZ
+  // ç´¯ç©èµ°è¡Œè·é›¢(atd)ã®è¨ˆç®—
   if (poses.size() > 0) {
     Pose2D pp = poses.back();
     atd += sqrt((p.tx - pp.tx)*(p.tx - pp.tx) + (p.ty - pp.ty)*(p.ty - pp.ty));
@@ -52,109 +52,109 @@ void PointCloudMapLP::addPose(const Pose2D &p) {
   poses.emplace_back(p);
 }
 
-// ƒXƒLƒƒƒ““_‚Ì’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®è¿½åŠ 
 void PointCloudMapLP::addPoints(const vector<LPoint2D> &lps) {
-  Submap &curSubmap = submaps.back();              // Œ»İ‚Ì•”•ª’n}
-  if (atd - curSubmap.atdS >= atdThre ) {          // —İÏ‘–s‹——£‚ªè‡’l‚ğ’´‚¦‚½‚çV‚µ‚¢•”•ª’n}‚É•Ï‚¦‚é
+  Submap &curSubmap = submaps.back();              // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³
+  if (atd - curSubmap.atdS >= atdThre ) {          // ç´¯ç©èµ°è¡Œè·é›¢ãŒé–¾å€¤ã‚’è¶…ãˆãŸã‚‰æ–°ã—ã„éƒ¨åˆ†åœ°å›³ã«å¤‰ãˆã‚‹
     size_t size = poses.size();
-    curSubmap.cntE = size-1;                       // •”•ª’n}‚ÌÅŒã‚ÌƒXƒLƒƒƒ“”Ô†
-    curSubmap.mps = curSubmap.subsamplePoints(nthre); // I—¹‚µ‚½•”•ª’n}‚Í‘ã•\“_‚Ì‚İ‚É‚·‚éiŒy—Ê‰»j
+    curSubmap.cntE = size-1;                       // éƒ¨åˆ†åœ°å›³ã®æœ€å¾Œã®ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
+    curSubmap.mps = curSubmap.subsamplePoints(nthre); // çµ‚äº†ã—ãŸéƒ¨åˆ†åœ°å›³ã¯ä»£è¡¨ç‚¹ã®ã¿ã«ã™ã‚‹ï¼ˆè»½é‡åŒ–ï¼‰
 
-    Submap submap(atd, size);                      // V‚µ‚¢•”•ª’n}
-    submap.addPoints(lps);                         // ƒXƒLƒƒƒ““_ŒQ‚Ì“o˜^
-    submaps.emplace_back(submap);                  // •”•ª’n}‚ğ’Ç‰Á
+    Submap submap(atd, size);                      // æ–°ã—ã„éƒ¨åˆ†åœ°å›³
+    submap.addPoints(lps);                         // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã®ç™»éŒ²
+    submaps.emplace_back(submap);                  // éƒ¨åˆ†åœ°å›³ã‚’è¿½åŠ 
   }
   else {
-    curSubmap.addPoints(lps);                      // Œ»İ‚Ì•”•ª’n}‚É“_ŒQ‚ğ’Ç‰Á
+    curSubmap.addPoints(lps);                      // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³ã«ç‚¹ç¾¤ã‚’è¿½åŠ 
   }
 }
 
-// ‘S‘Ì’n}‚Ì¶¬B‹ÇŠ’n}‚à‚±‚±‚Å‚¢‚Á‚µ‚å‚Éì‚Á‚½•û‚ª‘¬‚¢
+// å…¨ä½“åœ°å›³ã®ç”Ÿæˆã€‚å±€æ‰€åœ°å›³ã‚‚ã“ã“ã§ã„ã£ã—ã‚‡ã«ä½œã£ãŸæ–¹ãŒé€Ÿã„
 void PointCloudMapLP::makeGlobalMap(){
-  globalMap.clear();                               // ‰Šú‰»
+  globalMap.clear();                               // åˆæœŸåŒ–
   localMap.clear();
-  // Œ»İˆÈŠO‚Ì‚·‚Å‚ÉŠm’è‚µ‚½•”•ª’n}‚©‚ç“_‚ğW‚ß‚é
+  // ç¾åœ¨ä»¥å¤–ã®ã™ã§ã«ç¢ºå®šã—ãŸéƒ¨åˆ†åœ°å›³ã‹ã‚‰ç‚¹ã‚’é›†ã‚ã‚‹
   for (size_t i=0; i<submaps.size()-1; i++) {
-    Submap &submap = submaps[i];                   // •”•ª’n}
-    vector<LPoint2D> &mps = submap.mps;            // •”•ª’n}‚Ì“_ŒQB‘ã•\“_‚¾‚¯‚É‚È‚Á‚Ä‚¢‚é
+    Submap &submap = submaps[i];                   // éƒ¨åˆ†åœ°å›³
+    vector<LPoint2D> &mps = submap.mps;            // éƒ¨åˆ†åœ°å›³ã®ç‚¹ç¾¤ã€‚ä»£è¡¨ç‚¹ã ã‘ã«ãªã£ã¦ã„ã‚‹
     for (size_t j=0; j<mps.size(); j++) {
-      globalMap.emplace_back(mps[j]);              // ‘S‘Ì’n}‚É‚Í‘S“_“ü‚ê‚é
+      globalMap.emplace_back(mps[j]);              // å…¨ä½“åœ°å›³ã«ã¯å…¨ç‚¹å…¥ã‚Œã‚‹
     }
-    if (i == submaps.size()-2) {                   // ‹ÇŠ’n}‚É‚ÍÅŒã‚Ì•”•ª’n}‚¾‚¯“ü‚ê‚é
+    if (i == submaps.size()-2) {                   // å±€æ‰€åœ°å›³ã«ã¯æœ€å¾Œã®éƒ¨åˆ†åœ°å›³ã ã‘å…¥ã‚Œã‚‹
       for (size_t j=0; j<mps.size(); j++) {
         localMap.emplace_back(mps[j]);
       }
     }
   }
 
-  // Œ»İ‚Ì•”•ª’n}‚Ì‘ã•\“_‚ğ‘S‘Ì’n}‚Æ‹ÇŠ’n}‚É“ü‚ê‚é
-  Submap &curSubmap = submaps.back();              // Œ»İ‚Ì•”•ª’n}
-  vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre);  // ‘ã•\“_‚ğ“¾‚é
+  // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³ã®ä»£è¡¨ç‚¹ã‚’å…¨ä½“åœ°å›³ã¨å±€æ‰€åœ°å›³ã«å…¥ã‚Œã‚‹
+  Submap &curSubmap = submaps.back();              // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³
+  vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre);  // ä»£è¡¨ç‚¹ã‚’å¾—ã‚‹
   for (size_t i=0; i<sps.size(); i++) {
     globalMap.emplace_back(sps[i]);
     localMap.emplace_back(sps[i]);
   }
 
-  // ˆÈ‰º‚ÍŠm”F—p
+  // ä»¥ä¸‹ã¯ç¢ºèªç”¨
   printf("curSubmap.atd=%g, atd=%g, sps.size=%lu\n", curSubmap.atdS, atd, sps.size());
   printf("submaps.size=%lu, globalMap.size=%lu\n", submaps.size(), globalMap.size());
 }
 
-// ‹ÇŠ’n}‚Ì¶¬
+// å±€æ‰€åœ°å›³ã®ç”Ÿæˆ
 void PointCloudMapLP::makeLocalMap(){
-  localMap.clear();                                // ‰Šú‰»
+  localMap.clear();                                // åˆæœŸåŒ–
   if (submaps.size() >= 2) {
-    Submap &submap = submaps[submaps.size()-2];    // ’¼‘O‚Ì•”•ª’n}‚¾‚¯g‚¤
-    vector<LPoint2D> &mps = submap.mps;            // •”•ª’n}‚Ì“_ŒQB‘ã•\“_‚¾‚¯‚É‚È‚Á‚Ä‚¢‚é
+    Submap &submap = submaps[submaps.size()-2];    // ç›´å‰ã®éƒ¨åˆ†åœ°å›³ã ã‘ä½¿ã†
+    vector<LPoint2D> &mps = submap.mps;            // éƒ¨åˆ†åœ°å›³ã®ç‚¹ç¾¤ã€‚ä»£è¡¨ç‚¹ã ã‘ã«ãªã£ã¦ã„ã‚‹
     for (size_t i=0; i<mps.size(); i++) {
       localMap.emplace_back(mps[i]);
     }
   }
 
-  // Œ»İ‚Ì•”•ª’n}‚Ì‘ã•\“_‚ğ‹ÇŠ’n}‚É“ü‚ê‚é
-  Submap &curSubmap = submaps.back();              // Œ»İ‚Ì•”•ª’n}
-  vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre);  // ‘ã•\“_‚ğ“¾‚é
+  // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³ã®ä»£è¡¨ç‚¹ã‚’å±€æ‰€åœ°å›³ã«å…¥ã‚Œã‚‹
+  Submap &curSubmap = submaps.back();              // ç¾åœ¨ã®éƒ¨åˆ†åœ°å›³
+  vector<LPoint2D> sps = curSubmap.subsamplePoints(nthre);  // ä»£è¡¨ç‚¹ã‚’å¾—ã‚‹
   for (size_t i=0; i<sps.size(); i++) {
     localMap.emplace_back(sps[i]);
   }
 
-  printf("localMap.size=%lu\n", localMap.size());   // Šm”F—p
+  printf("localMap.size=%lu\n", localMap.size());   // ç¢ºèªç”¨
 }
 
 //////////
 
-// ƒ|[ƒY’²®Œã‚Ìƒƒ{ƒbƒg‹OÕnewPose‚ğ—p‚¢‚ÄA’n}‚ğÄ\’z‚·‚é
+// ãƒãƒ¼ã‚ºèª¿æ•´å¾Œã®ãƒ­ãƒœãƒƒãƒˆè»Œè·¡newPoseã‚’ç”¨ã„ã¦ã€åœ°å›³ã‚’å†æ§‹ç¯‰ã™ã‚‹
 void PointCloudMapLP::remakeMaps(const vector<Pose2D> &newPoses){
-  // Še•”•ª’n}“à‚Ì“_‚ÌˆÊ’u‚ğC³‚·‚é
+  // å„éƒ¨åˆ†åœ°å›³å†…ã®ç‚¹ã®ä½ç½®ã‚’ä¿®æ­£ã™ã‚‹
   for (size_t i=0; i<submaps.size(); i++) {
     Submap &submap = submaps[i];
-    vector<LPoint2D> &mps = submap.mps;                // •”•ª’n}‚Ì“_ŒQBŒ»İ’n}ˆÈŠO‚Í‘ã•\“_‚É‚È‚Á‚Ä‚¢‚é
+    vector<LPoint2D> &mps = submap.mps;                // éƒ¨åˆ†åœ°å›³ã®ç‚¹ç¾¤ã€‚ç¾åœ¨åœ°å›³ä»¥å¤–ã¯ä»£è¡¨ç‚¹ã«ãªã£ã¦ã„ã‚‹
     for (size_t j=0; j<mps.size(); j++) {
       LPoint2D &mp = mps[j];
-      size_t idx = mp.sid;                             // “_‚ÌƒXƒLƒƒƒ“”Ô†
-      if (idx >= poses.size()) {                       // •s³‚ÈƒXƒLƒƒƒ“”Ô†i‚ ‚Á‚½‚çƒoƒOj
+      size_t idx = mp.sid;                             // ç‚¹ã®ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
+      if (idx >= poses.size()) {                       // ä¸æ­£ãªã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ï¼ˆã‚ã£ãŸã‚‰ãƒã‚°ï¼‰
         continue;
       }
 
-      const Pose2D &oldPose = poses[idx];              // mp‚É‘Î‰‚·‚éŒÃ‚¢ƒƒ{ƒbƒgˆÊ’u
-      const Pose2D &newPose = newPoses[idx];           // mp‚É‘Î‰‚·‚éV‚µ‚¢ƒƒ{ƒbƒgˆÊ’u
+      const Pose2D &oldPose = poses[idx];              // mpã«å¯¾å¿œã™ã‚‹å¤ã„ãƒ­ãƒœãƒƒãƒˆä½ç½®
+      const Pose2D &newPose = newPoses[idx];           // mpã«å¯¾å¿œã™ã‚‹æ–°ã—ã„ãƒ­ãƒœãƒƒãƒˆä½ç½®
       const double (*R1)[2] = oldPose.Rmat;
       const double (*R2)[2] = newPose.Rmat;
-      LPoint2D lp1 = oldPose.relativePoint(mp);        // oldPose‚Åmp‚ğƒZƒ“ƒTÀ•WŒn‚É•ÏŠ·
-      LPoint2D lp2 = newPose.globalPoint(lp1);         // newPose‚Åƒ|[ƒY’²®Œã‚Ì’n}À•WŒn‚É•ÏŠ·
+      LPoint2D lp1 = oldPose.relativePoint(mp);        // oldPoseã§mpã‚’ã‚»ãƒ³ã‚µåº§æ¨™ç³»ã«å¤‰æ›
+      LPoint2D lp2 = newPose.globalPoint(lp1);         // newPoseã§ãƒãƒ¼ã‚ºèª¿æ•´å¾Œã®åœ°å›³åº§æ¨™ç³»ã«å¤‰æ›
       mp.x = lp2.x;
       mp.y = lp2.y;
-      double nx = R1[0][0]*mp.nx + R1[1][0]*mp.ny;     // –@üƒxƒNƒgƒ‹‚àoldPose‚ÅƒZƒ“ƒTÀ•WŒn‚É•ÏŠ·
+      double nx = R1[0][0]*mp.nx + R1[1][0]*mp.ny;     // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚‚oldPoseã§ã‚»ãƒ³ã‚µåº§æ¨™ç³»ã«å¤‰æ›
       double ny = R1[0][1]*mp.nx + R1[1][1]*mp.ny;
-      double nx2 = R2[0][0]*nx + R2[0][1]*ny;          // –@üƒxƒNƒgƒ‹‚ànewPose‚Åƒ|[ƒY’²®Œã‚Ì’n}À•WŒn‚É•ÏŠ·
+      double nx2 = R2[0][0]*nx + R2[0][1]*ny;          // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚‚newPoseã§ãƒãƒ¼ã‚ºèª¿æ•´å¾Œã®åœ°å›³åº§æ¨™ç³»ã«å¤‰æ›
       double ny2 = R2[1][0]*nx + R2[1][1]*ny;
       mp.setNormal(nx2, ny2);
     }
   }
 
-  makeGlobalMap();                                     // •”•ª’n}‚©‚ç‘S‘Ì’n}‚Æ‹ÇŠ’n}‚ğ¶¬
+  makeGlobalMap();                                     // éƒ¨åˆ†åœ°å›³ã‹ã‚‰å…¨ä½“åœ°å›³ã¨å±€æ‰€åœ°å›³ã‚’ç”Ÿæˆ
 
-  for (size_t i=0; i<poses.size(); i++) {              // poses‚ğƒ|[ƒY’²®Œã‚Ì’l‚ÉXV
+  for (size_t i=0; i<poses.size(); i++) {              // posesã‚’ãƒãƒ¼ã‚ºèª¿æ•´å¾Œã®å€¤ã«æ›´æ–°
     poses[i] = newPoses[i];
   }
   lastPose = newPoses.back();

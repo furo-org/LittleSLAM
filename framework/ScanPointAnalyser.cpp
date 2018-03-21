@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,48 +16,48 @@
 
 using namespace std;
   
-const double ScanPointAnalyser::FPDMIN = 0.06;      // ScanPointResampler.dthrS‚Æ‚¸‚ç‚·
+const double ScanPointAnalyser::FPDMIN = 0.06;      // ScanPointResampler.dthrSã¨ãšã‚‰ã™
 const double ScanPointAnalyser::FPDMAX = 1.0;
 
 ///////////
 
-// ƒXƒLƒƒƒ““_‚Ì–@üƒxƒNƒgƒ‹‚ğ‹‚ß‚éB‚Ü‚½A’¼üAƒR[ƒiAŒÇ—§‚Ìê‡•ª‚¯‚ğ‚·‚éB
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹ã€‚ã¾ãŸã€ç›´ç·šã€ã‚³ãƒ¼ãƒŠã€å­¤ç«‹ã®å ´åˆåˆ†ã‘ã‚’ã™ã‚‹ã€‚
 void ScanPointAnalyser::analysePoints(vector<LPoint2D> &lps) {
   for (int i=0; i<lps.size(); i++) {
-    LPoint2D &lp = lps[i];                        // ƒXƒLƒƒƒ““_
+    LPoint2D &lp = lps[i];                        // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹
     ptype type;
     Vector2D nL, nR, normal;
-    bool flagL = calNormal(i, lps, -1, nL);        // nL‚Ílp‚Æ¶‘¤‚Ì“_‚Å‹‚ß‚½–@üƒxƒNƒgƒ‹
-    bool flagR = calNormal(i, lps, 1, nR);         // nR‚Ílp‚Æ‰E‘¤‚Ì“_‚Å‹‚ß‚½–@üƒxƒNƒgƒ‹
-    nR.x = -nR.x;                                 // •„†‚ğnL‚Æ‡‚¹‚é
+    bool flagL = calNormal(i, lps, -1, nL);        // nLã¯lpã¨å·¦å´ã®ç‚¹ã§æ±‚ã‚ãŸæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+    bool flagR = calNormal(i, lps, 1, nR);         // nRã¯lpã¨å³å´ã®ç‚¹ã§æ±‚ã‚ãŸæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+    nR.x = -nR.x;                                 // ç¬¦å·ã‚’nLã¨åˆã›ã‚‹
     nR.y = -nR.y;
     if (flagL) {
-      if (flagR) {                                     // ¶‰E—¼‘¤‚Å–@üƒxƒNƒgƒ‹‚ªŒvZ‰Â”\
-        if (fabs(nL.x*nR.x + nL.y*nR.y) >= costh) {    // —¼‘¤‚Ì–@ü‚ª•½s‚É‹ß‚¢
-          type = LINE;                                 // ’¼ü‚Æ‚İ‚È‚·
+      if (flagR) {                                     // å·¦å³ä¸¡å´ã§æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ãŒè¨ˆç®—å¯èƒ½
+        if (fabs(nL.x*nR.x + nL.y*nR.y) >= costh) {    // ä¸¡å´ã®æ³•ç·šãŒå¹³è¡Œã«è¿‘ã„
+          type = LINE;                                 // ç›´ç·šã¨ã¿ãªã™
         }
-        else {                                         // •½s‚©‚ç‰“‚¯‚ê‚ÎAƒR[ƒi“_‚Æ‚İ‚È‚·
+        else {                                         // å¹³è¡Œã‹ã‚‰é ã‘ã‚Œã°ã€ã‚³ãƒ¼ãƒŠç‚¹ã¨ã¿ãªã™
           type = CORNER;
         }
-        // ¶‰E—¼‘¤‚Ì–@üƒxƒNƒgƒ‹‚Ì•½‹Ï
+        // å·¦å³ä¸¡å´ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã®å¹³å‡
         double dx = nL.x+nR.x;
         double dy = nL.y+nR.y;
         double L = sqrt(dx*dx + dy*dy);
         normal.x = dx/L;
         normal.y = dy/L;
       }
-      else {                       // ¶‘¤‚µ‚©–@üƒxƒNƒgƒ‹‚ª‚Æ‚ê‚È‚©‚Á‚½
+      else {                       // å·¦å´ã—ã‹æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ãŒã¨ã‚Œãªã‹ã£ãŸ
         type = LINE;
         normal = nL;
       }
     }
     else {
-      if (flagR) {                 // ‰E‘¤‚µ‚©–@üƒxƒNƒgƒ‹‚ª‚Æ‚ê‚È‚©‚Á‚½
+      if (flagR) {                 // å³å´ã—ã‹æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ãŒã¨ã‚Œãªã‹ã£ãŸ
         type = LINE;
         normal = nR;
       }
-      else {                       // —¼‘¤‚Æ‚à–@üƒxƒNƒgƒ‹‚ª‚Æ‚ê‚È‚©‚Á‚½
-        type = ISOLATE;            // ŒÇ—§“_‚Æ‚İ‚È‚·
+      else {                       // ä¸¡å´ã¨ã‚‚æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ãŒã¨ã‚Œãªã‹ã£ãŸ
+        type = ISOLATE;            // å­¤ç«‹ç‚¹ã¨ã¿ãªã™
         normal.x = INVALID;
         normal.y = INVALID;
       }
@@ -68,21 +68,21 @@ void ScanPointAnalyser::analysePoints(vector<LPoint2D> &lps) {
   }
 }
   
-  // ’–Ú“_cp‚Ì—¼‘¤‚Ì“_‚ªAcp‚©‚çdminˆÈãdmaxˆÈ‰º‚Ìê‡‚ÉA–@ü‚ğŒvZ‚·‚éB
+  // æ³¨ç›®ç‚¹cpã®ä¸¡å´ã®ç‚¹ãŒã€cpã‹ã‚‰dminä»¥ä¸Šdmaxä»¥ä¸‹ã®å ´åˆã«ã€æ³•ç·šã‚’è¨ˆç®—ã™ã‚‹ã€‚
 bool ScanPointAnalyser::calNormal(int idx, const vector<LPoint2D> &lps, int dir, Vector2D &normal){
-  const LPoint2D &cp = lps[idx];                          // ’–Ú“_
+  const LPoint2D &cp = lps[idx];                          // æ³¨ç›®ç‚¹
   for (int i=idx+dir; i>=0 && i<lps.size(); i+=dir) {
-    const LPoint2D &lp = lps[i];                          // cp‚Ìdiri¶‚©‰Ej‘¤‚Ì“_
+    const LPoint2D &lp = lps[i];                          // cpã®dirï¼ˆå·¦ã‹å³ï¼‰å´ã®ç‚¹
     double dx = lp.x - cp.x;
     double dy = lp.y - cp.y;
     double d = sqrt(dx*dx + dy*dy);
-    if (d>=FPDMIN && d<=FPDMAX) {                         // cp‚Ælp‚Ì‹——£d‚ª“KØ‚È‚ç–@üŒvZ
+    if (d>=FPDMIN && d<=FPDMAX) {                         // cpã¨lpã®è·é›¢dãŒé©åˆ‡ãªã‚‰æ³•ç·šè¨ˆç®—
       normal.x = dy/d;
       normal.y = -dx/d;
       return(true);
     }
       
-    if (d > FPDMAX)                                       // ‚à‚Í‚â‚Ç‚ñ‚Ç‚ñ—£‚ê‚é‚Ì‚ÅA“r’†‚Å‚â‚ß‚é
+    if (d > FPDMAX)                                       // ã‚‚ã¯ã‚„ã©ã‚“ã©ã‚“é›¢ã‚Œã‚‹ã®ã§ã€é€”ä¸­ã§ã‚„ã‚ã‚‹
       break;
   }
 

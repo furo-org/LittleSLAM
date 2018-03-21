@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,28 +18,28 @@
 using namespace std;
 
 
-// Œ»İƒXƒLƒƒƒ“curScan‚ÌŠeƒXƒLƒƒƒ““_‚ğpredPose‚ÅÀ•W•ÏŠ·‚µ‚½ˆÊ’u‚ÉÅ‚à‹ß‚¢“_‚ğŒ©‚Â‚¯‚é
+// ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³curScanã®å„ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã‚’predPoseã§åº§æ¨™å¤‰æ›ã—ãŸä½ç½®ã«æœ€ã‚‚è¿‘ã„ç‚¹ã‚’è¦‹ã¤ã‘ã‚‹
 double DataAssociatorGT::findCorrespondence(const Scan2D *curScan, const Pose2D &predPose) {
-  boost::timer tim;                                 // ˆ—ŠÔ‘ª’è—p
+  boost::timer tim;                                 // å‡¦ç†æ™‚é–“æ¸¬å®šç”¨
 
-  curLps.clear();                                   // ‘Î‰‚Ã‚¯Œ»İƒXƒLƒƒƒ““_ŒQ‚ğ‹ó‚É‚·‚é
-  refLps.clear();                                   // ‘Î‰‚Ã‚¯QÆƒXƒLƒƒƒ““_ŒQ‚ğ‹ó‚É‚·‚é
+  curLps.clear();                                   // å¯¾å¿œã¥ã‘ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’ç©ºã«ã™ã‚‹
+  refLps.clear();                                   // å¯¾å¿œã¥ã‘å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’ç©ºã«ã™ã‚‹
 
   for (size_t i=0; i<curScan->lps.size(); i++) {
-    const LPoint2D *clp = &(curScan->lps[i]);       // Œ»İƒXƒLƒƒƒ“‚Ì“_Bƒ|ƒCƒ“ƒ^‚ÅB
+    const LPoint2D *clp = &(curScan->lps[i]);       // ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ã€‚ãƒã‚¤ãƒ³ã‚¿ã§ã€‚
 
-    // Šiqƒe[ƒuƒ‹‚É‚æ‚èÅ‹ß–T“_‚ğ‹‚ß‚éBŠiqƒe[ƒuƒ‹“à‚É‹——£è‡’ldthre‚ª‚ ‚é‚±‚Æ‚É’ˆÓB
+    // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚Šæœ€è¿‘å‚ç‚¹ã‚’æ±‚ã‚ã‚‹ã€‚æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã«è·é›¢é–¾å€¤dthreãŒã‚ã‚‹ã“ã¨ã«æ³¨æ„ã€‚
     const LPoint2D *rlp = nntab.findClosestPoint(clp, predPose);
 
     if (rlp != nullptr) {
-      curLps.push_back(clp);                        // Å‹ß–T“_‚ª‚ ‚ê‚Î“o˜^
+      curLps.push_back(clp);                        // æœ€è¿‘å‚ç‚¹ãŒã‚ã‚Œã°ç™»éŒ²
       refLps.push_back(rlp);
     }
   }
 
-  double ratio = (1.0*curLps.size())/curScan->lps.size();         // ‘Î‰‚ª‚Æ‚ê‚½“_‚Ì”ä—¦
+  double ratio = (1.0*curLps.size())/curScan->lps.size();         // å¯¾å¿œãŒã¨ã‚ŒãŸç‚¹ã®æ¯”ç‡
 
-//  double t1 = 1000*tim.elapsed();                   // ˆ—ŠÔ
+//  double t1 = 1000*tim.elapsed();                   // å‡¦ç†æ™‚é–“
 //  printf("Elapsed time: dassGT=%g\n", t1);
 
   return(ratio);

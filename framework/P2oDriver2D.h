@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -26,7 +26,7 @@
 
 //////////
 
-// ƒ|[ƒYƒOƒ‰ƒtÅ“K‰»ƒ‰ƒCƒuƒ‰ƒŠkslam‚ğ‹N“®‚·‚éB
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•æœ€é©åŒ–ãƒ©ã‚¤ãƒ–ãƒ©ãƒªkslamã‚’èµ·å‹•ã™ã‚‹ã€‚
 class P2oDriver2D
 {
 public:

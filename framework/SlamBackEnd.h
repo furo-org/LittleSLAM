@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,9 +24,9 @@
 class SlamBackEnd
 {
 private:
-  std::vector<Pose2D> newPoses;            // ƒ|[ƒY’²®Œã‚Ìp¨
-  PointCloudMap *pcmap;                    // “_ŒQ’n}
-  PoseGraph *pg;                           // ƒ|[ƒYƒOƒ‰ƒt
+  std::vector<Pose2D> newPoses;            // ãƒãƒ¼ã‚ºèª¿æ•´å¾Œã®å§¿å‹¢
+  PointCloudMap *pcmap;                    // ç‚¹ç¾¤åœ°å›³
+  PoseGraph *pg;                           // ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•
 
 public:
   SlamBackEnd() {

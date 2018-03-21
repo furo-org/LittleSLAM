@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,28 +16,28 @@
 
 using namespace std;
 
-//////////// ƒOƒ‰ƒt¶¬ ////////////
+//////////// ã‚°ãƒ©ãƒ•ç”Ÿæˆ ////////////
 
-// ƒ|[ƒYƒOƒ‰ƒt‚Éƒm[ƒh’Ç‰Á
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã«ãƒãƒ¼ãƒ‰è¿½åŠ 
 PoseNode *PoseGraph::addNode(const Pose2D &pose) {
-  PoseNode *n1 = allocNode();                // ƒm[ƒh¶¬
-  addNode(n1, pose);                         // ƒ|[ƒYƒOƒ‰ƒt‚Éƒm[ƒh’Ç‰Á
+  PoseNode *n1 = allocNode();                // ãƒãƒ¼ãƒ‰ç”Ÿæˆ
+  addNode(n1, pose);                         // ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã«ãƒãƒ¼ãƒ‰è¿½åŠ 
 
   return(n1);
 }
 
-// ƒ|[ƒYƒOƒ‰ƒt‚Éƒm[ƒh’Ç‰Á
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã«ãƒãƒ¼ãƒ‰è¿½åŠ 
 void PoseGraph::addNode(PoseNode *n1, const Pose2D &pose) {
-  n1->setNid((int)nodes.size());             // ƒm[ƒhID•t—^Bƒm[ƒh‚Ì’Ê‚µ”Ô†‚Æ“¯‚¶
-  n1->setPose(pose);                         // ƒƒ{ƒbƒgˆÊ’u‚ğİ’è
-  nodes.push_back(n1);                       // nodes‚ÌÅŒã‚É’Ç‰Á
+  n1->setNid((int)nodes.size());             // ãƒãƒ¼ãƒ‰IDä»˜ä¸ã€‚ãƒãƒ¼ãƒ‰ã®é€šã—ç•ªå·ã¨åŒã˜
+  n1->setPose(pose);                         // ãƒ­ãƒœãƒƒãƒˆä½ç½®ã‚’è¨­å®š
+  nodes.push_back(n1);                       // nodesã®æœ€å¾Œã«è¿½åŠ 
 }
 
-// ƒm[ƒhID(nid)‚©‚çƒm[ƒhÀ‘Ì‚ğŒ©‚Â‚¯‚é
+// ãƒãƒ¼ãƒ‰ID(nid)ã‹ã‚‰ãƒãƒ¼ãƒ‰å®Ÿä½“ã‚’è¦‹ã¤ã‘ã‚‹
 PoseNode *PoseGraph::findNode(int nid) {
-  for (size_t i=0; i<nodes.size(); i++) {    // ’Pƒ‚ÉüŒ`’Tõ
+  for (size_t i=0; i<nodes.size(); i++) {    // å˜ç´”ã«ç·šå½¢æ¢ç´¢
     PoseNode *n = nodes[i];
-    if (n->nid == nid)                       // nid‚ªˆê’v‚µ‚½‚çŒ©‚Â‚¯‚½
+    if (n->nid == nid)                       // nidãŒä¸€è‡´ã—ãŸã‚‰è¦‹ã¤ã‘ãŸ
       return(n);
   }
 
@@ -46,28 +46,28 @@ PoseNode *PoseGraph::findNode(int nid) {
 
 //////////
 
-// ƒ|[ƒYƒOƒ‰ƒt‚ÉƒA[ƒN‚ğ’Ç‰Á‚·‚é
+// ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•ã«ã‚¢ãƒ¼ã‚¯ã‚’è¿½åŠ ã™ã‚‹
 void PoseGraph::addArc(PoseArc *arc) {
-  arc->src->addArc(arc);                   // n“_ƒm[ƒh‚Éarc‚ğ’Ç‰Á
-  arc->dst->addArc(arc);                   // I“_ƒm[ƒh‚Éarc‚ğ’Ç‰Á
-  arcs.push_back(arc);                     // arcs‚ÌÅŒã‚Éarc‚ğ’Ç‰Á
+  arc->src->addArc(arc);                   // å§‹ç‚¹ãƒãƒ¼ãƒ‰ã«arcã‚’è¿½åŠ 
+  arc->dst->addArc(arc);                   // çµ‚ç‚¹ãƒãƒ¼ãƒ‰ã«arcã‚’è¿½åŠ 
+  arcs.push_back(arc);                     // arcsã®æœ€å¾Œã«arcã‚’è¿½åŠ 
 }
 
-// n“_ƒm[ƒhsrcNid‚ÆI“_ƒm[ƒhdstNid‚ÌŠÔ‚ÉƒA[ƒN‚ğ¶¬‚·‚é
+// å§‹ç‚¹ãƒãƒ¼ãƒ‰srcNidã¨çµ‚ç‚¹ãƒãƒ¼ãƒ‰dstNidã®é–“ã«ã‚¢ãƒ¼ã‚¯ã‚’ç”Ÿæˆã™ã‚‹
 PoseArc *PoseGraph::makeArc(int srcNid, int dstNid, const Pose2D &relPose, const Eigen::Matrix3d &cov) {
-//  Eigen::Matrix3d inf = cov.inverse();         // inf‚Ícov‚Ì‹ts—ñ
-  Eigen::Matrix3d inf = MyUtil::svdInverse(cov);            // inf‚Ícov‚Ì‹ts—ñ
+//  Eigen::Matrix3d inf = cov.inverse();         // infã¯covã®é€†è¡Œåˆ—
+  Eigen::Matrix3d inf = MyUtil::svdInverse(cov);            // infã¯covã®é€†è¡Œåˆ—
 
-  PoseNode *src = nodes[srcNid];                // n“_ƒm[ƒh
-  PoseNode *dst = nodes[dstNid];                // I“_ƒm[ƒh
+  PoseNode *src = nodes[srcNid];                // å§‹ç‚¹ãƒãƒ¼ãƒ‰
+  PoseNode *dst = nodes[dstNid];                // çµ‚ç‚¹ãƒãƒ¼ãƒ‰
 
-  PoseArc *arc = allocArc();                    // ƒA[ƒN‚Ì¶¬
-  arc->setup(src, dst, relPose, inf);      // relPose‚ÍŒv‘ª‚É‚æ‚é‘Š‘ÎˆÊ’u
+  PoseArc *arc = allocArc();                    // ã‚¢ãƒ¼ã‚¯ã®ç”Ÿæˆ
+  arc->setup(src, dst, relPose, inf);      // relPoseã¯è¨ˆæ¸¬ã«ã‚ˆã‚‹ç›¸å¯¾ä½ç½®
 
   return(arc);
 }
 
-// n“_ƒm[ƒh‚ªsrcNidAI“_ƒm[ƒh‚ªdstNid‚Å‚ ‚éƒA[ƒN‚ğ•Ô‚·
+// å§‹ç‚¹ãƒãƒ¼ãƒ‰ãŒsrcNidã€çµ‚ç‚¹ãƒãƒ¼ãƒ‰ãŒdstNidã§ã‚ã‚‹ã‚¢ãƒ¼ã‚¯ã‚’è¿”ã™
 PoseArc *PoseGraph::findArc(int srcNid, int dstNid) {
   for (size_t i=0; i<arcs.size(); i++) {
     PoseArc *a = arcs[i];
@@ -79,7 +79,7 @@ PoseArc *PoseGraph::findArc(int srcNid, int dstNid) {
 
 ////////////////
 
-// Šm”F—p
+// ç¢ºèªç”¨
 void PoseGraph::printNodes() {
   printf("--- printNodes ---\n");
   printf("nodes.size=%lu\n", nodes.size());
@@ -94,7 +94,7 @@ void PoseGraph::printNodes() {
   }
 }
 
-// Šm”F—p
+// ç¢ºèªç”¨
 void PoseGraph::printArcs() {
   printf("--- printArcs ---\n");
   printf("arcs.size=%lu\n", arcs.size());

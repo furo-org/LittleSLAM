@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -21,16 +21,16 @@
 
 ///////////
 
-// Šiqƒe[ƒuƒ‹‚ğ—p‚¢‚½“_ŒQ’n}
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç”¨ã„ãŸç‚¹ç¾¤åœ°å›³
 class PointCloudMapGT : public PointCloudMap
 {
 public:
-  std::vector<LPoint2D> allLps;             // ‘SƒXƒLƒƒƒ““_ŒQ
-  NNGridTable nntab;                        // Šiqƒe[ƒuƒ‹
+  std::vector<LPoint2D> allLps;             // å…¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
+  NNGridTable nntab;                        // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«
 
 public:
   PointCloudMapGT() {
-    allLps.reserve(MAX_POINT_NUM);          // Å‰‚ÉŠm•Û
+    allLps.reserve(MAX_POINT_NUM);          // æœ€åˆã«ç¢ºä¿
   }
 
   ~PointCloudMapGT() {

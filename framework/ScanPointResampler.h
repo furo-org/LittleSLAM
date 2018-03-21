@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,9 +24,9 @@
 class ScanPointResampler
 {
 private:
-  double dthreS;                     // “_‚Ì‹——£ŠÔŠu[m]
-  double dthreL;                     // “_‚Ì‹——£è‡’l[m]B‚±‚ÌŠÔŠu‚ğ’´‚¦‚½‚ç•âŠÔ‚µ‚È‚¢
-  double dis;                        // —İÏ‹——£Bì‹Æ—p
+  double dthreS;                     // ç‚¹ã®è·é›¢é–“éš”[m]
+  double dthreL;                     // ç‚¹ã®è·é›¢é–¾å€¤[m]ã€‚ã“ã®é–“éš”ã‚’è¶…ãˆãŸã‚‰è£œé–“ã—ãªã„
+  double dis;                        // ç´¯ç©è·é›¢ã€‚ä½œæ¥­ç”¨
 
 public:
   ScanPointResampler() : dthreS(0.05), dthreL(0.25), dis(0) {

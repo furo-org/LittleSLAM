@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,33 +16,33 @@
 
 using namespace std;
 
-////////////// ’€ŽŸSLAM—p‚ÌƒZƒ“ƒT—Z‡ ////////////////
+////////////// é€æ¬¡SLAMç”¨ã®ã‚»ãƒ³ã‚µèžåˆ ////////////////
 
-// ’€ŽŸSLAM‚Å‚ÌICP‚ÆƒIƒhƒƒgƒŠ‚Ì„’èˆÚ“®—Ê‚ð—Z‡‚·‚éBdass‚ÉŽQÆƒXƒLƒƒƒ“‚ð“ü‚ê‚Ä‚¨‚­‚±‚ÆBcov‚ÉˆÚ“®—Ê‚Ì‹¤•ªŽUs—ñ‚ª“ü‚éB
+// é€æ¬¡SLAMã§ã®ICPã¨ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®æŽ¨å®šç§»å‹•é‡ã‚’èžåˆã™ã‚‹ã€‚dassã«å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã‚’å…¥ã‚Œã¦ãŠãã“ã¨ã€‚covã«ç§»å‹•é‡ã®å…±åˆ†æ•£è¡Œåˆ—ãŒå…¥ã‚‹ã€‚
 double PoseFuser::fusePose(Scan2D *curScan, const Pose2D &estPose, const Pose2D &odoMotion, const Pose2D &lastPose, Pose2D &fusedPose, Eigen::Matrix3d &fusedCov) {
-  // ICP‚Ì‹¤•ªŽU
-  dass->findCorrespondence(curScan, estPose);                                      // „’èˆÊ’uestPose‚ÅŒ»ÝƒXƒLƒƒƒ““_ŒQ‚ÆŽQÆƒXƒLƒƒƒ““_ŒQ‚Ì‘Î‰ž‚Ã‚¯
-  double ratio = cvc.calIcpCovariance(estPose, dass->curLps, dass->refLps, ecov);  // ‚±‚±‚Å“¾‚ç‚ê‚é‚Ì‚ÍA’n}À•WŒn‚Å‚ÌˆÊ’u‚Ì‹¤•ªŽU
+  // ICPã®å…±åˆ†æ•£
+  dass->findCorrespondence(curScan, estPose);                                      // æŽ¨å®šä½ç½®estPoseã§ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã¨å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã®å¯¾å¿œã¥ã‘
+  double ratio = cvc.calIcpCovariance(estPose, dass->curLps, dass->refLps, ecov);  // ã“ã“ã§å¾—ã‚‰ã‚Œã‚‹ã®ã¯ã€åœ°å›³åº§æ¨™ç³»ã§ã®ä½ç½®ã®å…±åˆ†æ•£
 
-  // ƒIƒhƒƒgƒŠ‚ÌˆÊ’u‚Æ‹¤•ªŽUB‘¬“x‰^“®ƒ‚ƒfƒ‹‚ðŽg‚¤‚ÆA’ZŠúŠÔ‚Å‚Í‹¤•ªŽU‚ª¬‚³‚·‚¬‚é‚½‚ßAŠÈˆÕ”Å‚Å‘å‚«‚ß‚ÉŒvŽZ‚·‚é
-  Pose2D predPose;                                                                 // —\‘ªˆÊ’u
-  Pose2D::calGlobalPose(odoMotion, lastPose, predPose);                            // ’¼‘OˆÊ’ulastPose‚ÉˆÚ“®—Ê‚ð‰Á‚¦‚Ä—\‘ªˆÊ’u‚ðŒvŽZ
+  // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®ä½ç½®ã¨å…±åˆ†æ•£ã€‚é€Ÿåº¦é‹å‹•ãƒ¢ãƒ‡ãƒ«ã‚’ä½¿ã†ã¨ã€çŸ­æœŸé–“ã§ã¯å…±åˆ†æ•£ãŒå°ã•ã™ãŽã‚‹ãŸã‚ã€ç°¡æ˜“ç‰ˆã§å¤§ãã‚ã«è¨ˆç®—ã™ã‚‹
+  Pose2D predPose;                                                                 // äºˆæ¸¬ä½ç½®
+  Pose2D::calGlobalPose(odoMotion, lastPose, predPose);                            // ç›´å‰ä½ç½®lastPoseã«ç§»å‹•é‡ã‚’åŠ ãˆã¦äºˆæ¸¬ä½ç½®ã‚’è¨ˆç®—
   Eigen::Matrix3d mcovL;
   double dT=0.1;
-  cvc.calMotionCovarianceSimple(odoMotion, dT, mcovL);                             // ƒIƒhƒƒgƒŠ‚Å“¾‚½ˆÚ“®—Ê‚Ì‹¤•ªŽUiŠÈˆÕ”Åj
-  CovarianceCalculator::rotateCovariance(estPose, mcovL, mcov);                    // Œ»ÝˆÊ’uestPose‚Å‰ñ“]‚³‚¹‚ÄA’n}À•WŒn‚Å‚Ì‹¤•ªŽUmcov‚ð“¾‚é
+  cvc.calMotionCovarianceSimple(odoMotion, dT, mcovL);                             // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã§å¾—ãŸç§»å‹•é‡ã®å…±åˆ†æ•£ï¼ˆç°¡æ˜“ç‰ˆï¼‰
+  CovarianceCalculator::rotateCovariance(estPose, mcovL, mcov);                    // ç¾åœ¨ä½ç½®estPoseã§å›žè»¢ã•ã›ã¦ã€åœ°å›³åº§æ¨™ç³»ã§ã®å…±åˆ†æ•£mcovã‚’å¾—ã‚‹
 
-  // ecov, mcov, cov‚Æ‚à‚ÉAlastPose‚ðŒ´“_‚Æ‚µ‚½‹ÇŠÀ•WŒn‚Å‚Ì’l
-  Eigen::Vector3d mu1(estPose.tx, estPose.ty, DEG2RAD(estPose.th));                // ICP‚É‚æ‚é„’è’l
-  Eigen::Vector3d mu2(predPose.tx, predPose.ty, DEG2RAD(predPose.th));             // ƒIƒhƒƒgƒŠ‚É‚æ‚é„’è’l
+  // ecov, mcov, covã¨ã‚‚ã«ã€lastPoseã‚’åŽŸç‚¹ã¨ã—ãŸå±€æ‰€åº§æ¨™ç³»ã§ã®å€¤
+  Eigen::Vector3d mu1(estPose.tx, estPose.ty, DEG2RAD(estPose.th));                // ICPã«ã‚ˆã‚‹æŽ¨å®šå€¤
+  Eigen::Vector3d mu2(predPose.tx, predPose.ty, DEG2RAD(predPose.th));             // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹æŽ¨å®šå€¤
   Eigen::Vector3d mu;
-  fuse(mu1, ecov, mu2, mcov, mu, fusedCov);                                        // 2‚Â‚Ì³‹K•ª•z‚Ì—Z‡
+  fuse(mu1, ecov, mu2, mcov, mu, fusedCov);                                        // 2ã¤ã®æ­£è¦åˆ†å¸ƒã®èžåˆ
 
-  fusedPose.setVal(mu[0], mu[1], RAD2DEG(mu[2]));                                  // —Z‡‚µ‚½ˆÚ“®—Ê‚ðŠi”[
+  fusedPose.setVal(mu[0], mu[1], RAD2DEG(mu[2]));                                  // èžåˆã—ãŸç§»å‹•é‡ã‚’æ ¼ç´
 
   totalCov = fusedCov;
 
-  // Šm”F—p
+  // ç¢ºèªç”¨
   printf("fusePose\n");
   double vals[2], vec1[2], vec2[2];
   printf("ecov: det=%g, ", ecov.determinant());
@@ -62,41 +62,41 @@ double PoseFuser::fusePose(Scan2D *curScan, const Pose2D &estPose, const Pose2D 
 void PoseFuser::calOdometryCovariance(const Pose2D &odoMotion, const Pose2D &lastPose, Eigen::Matrix3d &mcov) {
   Eigen::Matrix3d mcovL;
   double dT=0.1;
-  cvc.calMotionCovarianceSimple(odoMotion, dT, mcovL);                             // ƒIƒhƒƒgƒŠ‚Å“¾‚½ˆÚ“®—Ê‚Ì‹¤•ªŽUiŠÈˆÕ”Åj
-  CovarianceCalculator::rotateCovariance(lastPose, mcovL, mcov);                   // ’¼‘OˆÊ’ulastPose‚Å‰ñ“]‚³‚¹‚ÄAˆÊ’u‚Ì‹¤•ªŽUmcov‚ð“¾‚é
+  cvc.calMotionCovarianceSimple(odoMotion, dT, mcovL);                             // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã§å¾—ãŸç§»å‹•é‡ã®å…±åˆ†æ•£ï¼ˆç°¡æ˜“ç‰ˆï¼‰
+  CovarianceCalculator::rotateCovariance(lastPose, mcovL, mcov);                   // ç›´å‰ä½ç½®lastPoseã§å›žè»¢ã•ã›ã¦ã€ä½ç½®ã®å…±åˆ†æ•£mcovã‚’å¾—ã‚‹
 }
 
-/////// ƒKƒEƒX•ª•z‚Ì—Z‡ ///////
+/////// ã‚¬ã‚¦ã‚¹åˆ†å¸ƒã®èžåˆ ///////
 
-// 2‚Â‚Ì³‹K•ª•z‚ð—Z‡‚·‚éBmu‚Í•½‹ÏAcv‚Í‹¤•ªŽUB
+// 2ã¤ã®æ­£è¦åˆ†å¸ƒã‚’èžåˆã™ã‚‹ã€‚muã¯å¹³å‡ã€cvã¯å…±åˆ†æ•£ã€‚
 double PoseFuser::fuse(const Eigen::Vector3d &mu1, const Eigen::Matrix3d &cv1,  const Eigen::Vector3d &mu2, const Eigen::Matrix3d &cv2, Eigen::Vector3d &mu, Eigen::Matrix3d &cv) {
-  // ‹¤•ªŽUs—ñ‚Ì—Z‡
+  // å…±åˆ†æ•£è¡Œåˆ—ã®èžåˆ
   Eigen::Matrix3d IC1 = MyUtil::svdInverse(cv1);
   Eigen::Matrix3d IC2 = MyUtil::svdInverse(cv2);
   Eigen::Matrix3d IC = IC1 + IC2;
   cv = MyUtil::svdInverse(IC);
 
-  // Šp“x‚Ì•â³B—Z‡Žž‚É˜A‘±«‚ð•Û‚Â‚½‚ßB
-  Eigen::Vector3d mu11 = mu1;             // ICP‚Ì•ûŒü‚ðƒIƒhƒƒgƒŠ‚É‡‚¹‚é
+  // è§’åº¦ã®è£œæ­£ã€‚èžåˆæ™‚ã«é€£ç¶šæ€§ã‚’ä¿ã¤ãŸã‚ã€‚
+  Eigen::Vector3d mu11 = mu1;             // ICPã®æ–¹å‘ã‚’ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«åˆã›ã‚‹
   double da = mu2(2) - mu1(2);
   if (da > M_PI) 
     mu11(2) += 2*M_PI;
   else if (da < -M_PI)
     mu11(2) -= 2*M_PI;
 
-  // •½‹Ï‚Ì—Z‡
+  // å¹³å‡ã®èžåˆ
   Eigen::Vector3d nu1 = IC1*mu11;
   Eigen::Vector3d nu2 = IC2*mu2;
   Eigen::Vector3d nu3 = nu1 + nu2;
   mu = cv*nu3;
 
-  // Šp“x‚Ì•â³B(-pi, pi)‚ÉŽû‚ß‚é
+  // è§’åº¦ã®è£œæ­£ã€‚(-pi, pi)ã«åŽã‚ã‚‹
   if (mu(2) > M_PI) 
     mu(2) -= 2*M_PI;
   else if (mu(2) < -M_PI)
     mu(2) += 2*M_PI;
 
-  // ŒW”•”‚ÌŒvŽZ
+  // ä¿‚æ•°éƒ¨ã®è¨ˆç®—
   Eigen::Vector3d W1 = IC1*mu11;
   Eigen::Vector3d W2 = IC2*mu2;
   Eigen::Vector3d W = IC*mu;

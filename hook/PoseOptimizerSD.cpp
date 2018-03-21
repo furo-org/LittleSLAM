@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,51 +18,51 @@ using namespace std;
 
 ////////
 
-// ƒf[ƒ^‘Î‰‚Ã‚¯ŒÅ’è‚Ì‚à‚ÆA‰Šú’linitPose‚ğ—^‚¦‚Äƒƒ{ƒbƒgˆÊ’u‚Ì„’è’lestPose‚ğ‹‚ß‚é
+// ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘å›ºå®šã®ã‚‚ã¨ã€åˆæœŸå€¤initPoseã‚’ä¸ãˆã¦ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®æ¨å®šå€¤estPoseã‚’æ±‚ã‚ã‚‹
 double PoseOptimizerSD::optimizePose(Pose2D &initPose, Pose2D &estPose) {
   double th = initPose.th;
   double tx = initPose.tx;
   double ty = initPose.ty;
-  double txmin=tx, tymin=ty, thmin=th;         // ƒRƒXƒgÅ¬‚Ì‰ğ
-  double evmin = HUGE_VAL;                     // ƒRƒXƒg‚ÌÅ¬’l
-  double evold = evmin;                        // 1‚Â‘O‚ÌƒRƒXƒg’lBû‘©”»’è‚Ég‚¤
+  double txmin=tx, tymin=ty, thmin=th;         // ã‚³ã‚¹ãƒˆæœ€å°ã®è§£
+  double evmin = HUGE_VAL;                     // ã‚³ã‚¹ãƒˆã®æœ€å°å€¤
+  double evold = evmin;                        // 1ã¤å‰ã®ã‚³ã‚¹ãƒˆå€¤ã€‚åæŸåˆ¤å®šã«ä½¿ã†
 
-  double ev = cfunc->calValue(tx, ty, th);     // ƒRƒXƒgŒvZ
-  int nn=0;                                    // ŒJ‚è•Ô‚µ‰ñ”BŠm”F—p
-  double kk=0.00001;                           // Å‹}~‰º–@‚ÌƒXƒeƒbƒv•ŒW”
-  while (abs(evold-ev) > evthre) {             // û‘©”»’èB1‚Â‘O‚Ì’l‚Æ‚Ì•Ï‰»‚ª¬‚³‚¢‚ÆI—¹
+  double ev = cfunc->calValue(tx, ty, th);     // ã‚³ã‚¹ãƒˆè¨ˆç®—
+  int nn=0;                                    // ç¹°ã‚Šè¿”ã—å›æ•°ã€‚ç¢ºèªç”¨
+  double kk=0.00001;                           // æœ€æ€¥é™ä¸‹æ³•ã®ã‚¹ãƒ†ãƒƒãƒ—å¹…ä¿‚æ•°
+  while (abs(evold-ev) > evthre) {             // åæŸåˆ¤å®šã€‚1ã¤å‰ã®å€¤ã¨ã®å¤‰åŒ–ãŒå°ã•ã„ã¨çµ‚äº†
     nn++;
     evold = ev;
 
-    // ”’lŒvZ‚É‚æ‚é•Î”÷•ª
+    // æ•°å€¤è¨ˆç®—ã«ã‚ˆã‚‹åå¾®åˆ†
     double dEtx = (cfunc->calValue(tx+dd, ty, th) - ev)/dd;
     double dEty = (cfunc->calValue(tx, ty+dd, th) - ev)/dd;
     double dEth = (cfunc->calValue(tx, ty, th+da) - ev)/da;
 
-    // ”÷•ªŒW”‚Ékk‚ğ‚©‚¯‚ÄƒXƒeƒbƒv•‚É‚·‚é
+    // å¾®åˆ†ä¿‚æ•°ã«kkã‚’ã‹ã‘ã¦ã‚¹ãƒ†ãƒƒãƒ—å¹…ã«ã™ã‚‹
     double dx = -kk*dEtx;
     double dy = -kk*dEty;
     double dth = -kk*dEth;
-    tx += dx;  ty += dy;  th += dth;            // ƒXƒeƒbƒv•‚ğ‰Á‚¦‚ÄŸ‚Ì’TõˆÊ’u‚ğŒˆ‚ß‚é
+    tx += dx;  ty += dy;  th += dth;            // ã‚¹ãƒ†ãƒƒãƒ—å¹…ã‚’åŠ ãˆã¦æ¬¡ã®æ¢ç´¢ä½ç½®ã‚’æ±ºã‚ã‚‹
 
-    ev = cfunc->calValue(tx, ty, th);           // ‚»‚ÌˆÊ’u‚ÅƒRƒXƒgŒvZ
+    ev = cfunc->calValue(tx, ty, th);           // ãã®ä½ç½®ã§ã‚³ã‚¹ãƒˆè¨ˆç®—
 
-    if (ev < evmin) {                           // ev‚ª‚±‚ê‚Ü‚Å‚ÌÅ¬‚È‚çXV
+    if (ev < evmin) {                           // evãŒã“ã‚Œã¾ã§ã®æœ€å°ãªã‚‰æ›´æ–°
       evmin = ev;
       txmin = tx;  tymin = ty;  thmin = th;
     }
 
-//    printf("nn=%d, ev=%g, evold=%g, abs(evold-ev)=%g\n", nn, ev, evold, abs(evold-ev));         // Šm”F—p
+//    printf("nn=%d, ev=%g, evold=%g, abs(evold-ev)=%g\n", nn, ev, evold, abs(evold-ev));         // ç¢ºèªç”¨
   }
 
   ++allN;
   if (allN > 0 && evmin < 100) 
     sum += evmin;
-//  printf("allN=%d, evmin=%g, avg=%g\n", allN, evmin, (sum/allN));         // Šm”F—p
+//  printf("allN=%d, evmin=%g, avg=%g\n", allN, evmin, (sum/allN));         // ç¢ºèªç”¨
 
-//  printf("nn=%d, ev=%g\n", nn, ev);         // Šm”F—p
+//  printf("nn=%d, ev=%g\n", nn, ev);         // ç¢ºèªç”¨
 
-  estPose.setVal(txmin, tymin, thmin);          // Å¬’l‚ğ—^‚¦‚é‰ğ‚ğ•Û‘¶
+  estPose.setVal(txmin, tymin, thmin);          // æœ€å°å€¤ã‚’ä¸ãˆã‚‹è§£ã‚’ä¿å­˜
 
   return(evmin);
 }

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -27,29 +27,29 @@
 #include "PoseEstimatorICP.h"
 #include "PoseFuser.h"
 
-// ICP‚ğ—p‚¢‚ÄƒXƒLƒƒƒ“ƒ}ƒbƒ`ƒ“ƒO‚ğs‚¤
+// ICPã‚’ç”¨ã„ã¦ã‚¹ã‚­ãƒ£ãƒ³ãƒãƒƒãƒãƒ³ã‚°ã‚’è¡Œã†
 class ScanMatcher2D
 {
 private:
-  int cnt;                                // ˜_—BƒXƒLƒƒƒ“”Ô†‚É‘Î‰
-  Scan2D prevScan;                        // 1‚Â‘O‚ÌƒXƒLƒƒƒ“
-  Pose2D initPose;                        // ’n}‚ÌŒ´“_‚ÌˆÊ’uB’Êí(0,0,0)
+  int cnt;                                // è«–ç†æ™‚åˆ»ã€‚ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã«å¯¾å¿œ
+  Scan2D prevScan;                        // 1ã¤å‰ã®ã‚¹ã‚­ãƒ£ãƒ³
+  Pose2D initPose;                        // åœ°å›³ã®åŸç‚¹ã®ä½ç½®ã€‚é€šå¸¸(0,0,0)
 
-  double scthre;                          // ƒXƒRƒAè‡’lB‚±‚ê‚æ‚è‘å‚«‚¢‚ÆICP¸”s‚Æ‚İ‚È‚·
-  double nthre;                           // g—p“_”è‡’lB‚±‚ê‚æ‚è¬‚³‚¢‚ÆICP¸”s‚Æ‚İ‚È‚·
-  double atd;                             // —İÏ‘–s‹——£BŠm”F—p
-  bool dgcheck;                           // ‘Ş‰»ˆ—‚ğ‚·‚é‚©
+  double scthre;                          // ã‚¹ã‚³ã‚¢é–¾å€¤ã€‚ã“ã‚Œã‚ˆã‚Šå¤§ãã„ã¨ICPå¤±æ•—ã¨ã¿ãªã™
+  double nthre;                           // ä½¿ç”¨ç‚¹æ•°é–¾å€¤ã€‚ã“ã‚Œã‚ˆã‚Šå°ã•ã„ã¨ICPå¤±æ•—ã¨ã¿ãªã™
+  double atd;                             // ç´¯ç©èµ°è¡Œè·é›¢ã€‚ç¢ºèªç”¨
+  bool dgcheck;                           // é€€åŒ–å‡¦ç†ã‚’ã™ã‚‹ã‹
 
-  PoseEstimatorICP *estim;                // ƒƒ{ƒbƒgˆÊ’u„’èŠí
-  PointCloudMap *pcmap;                   // “_ŒQ’n}
-  ScanPointResampler *spres;              // ƒXƒLƒƒƒ““_ŠÔŠu‹Ïˆê‰»
-  ScanPointAnalyser *spana;               // ƒXƒLƒƒƒ““_–@üŒvZ
-  RefScanMaker *rsm;                      // QÆƒXƒLƒƒƒ“¶¬
-  PoseFuser *pfu;                         // ƒZƒ“ƒT—Z‡Ší
-  Eigen::Matrix3d cov;                    // ƒƒ{ƒbƒgˆÚ“®—Ê‚Ì‹¤•ªUs—ñ
-  Eigen::Matrix3d totalCov;               // ƒƒ{ƒbƒgˆÊ’u‚Ì‹¤•ªUs—ñ
+  PoseEstimatorICP *estim;                // ãƒ­ãƒœãƒƒãƒˆä½ç½®æ¨å®šå™¨
+  PointCloudMap *pcmap;                   // ç‚¹ç¾¤åœ°å›³
+  ScanPointResampler *spres;              // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”å‡ä¸€åŒ–
+  ScanPointAnalyser *spana;               // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹æ³•ç·šè¨ˆç®—
+  RefScanMaker *rsm;                      // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç”Ÿæˆ
+  PoseFuser *pfu;                         // ã‚»ãƒ³ã‚µèåˆå™¨
+  Eigen::Matrix3d cov;                    // ãƒ­ãƒœãƒƒãƒˆç§»å‹•é‡ã®å…±åˆ†æ•£è¡Œåˆ—
+  Eigen::Matrix3d totalCov;               // ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®å…±åˆ†æ•£è¡Œåˆ—
 
-  std::vector<PoseCov> poseCovs;          // ƒfƒoƒbƒO—p
+  std::vector<PoseCov> poseCovs;          // ãƒ‡ãƒãƒƒã‚°ç”¨
 
 public:
   ScanMatcher2D() : cnt(-1), scthre(1.0), nthre(50), dgcheck(false), atd(0), pcmap(nullptr), spres(nullptr), spana(nullptr), estim(nullptr), rsm(nullptr), pfu(nullptr) {
@@ -58,7 +58,7 @@ public:
   ~ScanMatcher2D() {
   }
 
-/////// ƒtƒŒ[ƒ€ƒ[ƒN‚Ì‰ü‘¢‰ÓŠ ////////
+/////// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®æ”¹é€ ç®‡æ‰€ ////////
 
   void setPoseEstimator(PoseEstimatorICP *p) {
     estim = p;
@@ -106,7 +106,7 @@ public:
     return(cov);
   }
 
-  // ƒfƒoƒbƒO—p
+  // ãƒ‡ãƒãƒƒã‚°ç”¨
   std::vector<PoseCov> &getPoseCovs() {
     return(poseCovs);
   }

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -44,7 +44,7 @@
 
 class FrameworkCustomizer
 {
-  // ƒtƒŒ[ƒ€ƒ[ƒN‰ü‘¢—p‚Ì•”•i
+  // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯æ”¹é€ ç”¨ã®éƒ¨å“
   RefScanMakerBS rsmBS;
   RefScanMakerLM rsmLM;
   DataAssociatorLS dassLS;
@@ -56,8 +56,8 @@ class FrameworkCustomizer
   PointCloudMapBS pcmapBS;
   PointCloudMapGT pcmapGT;
   PointCloudMapLP pcmapLP;
-  PointCloudMap *pcmap;            // SlamLauncher‚ÅQÆ‚·‚é‚½‚ßƒƒ“ƒo•Ï”‚É‚·‚é
-  LoopDetector lpdDM;              // ƒ_ƒ~[B‰½‚à‚µ‚È‚¢
+  PointCloudMap *pcmap;            // SlamLauncherã§å‚ç…§ã™ã‚‹ãŸã‚ãƒ¡ãƒ³ãƒå¤‰æ•°ã«ã™ã‚‹
+  LoopDetector lpdDM;              // ãƒ€ãƒŸãƒ¼ã€‚ä½•ã‚‚ã—ãªã„
   LoopDetectorSS lpdSS;
   ScanPointResampler spres;
   ScanPointAnalyser spana;
