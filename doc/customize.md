@@ -1,46 +1,46 @@
-## �v���O�����̃J�X�^�}�C�Y
+﻿## プログラムのカスタマイズ
 
-LittleSLAM�́A�傫���A�X�L�����}�b�`���O�A�Z���T�Z���A���[�v�����݂Ƃ���
-�v�f�Z�p����\������Ă��܂��B
-LittleSLAM�́A�w�K�p�v���O�����Ƃ��āA�����̋Z�p�Ɋւ���
-�������̃J�X�^�}�C�Y���ł���悤�ɍ���Ă��܂��B
-���\�ɃJ�X�^�}�C�Y�̃^�C�v�������܂��B
-���ꂼ��̏ڍׂ́A�Q�l����[1]���Q�Ƃ��Ă��������B
+LittleSLAMは、大きく、スキャンマッチング、センサ融合、ループ閉じ込みという
+要素技術から構成されています。
+LittleSLAMは、学習用プログラムとして、これらの技術に関して
+いくつかのカスタマイズができるように作られています。
+下表にカスタマイズのタイプを示します。
+それぞれの詳細は、参考書籍[1]を参照してください。
 
 
-| �^�C�v              | ���e         |
+| タイプ              | 内容         |
 |:--------------------|:-------------|
-| customizeA          | �X�L�����}�b�`���O��{�`  |
-| customizeB          | �X�L�����}�b�`���O���ǌ`1 |
-| customizeC          | �X�L�����}�b�`���O���ǌ`2 |
-| customizeD          | �X�L�����}�b�`���O���ǌ`3 | 
-| customizeE          | �X�L�����}�b�`���O���ǌ`4 |
-| customizeF          | �X�L�����}�b�`���O���ǌ`5 | 
-| customizeG          | �X�L�����}�b�`���O���ǌ`6 | 
-| customizeH          | �Z���T�Z���ɂ��މ��̑Ώ� |
-| customizeI          | ���[�v������ |
+| customizeA          | スキャンマッチング基本形  |
+| customizeB          | スキャンマッチング改良形1 |
+| customizeC          | スキャンマッチング改良形2 |
+| customizeD          | スキャンマッチング改良形3 | 
+| customizeE          | スキャンマッチング改良形4 |
+| customizeF          | スキャンマッチング改良形5 | 
+| customizeG          | スキャンマッチング改良形6 | 
+| customizeH          | センサ融合による退化の対処 |
+| customizeI          | ループ閉じ込み |
 
 
-�J�X�^�}�C�Y�̃^�C�v�́ASlamLauncher.cpp��
-�֐�customizeFramework�̒��ŁA���L�̂悤�Ɏw�肵�܂��B
-�\�̃^�C�v�����̂܂܊֐����ł���A�w�肵�����֐��������āA
-����ȊO�̓R�����g�A�E�g���܂��B  
-�f�t�H���g�́AcustomizeI�ɂȂ��Ă��܂��B
+カスタマイズのタイプは、SlamLauncher.cppの
+関数customizeFrameworkの中で、下記のように指定します。
+表のタイプがそのまま関数名であり、指定したい関数を書いて、
+それ以外はコメントアウトします。  
+デフォルトは、customizeIになっています。
 
 ```C++
 
 void SlamLauncher::customizeFramework() {
   fcustom.setSlamFrontEnd(&sfront);
   fcustom.makeFramework();
-//  fcustom.customizeG();                   // �g��Ȃ��̂ŃR�����g�A�E�g
-  fcustom.customizeI();                     // ���̃J�X�^�}�C�Y���w��
+//  fcustom.customizeG();                   // 使わないのでコメントアウト
+  fcustom.customizeI();                     // このカスタマイズを指定
 
   pcmap = fcustom.getPointCloudMap();
 }
 
 ```  
 
-�܂��A�֐�customizeX�iX=A to I�j�́Acui/FrameworkCustomizer.cpp�Œ�`����Ă��܂��B  
-���[�U���V����customizeX������Ď������Ƃ��\�ł��B
+また、関数customizeX（X=A to I）は、cui/FrameworkCustomizer.cppで定義されています。  
+ユーザが新しいcustomizeXを作って試すことも可能です。
 
 

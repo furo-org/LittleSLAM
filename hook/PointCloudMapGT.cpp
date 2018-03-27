@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,39 +18,39 @@ using namespace std;
 
 ///////////
 
-// ƒƒ{ƒbƒgˆÊ’u‚Ì’Ç‰Á
+// ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®è¿½åŠ 
 void PointCloudMapGT::addPose(const Pose2D &p) {
   poses.emplace_back(p);
 }
 
-// Šiqƒe[ƒuƒ‹‚ÌŠeƒZƒ‹‚Ì‘ã•\“_‚ğ‹‚ß‚Äsps‚ÉŠi”[‚·‚é
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã®å„ã‚»ãƒ«ã®ä»£è¡¨ç‚¹ã‚’æ±‚ã‚ã¦spsã«æ ¼ç´ã™ã‚‹
 void PointCloudMapGT::subsamplePoints(vector<LPoint2D> &sps) {
-  nntab.clear();                            // Šiqƒe[ƒuƒ‹‚Ì‰Šú‰»
+  nntab.clear();                            // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã®åˆæœŸåŒ–
   for (size_t i=0; i<allLps.size(); i++) 
-    nntab.addPoint(&(allLps[i]));           // ‘S“_‚ğŠiqƒe[ƒuƒ‹‚É“o˜^
+    nntab.addPoint(&(allLps[i]));           // å…¨ç‚¹ã‚’æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ç™»éŒ²
 
-  nntab.makeCellPoints(nthre, sps);         // nthre“_ˆÈã‚ ‚éƒZƒ‹‚©‚ç‘ã•\“_‚ğ“¾‚é
+  nntab.makeCellPoints(nthre, sps);         // nthreç‚¹ä»¥ä¸Šã‚ã‚‹ã‚»ãƒ«ã‹ã‚‰ä»£è¡¨ç‚¹ã‚’å¾—ã‚‹
 
-  printf("allLps.size=%lu, sps.size=%lu\n", allLps.size(), sps.size());  // Šm”F—p
+  printf("allLps.size=%lu, sps.size=%lu\n", allLps.size(), sps.size());  // ç¢ºèªç”¨
 }
 
 /////////
 
-// ƒXƒLƒƒƒ““_ŒQ‚ğ’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’è¿½åŠ 
 void PointCloudMapGT::addPoints(const vector<LPoint2D> &lps) {
   for (size_t i=0; i<lps.size(); i++)
     allLps.emplace_back(lps[i]);
 }
 
-// ‘S‘Ì’n}‚Ì¶¬
+// å…¨ä½“åœ°å›³ã®ç”Ÿæˆ
 void PointCloudMapGT::makeGlobalMap(){
   globalMap.clear();
-  subsamplePoints(globalMap);         // Šiqƒe[ƒuƒ‹‚ÌŠeƒZƒ‹‚Ì‘ã•\“_‚©‚ç‘S‘Ì’n}‚ğì‚é
+  subsamplePoints(globalMap);         // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã®å„ã‚»ãƒ«ã®ä»£è¡¨ç‚¹ã‹ã‚‰å…¨ä½“åœ°å›³ã‚’ä½œã‚‹
 
-  printf("GT: globalMap.size=%lu\n", globalMap.size());    // Šm”F—p
+  printf("GT: globalMap.size=%lu\n", globalMap.size());    // ç¢ºèªç”¨
 }
 
-// ‹ÇŠ’n}‚Ì¶¬B‘S‘Ì’n}‚ğ‚»‚Ì‚Ü‚Üg‚¤
+// å±€æ‰€åœ°å›³ã®ç”Ÿæˆã€‚å…¨ä½“åœ°å›³ã‚’ãã®ã¾ã¾ä½¿ã†
 void PointCloudMapGT::makeLocalMap(){
   localMap = globalMap;
   printf("GT: localMap.size=%lu\n", localMap.size());
@@ -58,6 +58,6 @@ void PointCloudMapGT::makeLocalMap(){
 
 ////////
 
-// ƒ_ƒ~[
+// ãƒ€ãƒŸãƒ¼
 void PointCloudMapGT::remakeMaps(const vector<Pose2D> &newPoses) {
 }

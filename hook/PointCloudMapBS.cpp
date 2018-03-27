@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,32 +18,32 @@ using namespace std;
 
 ///////////
 
-// ƒƒ{ƒbƒgˆÊ’u‚Ì’Ç‰Á
+// ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®è¿½åŠ 
 void PointCloudMapBS::addPose(const Pose2D &p) {
   poses.emplace_back(p);
 }
 
-// ƒXƒLƒƒƒ““_ŒQ‚Ì’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã®è¿½åŠ 
 void PointCloudMapBS::addPoints(const vector<LPoint2D> &lps) {
-  int skip=5;                                       // ‚³‚·‚ª‚Éd‚¢‚Ì‚ÅA1/5‚ÉŠÔˆø‚­
-//  int skip=10;                                       // ‚³‚·‚ª‚Éd‚¢‚Ì‚ÅA1/10‚ÉŠÔˆø‚­
+  int skip=5;                                       // ã•ã™ãŒã«é‡ã„ã®ã§ã€1/5ã«é–“å¼•ã
+//  int skip=10;                                       // ã•ã™ãŒã«é‡ã„ã®ã§ã€1/10ã«é–“å¼•ã
   for (size_t i=0; i<lps.size(); i+=skip) {
-    globalMap.emplace_back(lps[i]);                 // ‘S‘Ì’n}‚É’Ç‰Á‚·‚é‚¾‚¯
+    globalMap.emplace_back(lps[i]);                 // å…¨ä½“åœ°å›³ã«è¿½åŠ ã™ã‚‹ã ã‘
   }
 }
 
-// ‘S‘Ì’n}¶¬B‚·‚Å‚É‚Å‚«‚Ä‚¢‚é‚Ì‚Å‰½‚à‚µ‚È‚¢
+// å…¨ä½“åœ°å›³ç”Ÿæˆã€‚ã™ã§ã«ã§ãã¦ã„ã‚‹ã®ã§ä½•ã‚‚ã—ãªã„
 void PointCloudMapBS::makeGlobalMap(){
-  printf("globalMap.size=%lu\n", globalMap.size());   // Šm”F—p
+  printf("globalMap.size=%lu\n", globalMap.size());   // ç¢ºèªç”¨
 }
 
-// ‹ÇŠ’n}¶¬Bƒ_ƒ~[
+// å±€æ‰€åœ°å›³ç”Ÿæˆã€‚ãƒ€ãƒŸãƒ¼
 void PointCloudMapBS::makeLocalMap(){
 //  localMap = globalMap;
 }
 
 ////////
 
-// ƒ_ƒ~[
+// ãƒ€ãƒŸãƒ¼
 void PointCloudMapBS::remakeMaps(const vector<Pose2D> &newPoses) {
 }

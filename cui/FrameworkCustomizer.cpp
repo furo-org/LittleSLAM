@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,12 +16,12 @@
 
 using namespace std;
 
-// ƒtƒŒ[ƒ€ƒ[ƒN‚ÌŠî–{•”•ª‚ğİ’è
+// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã®åŸºæœ¬éƒ¨åˆ†ã‚’è¨­å®š
 void FrameworkCustomizer::makeFramework() {
   smat.setPoseEstimator(&poest);
   smat.setPoseFuser(&pfu);
 
-  // LoopDetectorSS‚Íg‚¤•”•i‚ªŒˆ‚Ü‚Á‚Ä‚¢‚é‚Ì‚ÅA‚±‚±‚Å“ü‚ê‚é
+  // LoopDetectorSSã¯ä½¿ã†éƒ¨å“ãŒæ±ºã¾ã£ã¦ã„ã‚‹ã®ã§ã€ã“ã“ã§å…¥ã‚Œã‚‹
   lpdSS.setPoseEstimator(&poest);
   lpdSS.setPoseFuser(&pfu);
   lpdSS.setDataAssociator(&dassGT);
@@ -31,16 +31,16 @@ void FrameworkCustomizer::makeFramework() {
   sfront->setScanMatcher(&smat);
 }
 
-/////// ÀŒ±—p
+/////// å®Ÿé¨“ç”¨
 
-// ƒtƒŒ[ƒ€ƒ[ƒNŠî–{\¬
+// ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯åŸºæœ¬æ§‹æˆ
 void FrameworkCustomizer::customizeA() {
-  pcmap = &pcmapBS;                                // ‘SƒXƒLƒƒƒ““_‚ğ•Û‘¶‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmBS;                      // ’¼‘OƒXƒLƒƒƒ“‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassLS;                  // üŒ`’Tõ‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncED;                  // ƒ†[ƒNƒŠƒbƒh‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSD;                   // Å‹}~‰º–@‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapBS;                                // å…¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã‚’ä¿å­˜ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmBS;                      // ç›´å‰ã‚¹ã‚­ãƒ£ãƒ³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassLS;                  // ç·šå½¢æ¢ç´¢ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncED;                  // ãƒ¦ãƒ¼ã‚¯ãƒªãƒƒãƒ‰è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSD;                   // æœ€æ€¥é™ä¸‹æ³•ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -50,17 +50,17 @@ void FrameworkCustomizer::customizeA() {
   smat.setRefScanMaker(rsm);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// Šiqƒe[ƒuƒ‹‚Ì—˜—p
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã®åˆ©ç”¨
 void FrameworkCustomizer::customizeB() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassLS;                  // üŒ`’Tõ‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncED;                  // ƒ†[ƒNƒŠƒbƒh‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSD;                   // Å‹}~‰º–@‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassLS;                  // ç·šå½¢æ¢ç´¢ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncED;                  // ãƒ¦ãƒ¼ã‚¯ãƒªãƒƒãƒ‰è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSD;                   // æœ€æ€¥é™ä¸‹æ³•ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -70,17 +70,17 @@ void FrameworkCustomizer::customizeB() {
   smat.setRefScanMaker(rsm);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// Å‹}~‰º–@‚ÌŒã‚É’¼ü’Tõ‚ğs‚¤
+// æœ€æ€¥é™ä¸‹æ³•ã®å¾Œã«ç›´ç·šæ¢ç´¢ã‚’è¡Œã†
 void FrameworkCustomizer::customizeC() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassLS;                  // üŒ`’Tõ‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncED;                  // ƒ†[ƒNƒŠƒbƒh‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassLS;                  // ç·šå½¢æ¢ç´¢ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncED;                  // ãƒ¦ãƒ¼ã‚¯ãƒªãƒƒãƒ‰è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -90,17 +90,17 @@ void FrameworkCustomizer::customizeC() {
   smat.setRefScanMaker(rsm);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// ƒf[ƒ^‘Î‰‚Ã‚¯‚ğŠiqƒe[ƒuƒ‹‚Ås‚¤
+// ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘ã‚’æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§è¡Œã†
 void FrameworkCustomizer::customizeD() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncED;                  // ƒ†[ƒNƒŠƒbƒh‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncED;                  // ãƒ¦ãƒ¼ã‚¯ãƒªãƒƒãƒ‰è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -110,17 +110,17 @@ void FrameworkCustomizer::customizeD() {
   smat.setRefScanMaker(rsm);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// ƒXƒLƒƒƒ““_ŠÔŠu‹Ïˆê‰»‚ğ’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”å‡ä¸€åŒ–ã‚’è¿½åŠ 
 void FrameworkCustomizer::customizeE() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncED;                  // ƒ†[ƒNƒŠƒbƒh‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncED;                  // ãƒ¦ãƒ¼ã‚¯ãƒªãƒƒãƒ‰è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -128,20 +128,20 @@ void FrameworkCustomizer::customizeE() {
   pfu.setDataAssociator(dass);
   smat.setPointCloudMap(pcmap);
   smat.setRefScanMaker(rsm);
-  smat.setScanPointResampler(&spres);              // ƒXƒLƒƒƒ““_ŠÔŠu‹Ïˆê‰»
+  smat.setScanPointResampler(&spres);              // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”å‡ä¸€åŒ–
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// ƒXƒLƒƒƒ““_‚Ì–@üŒvZ‚ğ’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ³•ç·šè¨ˆç®—ã‚’è¿½åŠ 
 void FrameworkCustomizer::customizeF() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncPD;                  // ‚’¼‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncPD;                  // å‚ç›´è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -149,20 +149,20 @@ void FrameworkCustomizer::customizeF() {
   pfu.setDataAssociator(dass);
   smat.setPointCloudMap(pcmap);
   smat.setRefScanMaker(rsm);
-  smat.setScanPointAnalyser(&spana);               // ƒXƒLƒƒƒ““_‚Ì–@üŒvZ
+  smat.setScanPointAnalyser(&spana);               // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ³•ç·šè¨ˆç®—
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// ƒXƒLƒƒƒ““_ŠÔŠu‹Ïˆê‰»‚Æ–@üŒvZ‚ğ’Ç‰Á
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”å‡ä¸€åŒ–ã¨æ³•ç·šè¨ˆç®—ã‚’è¿½åŠ 
 void FrameworkCustomizer::customizeG() {
-  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncPD;                  // ‚’¼‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncPD;                  // å‚ç›´è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -170,22 +170,22 @@ void FrameworkCustomizer::customizeG() {
   pfu.setDataAssociator(dass);
   smat.setPointCloudMap(pcmap);
   smat.setRefScanMaker(rsm);
-  smat.setScanPointResampler(&spres);              // ƒXƒLƒƒƒ““_ŠÔŠu‹Ïˆê‰»
-  smat.setScanPointAnalyser(&spana);               // ƒXƒLƒƒƒ““_‚Ì–@üŒvZ
+  smat.setScanPointResampler(&spres);              // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”å‡ä¸€åŒ–
+  smat.setScanPointAnalyser(&spana);               // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ³•ç·šè¨ˆç®—
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(false);                       // ƒZƒ“ƒT—Z‡‚µ‚È‚¢
+  sfront->setDgCheck(false);                       // ã‚»ãƒ³ã‚µèåˆã—ãªã„
 }
 
-// ƒZƒ“ƒT—Z‡‚ğ’Ç‰Á
+// ã‚»ãƒ³ã‚µèåˆã‚’è¿½åŠ 
 void FrameworkCustomizer::customizeH() {
-//  pcmap = &pcmapGT;                                // Šiqƒe[ƒuƒ‹‚ÅŠÇ—‚·‚é“_ŒQ’n}
-  pcmap = &pcmapLP;                                // •”•ª’n}‚²‚Æ‚ÉŠÇ—‚·‚é“_ŒQ’n}BcI‚Æ‚Ì”äŠr—p
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncPD;                  // ‚’¼‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdDM;                      // ƒ_ƒ~[‚Ìƒ‹[ƒvŒŸo
+//  pcmap = &pcmapGT;                                // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã§ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  pcmap = &pcmapLP;                                // éƒ¨åˆ†åœ°å›³ã”ã¨ã«ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³ã€‚cIã¨ã®æ¯”è¼ƒç”¨
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncPD;                  // å‚ç›´è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdDM;                      // ãƒ€ãƒŸãƒ¼ã®ãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -197,17 +197,17 @@ void FrameworkCustomizer::customizeH() {
   smat.setScanPointAnalyser(&spana);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(true);                        // ƒZƒ“ƒT—Z‡‚·‚é
+  sfront->setDgCheck(true);                        // ã‚»ãƒ³ã‚µèåˆã™ã‚‹
 }
 
-// ƒZƒ“ƒT—Z‡‚Æƒ‹[ƒv•Â‚¶‚İ‚ğ’Ç‰Á
+// ã‚»ãƒ³ã‚µèåˆã¨ãƒ«ãƒ¼ãƒ—é–‰ã˜è¾¼ã¿ã‚’è¿½åŠ 
 void FrameworkCustomizer::customizeI() {
-  pcmap = &pcmapLP;                                // •”•ª’n}‚²‚Æ‚ÉŠÇ—‚·‚é“_ŒQ’n}
-  RefScanMaker *rsm = &rsmLM;                      // ‹ÇŠ’n}‚ğQÆƒXƒLƒƒƒ“‚Æ‚·‚é
-  DataAssociator *dass = &dassGT;                  // Šiqƒe[ƒuƒ‹‚É‚æ‚éƒf[ƒ^‘Î‰‚Ã‚¯
-  CostFunction *cfunc = &cfuncPD;                  // ‚’¼‹——£‚ğƒRƒXƒgŠÖ”‚Æ‚·‚é
-  PoseOptimizer *popt = &poptSL;                   // Å‹}~‰º–@‚Æ’¼ü’Tõ‚É‚æ‚éÅ“K‰»
-  LoopDetector *lpd = &lpdSS;                      // •”•ª’n}‚ğ—p‚¢‚½ƒ‹[ƒvŒŸo
+  pcmap = &pcmapLP;                                // éƒ¨åˆ†åœ°å›³ã”ã¨ã«ç®¡ç†ã™ã‚‹ç‚¹ç¾¤åœ°å›³
+  RefScanMaker *rsm = &rsmLM;                      // å±€æ‰€åœ°å›³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã¨ã™ã‚‹
+  DataAssociator *dass = &dassGT;                  // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿å¯¾å¿œã¥ã‘
+  CostFunction *cfunc = &cfuncPD;                  // å‚ç›´è·é›¢ã‚’ã‚³ã‚¹ãƒˆé–¢æ•°ã¨ã™ã‚‹
+  PoseOptimizer *popt = &poptSL;                   // æœ€æ€¥é™ä¸‹æ³•ã¨ç›´ç·šæ¢ç´¢ã«ã‚ˆã‚‹æœ€é©åŒ–
+  LoopDetector *lpd = &lpdSS;                      // éƒ¨åˆ†åœ°å›³ã‚’ç”¨ã„ãŸãƒ«ãƒ¼ãƒ—æ¤œå‡º
 
   popt->setCostFunction(cfunc);
   poest.setDataAssociator(dass);
@@ -219,5 +219,5 @@ void FrameworkCustomizer::customizeI() {
   smat.setScanPointAnalyser(&spana);
   sfront->setLoopDetector(lpd);
   sfront->setPointCloudMap(pcmap);
-  sfront->setDgCheck(true);                        // ƒZƒ“ƒT—Z‡‚·‚é
+  sfront->setDgCheck(true);                        // ã‚»ãƒ³ã‚µèåˆã™ã‚‹
 }

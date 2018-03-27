@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,64 +16,64 @@
 
 using namespace std;
 
-// ƒtƒ@ƒCƒ‹‚©‚çƒXƒLƒƒƒ“‚ğ1ŒÂ“Ç‚Ş
+// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚¹ã‚­ãƒ£ãƒ³ã‚’1å€‹èª­ã‚€
 bool SensorDataReader::loadScan(size_t cnt, Scan2D &scan) {
   bool isScan=false;
-  while (!inFile.eof() && !isScan) {     // ƒXƒLƒƒƒ“‚ğ“Ç‚Ş‚Ü‚Å‘±‚¯‚é
+  while (!inFile.eof() && !isScan) {     // ã‚¹ã‚­ãƒ£ãƒ³ã‚’èª­ã‚€ã¾ã§ç¶šã‘ã‚‹
     isScan = loadLaserScan(cnt, scan);
   }
 
   if (isScan) 
-    return(false);                       // ‚Ü‚¾ƒtƒ@ƒCƒ‹‚ª‘±‚­‚Æ‚¢‚¤ˆÓ–¡
+    return(false);                       // ã¾ã ãƒ•ã‚¡ã‚¤ãƒ«ãŒç¶šãã¨ã„ã†æ„å‘³
   else
-    return(true);                        // ƒtƒ@ƒCƒ‹‚ªI‚í‚Á‚½‚Æ‚¢‚¤ˆÓ–¡
+    return(true);                        // ãƒ•ã‚¡ã‚¤ãƒ«ãŒçµ‚ã‚ã£ãŸã¨ã„ã†æ„å‘³
 }
 
 //////////////
 
-// ƒtƒ@ƒCƒ‹‚©‚ç€–Ú1ŒÂ‚ğ“Ç‚ŞB“Ç‚ñ‚¾€–Ú‚ªƒXƒLƒƒƒ“‚È‚çtrue‚ğ•Ô‚·B
+// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰é …ç›®1å€‹ã‚’èª­ã‚€ã€‚èª­ã‚“ã é …ç›®ãŒã‚¹ã‚­ãƒ£ãƒ³ãªã‚‰trueã‚’è¿”ã™ã€‚
 bool SensorDataReader::loadLaserScan(size_t cnt, Scan2D &scan) {
-  string type;                           // ƒtƒ@ƒCƒ‹“à‚Ì€–Úƒ‰ƒxƒ‹
+  string type;                           // ãƒ•ã‚¡ã‚¤ãƒ«å†…ã®é …ç›®ãƒ©ãƒ™ãƒ«
   inFile >> type;
-  if (type == "LASERSCAN") {             // ƒXƒLƒƒƒ“‚Ìê‡
+  if (type == "LASERSCAN") {             // ã‚¹ã‚­ãƒ£ãƒ³ã®å ´åˆ
     scan.setSid(cnt);
 
     int sid, sec, nsec;
-    inFile >> sid >> sec >> nsec;        // ‚±‚ê‚ç‚Íg‚í‚È‚¢
+    inFile >> sid >> sec >> nsec;        // ã“ã‚Œã‚‰ã¯ä½¿ã‚ãªã„
 
     vector<LPoint2D> lps;
-    int pnum;                            // ƒXƒLƒƒƒ““_”
+    int pnum;                            // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹æ•°
     inFile >> pnum;
     lps.reserve(pnum);
     for (int i=0; i<pnum; i++) {
       float angle, range;
-      inFile >> angle >> range;          // ƒXƒLƒƒƒ““_‚Ì•ûˆÊ‚Æ‹——£
-      angle += angleOffset;              // ƒŒ[ƒUƒXƒLƒƒƒi‚Ì•ûŒüƒIƒtƒZƒbƒg‚ğl—¶
+      inFile >> angle >> range;          // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ–¹ä½ã¨è·é›¢
+      angle += angleOffset;              // ãƒ¬ãƒ¼ã‚¶ã‚¹ã‚­ãƒ£ãƒŠã®æ–¹å‘ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è€ƒæ…®
       if (range <= Scan2D::MIN_SCAN_RANGE || range >= Scan2D::MAX_SCAN_RANGE) {
-//      if (range <= Scan2D::MIN_SCAN_RANGE || range >= 3.5) {         // ‚í‚´‚Æ‘Ş‰»‚ğ‹N‚±‚µ‚â‚·‚­
+//      if (range <= Scan2D::MIN_SCAN_RANGE || range >= 3.5) {         // ã‚ã–ã¨é€€åŒ–ã‚’èµ·ã“ã—ã‚„ã™ã
         continue;
       }
 
       LPoint2D lp;
-      lp.setSid(cnt);                    // ƒXƒLƒƒƒ“”Ô†‚Ícnti’Ê‚µ”Ô†j‚É‚·‚é
-      lp.calXY(range, angle);            // angle,range‚©‚ç“_‚ÌˆÊ’uxy‚ğŒvZ
+      lp.setSid(cnt);                    // ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã¯cntï¼ˆé€šã—ç•ªå·ï¼‰ã«ã™ã‚‹
+      lp.calXY(range, angle);            // angle,rangeã‹ã‚‰ç‚¹ã®ä½ç½®xyã‚’è¨ˆç®—
       lps.emplace_back(lp);
     }
     scan.setLps(lps);
 
-    // ƒXƒLƒƒƒ“‚É‘Î‰‚·‚éƒIƒhƒƒgƒŠî•ñ
+    // ã‚¹ã‚­ãƒ£ãƒ³ã«å¯¾å¿œã™ã‚‹ã‚ªãƒ‰ãƒ¡ãƒˆãƒªæƒ…å ±
     Pose2D &pose = scan.pose;
     inFile >> pose.tx >> pose.ty;
     double th;
     inFile >> th;
-    pose.setAngle(RAD2DEG(th));          // ƒIƒhƒƒgƒŠŠp“x‚Íƒ‰ƒWƒAƒ“‚È‚Ì‚Å“x‚É‚·‚é
+    pose.setAngle(RAD2DEG(th));          // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªè§’åº¦ã¯ãƒ©ã‚¸ã‚¢ãƒ³ãªã®ã§åº¦ã«ã™ã‚‹
     pose.calRmat();
 
     return(true);
   }
-  else {                                 // ƒXƒLƒƒƒ“ˆÈŠO‚Ìê‡
+  else {                                 // ã‚¹ã‚­ãƒ£ãƒ³ä»¥å¤–ã®å ´åˆ
     string line;
-    getline(inFile, line);               // “Ç‚İ”ò‚Î‚·
+    getline(inFile, line);               // èª­ã¿é£›ã°ã™
 
     return(false);
   }

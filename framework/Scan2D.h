@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -22,15 +22,15 @@
 
 //////////
 
-// ƒXƒLƒƒƒ“
+// ã‚¹ã‚­ãƒ£ãƒ³
 struct Scan2D
 {
-  static double MAX_SCAN_RANGE;              // ƒXƒLƒƒƒ““_‚Ì‹——£’lãŒÀ[m]
-  static double MIN_SCAN_RANGE;              // ƒXƒLƒƒƒ““_‚Ì‹——£’l‰ºŒÀ[m]
+  static double MAX_SCAN_RANGE;              // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®è·é›¢å€¤ä¸Šé™[m]
+  static double MIN_SCAN_RANGE;              // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®è·é›¢å€¤ä¸‹é™[m]
 
-  int sid;                                   // ƒXƒLƒƒƒ“id
-  Pose2D pose;                               // ƒXƒLƒƒƒ“æ“¾‚ÌƒIƒhƒƒgƒŠ’l
-  std::vector<LPoint2D> lps;                 // ƒXƒLƒƒƒ““_ŒQ
+  int sid;                                   // ã‚¹ã‚­ãƒ£ãƒ³id
+  Pose2D pose;                               // ã‚¹ã‚­ãƒ£ãƒ³å–å¾—æ™‚ã®ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå€¤
+  std::vector<LPoint2D> lps;                 // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
 
   Scan2D() : sid(0) {
   }

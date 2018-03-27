@@ -1,4 +1,4 @@
-/****************************************************************************
+п»ї/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -19,30 +19,30 @@ using namespace std;
 
 //////////////
 
-// Џ‰Љъ’linitPose‚р—^‚¦‚ДЃAICP‚Й‚ж‚иѓЌѓ{ѓbѓg€К’u‚Мђ„’и’lestPose‚р‹Ѓ‚Я‚й
+// е€ќжњџеЂ¤initPoseг‚’дёЋгЃ€гЃ¦гЂЃICPгЃ«г‚€г‚Љгѓ­гѓњгѓѓгѓ€дЅЌзЅ®гЃ®жЋЁе®љеЂ¤estPoseг‚’ж±‚г‚Ѓг‚‹
 double PoseEstimatorICP::estimatePose(Pose2D &initPose, Pose2D &estPose){
   boost::timer tim;
 
-  double evmin = HUGE_VAL;             // ѓRѓXѓgЌЕЏ¬’lЃBЏ‰Љъ’l‚Н‘е‚«‚­
-  double evthre = 0.000001;            // ѓRѓXѓg•П‰»и‡’lЃB•П‰»—К‚Є‚±‚к€И‰є‚И‚зЊJ‚и•Ф‚µЏI—№
-//  double evthre = 0.00000001;            // ѓRѓXѓg•П‰»и‡’lЃB•П‰»—К‚Є‚±‚к€И‰є‚И‚зЊJ‚и•Ф‚µЏI—№
+  double evmin = HUGE_VAL;             // г‚іг‚№гѓ€жњЂе°ЏеЂ¤гЂ‚е€ќжњџеЂ¤гЃЇе¤§гЃЌгЃЏ
+  double evthre = 0.000001;            // г‚іг‚№гѓ€е¤‰еЊ–й–ѕеЂ¤гЂ‚е¤‰еЊ–й‡ЏгЃЊгЃ“г‚Њд»Ґдё‹гЃЄг‚‰з№°г‚Љиї”гЃ—зµ‚дє†
+//  double evthre = 0.00000001;            // г‚іг‚№гѓ€е¤‰еЊ–й–ѕеЂ¤гЂ‚е¤‰еЊ–й‡ЏгЃЊгЃ“г‚Њд»Ґдё‹гЃЄг‚‰з№°г‚Љиї”гЃ—зµ‚дє†
   popt->setEvthre(evthre);
-  popt->setEvlimit(0.2);               // evlimit‚НЉO‚к’l‚Ми‡’l[m]
+  popt->setEvlimit(0.2);               // evlimitгЃЇе¤–г‚ЊеЂ¤гЃ®й–ѕеЂ¤[m]
 
-  double ev = 0;                       // ѓRѓXѓg
-  double evold = evmin;                // 1‚В‘O‚М’lЃBЋы‘©”»’и‚М‚Ѕ‚Я‚ЙЋg‚¤ЃB
+  double ev = 0;                       // г‚іг‚№гѓ€
+  double evold = evmin;                // 1гЃ¤е‰ЌгЃ®еЂ¤гЂ‚еЏЋжќџе€¤е®љгЃ®гЃџг‚ЃгЃ«дЅїгЃ†гЂ‚
   Pose2D pose = initPose;
   Pose2D poseMin = initPose;
-  for (int i=0; abs(evold-ev) > evthre && i<100; i++) {           // i<100‚НђU“®‘ОЌф
+  for (int i=0; abs(evold-ev) > evthre && i<100; i++) {           // i<100гЃЇжЊЇе‹•еЇѕз­–
     if (i > 0)
       evold = ev;
-    double mratio = dass->findCorrespondence(curScan, pose);      // ѓfЃ[ѓ^‘О‰ћ‚Г‚Ї
+    double mratio = dass->findCorrespondence(curScan, pose);      // гѓ‡гѓјг‚їеЇѕеїњгЃҐгЃ‘
     Pose2D newPose;
-    popt->setPoints(dass->curLps, dass->refLps);                  // ‘О‰ћЊ‹‰К‚р“n‚·
-    ev = popt->optimizePose(pose, newPose);                       // ‚»‚М‘О‰ћ‚Г‚Ї‚Й‚Ё‚ў‚ДѓЌѓ{ѓbѓg€К’u‚МЌЕ“K‰»
+    popt->setPoints(dass->curLps, dass->refLps);                  // еЇѕеїњзµђжћњг‚’жёЎгЃ™
+    ev = popt->optimizePose(pose, newPose);                       // гЃќгЃ®еЇѕеїњгЃҐгЃ‘гЃ«гЃЉгЃ„гЃ¦гѓ­гѓњгѓѓгѓ€дЅЌзЅ®гЃ®жњЂйЃ©еЊ–
     pose = newPose;
 
-    if (ev < evmin) {                                             // ѓRѓXѓgЌЕЏ¬Њ‹‰К‚р•Ы‘¶
+    if (ev < evmin) {                                             // г‚іг‚№гѓ€жњЂе°Џзµђжћњг‚’дїќе­
       poseMin = newPose;
       evmin = ev;
     }
@@ -58,15 +58,15 @@ double PoseEstimatorICP::estimatePose(Pose2D &initPose, Pose2D &estPose){
   estPose = poseMin;
 
   printf("finalError=%g, pnrate=%g\n", evmin, pnrate);
-  printf("estPose:  tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);      // Љm”F—p
+  printf("estPose:  tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);      // зўєиЄЌз”Ё
 
   double t1 = 1000*tim.elapsed();
-  printf("PoseEstimatorICP: t1=%g\n", t1);                 // Џ€—ќЋћЉФ
+  printf("PoseEstimatorICP: t1=%g\n", t1);                 // е‡¦зђ†ж™‚й–“
 
   if (evmin < HUGE_VAL)
-    totalError += evmin;                                   // ЊлЌ·Ќ‡Њv
-  totalTime += t1;                                         // Џ€—ќЋћЉФЌ‡Њv
-  printf("totalError=%g, totalTime=%g\n", totalError, totalTime);    // Љm”F—p
+    totalError += evmin;                                   // иЄ¤е·®еђ€иЁ€
+  totalTime += t1;                                         // е‡¦зђ†ж™‚й–“еђ€иЁ€
+  printf("totalError=%g, totalTime=%g\n", totalError, totalTime);    // зўєиЄЌз”Ё
 
   return(evmin);
 }

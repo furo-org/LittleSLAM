@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,11 +18,11 @@
 #include "DataAssociator.h"
 #include "NNGridTable.h"
 
-// Šiqƒe[ƒuƒ‹‚ğ—p‚¢‚ÄAŒ»İƒXƒLƒƒƒ“‚ÆQÆƒXƒLƒƒƒ“ŠÔ‚Ì“_‚Ì‘Î‰‚Ã‚¯‚ğs‚¤
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ç”¨ã„ã¦ã€ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã¨å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³é–“ã®ç‚¹ã®å¯¾å¿œã¥ã‘ã‚’è¡Œã†
 class DataAssociatorGT : public DataAssociator
 {
 private:
-  NNGridTable nntab;                        // Šiqƒe[ƒuƒ‹
+  NNGridTable nntab;                        // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«
   
 public:
   DataAssociatorGT() {
@@ -31,11 +31,11 @@ public:
   ~DataAssociatorGT() {
   }
   
-  // QÆƒXƒLƒƒƒ“‚Ì“_rlps‚ğƒ|ƒCƒ“ƒ^‚É‚µ‚Änntab‚É“ü‚ê‚é
+  // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹rlpsã‚’ãƒã‚¤ãƒ³ã‚¿ã«ã—ã¦nntabã«å…¥ã‚Œã‚‹
   virtual void setRefBase(const std::vector<LPoint2D> &rlps) {
     nntab.clear();
     for (size_t i=0; i<rlps.size(); i++) 
-      nntab.addPoint(&rlps[i]);              // ƒ|ƒCƒ“ƒ^‚É‚µ‚ÄŠi”[
+      nntab.addPoint(&rlps[i]);              // ãƒã‚¤ãƒ³ã‚¿ã«ã—ã¦æ ¼ç´
   }
 
 /////////

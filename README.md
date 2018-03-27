@@ -1,24 +1,24 @@
-# LittleSLAM
+﻿# LittleSLAM
 
-## LittleSLAM�ɂ���
+## LittleSLAMについて
 
-LittleSLAM�́ASLAM�w�K�p�v���O�����ł��B
-2D���[�U�X�L���i�̃f�[�^�i�X�L�����j�ƃI�h���g���f�[�^���i�[�����t�@�C������͂��A
-���{�b�g�ʒu�̋O�Ղ�2D�_�Q�n�}��gnuplot��ɏo�͂��܂��B
+LittleSLAMは、SLAM学習用プログラムです。
+2Dレーザスキャナのデータ（スキャン）とオドメトリデータを格納したファイルを入力し、
+ロボット位置の軌跡と2D点群地図をgnuplot上に出力します。
 
-LittleSLAM�́A�X�L�����}�b�`���O�Ɋ�Â��ʒu�����A���[�U�X�L���i�ƃI�h���g���̃Z���T�Z���A
-Graph-based SLAM�Ɋ�Â����[�v�����݂Ȃǂ̗v�f�Z�p����\������Ă��܂��B
+LittleSLAMは、スキャンマッチングに基づく位置合せ、レーザスキャナとオドメトリのセンサ融合、
+Graph-based SLAMに基づくループ閉じ込みなどの要素技術から構成されています。
 
-LittleSLAM�͎Q�l����[1]�̋��ނƂ��č��ꂽ�v���O�����ł���A
-�킩��₷����D�悵�ăV���v���ȃA���S���Y�����̗p���Ă��܂��B
-���̂��߁A�t���X�y�b�N��SLAM�v���O�����Ɣ�ׂ�Ɛ��\�͗����܂����A
-���e�̗����͂��₷���Ȃ��Ă��܂��B
+LittleSLAMは参考書籍[1]の教材として作られたプログラムであり、
+わかりやすさを優先してシンプルなアルゴリズムを採用しています。
+そのため、フルスペックのSLAMプログラムと比べると性能は落ちますが、
+内容の理解はしやすくなっています。
 
 
-## ���s��
+## 実行環境
 
-LittleSLAM�̓v���O���~���O����C++�ŋL�q����Ă��܂��B
-������m�F�������s���͉��L�̂��̂ł��B�������64�r�b�g�łł��B
+LittleSLAMはプログラミング言語C++で記述されています。
+動作を確認した実行環境は下記のものです。いずれも64ビット版です。
 
 | OS | C++ |
 |:--:|:---:|
@@ -27,60 +27,60 @@ LittleSLAM�̓v���O���~���O����C++�ŋL�q����Ă��܂��B
 | Linux Ubuntu 14.04 LTS | gcc 4.8.4|
 | Linux Ubuntu 16.04 LTS | gcc 5.4.0|
 
-32�r�b�gOS�ł̓���m�F�͂��Ă��Ȃ��̂ŁA�K�v�ȏꍇ�͂������Ŏ����Ă��������B
+32ビットOSでの動作確認はしていないので、必要な場合はご自分で試してください。
 
 
-## �K�v�ȃ\�t�g�E�F�A
+## 必要なソフトウェア
 
-LittleSLAM�̎��s�ɂ́A���L�̃\�t�g�E�F�A���K�v�ł��B
+LittleSLAMの実行には、下記のソフトウェアが必要です。
 
-| �\�t�g�E�F�A | ���e | �o�[�W���� |
+| ソフトウェア | 内容 | バージョン |
 |:------------:|:----:|:----------:|
-| Boost        | C++�ėp���C�u���� |1.58.0 |
-| Eigen3       | ���`�㐔���C�u����|3.2.4 |
-| gnuplot      | �O���t�`��c�[��  |5.0 |
-| CMake        | �r���h�x���c�[��  |3.2.2 |
-| p2o          | Graph-based SLAM�\���o|beta |
+| Boost        | C++汎用ライブラリ |1.58.0 |
+| Eigen3       | 線形代数ライブラリ|3.2.4 |
+| gnuplot      | グラフ描画ツール  |5.0 |
+| CMake        | ビルド支援ツール  |3.2.2 |
+| p2o          | Graph-based SLAMソルバ|beta |
 
-�o�[�W������LittleSLAM�̊J���Ŏg�p�������̂ł���A���m�ȏ����ł͂���܂���B
-����ȏ�̃o�[�W�����ł���Βʏ�͓��삵�܂��B
-����ȉ��̃o�[�W�����ł����삷��\���͂���܂��B
+バージョンはLittleSLAMの開発で使用したものであり、明確な条件ではありません。
+これ以上のバージョンであれば通常は動作します。
+これ以下のバージョンでも動作する可能性はあります。
 
-## �g����
+## 使い方
 
-- Windows�ł̎g������[������](doc/install-win.md)
+- Windowsでの使い方は[こちら](doc/install-win.md)
 
-- Linux�ł̎g������[������](doc/install-linux.md)
+- Linuxでの使い方は[こちら](doc/install-linux.md)
 
-## �f�[�^�Z�b�g
+## データセット
 
-�����p��6�̃f�[�^�t�@�C����p�ӂ��Ă��܂��B���\�Ɉꗗ�������܂��B
-[����](https://furo.org/software/little_slam/dataset.zip)����_�E�����[�h�ł��܂��B
+実験用に6個のデータファイルを用意しています。下表に一覧を示します。
+[ここ](https://furo.org/software/little_slam/dataset.zip)からダウンロードできます。
 
 
-| �t�@�C����          | ���e         |
+| ファイル名          | 内容         |
 |:--------------------|:-------------|
-| corridor.lsc        | �L���i�P�ꃋ�[�v�j |
-| hall.lsc            | �L�ԁi�P�ꃋ�[�v�j |
-| corridor-degene.lsc | �L���i�މ��j |
-| hall-degene.lsc     | �L�ԁi�މ��j |
-| corridor-loops.lsc  | �L���i���d���[�v�j |
-| hall-loops.lsc      | �L�ԁi���d���[�v�j |
+| corridor.lsc        | 廊下（単一ループ） |
+| hall.lsc            | 広間（単一ループ） |
+| corridor-degene.lsc | 廊下（退化） |
+| hall-degene.lsc     | 広間（退化） |
+| corridor-loops.lsc  | 廊下（多重ループ） |
+| hall-loops.lsc      | 広間（多重ループ） |
 
-## �J�X�^�}�C�Y
+## カスタマイズ
 
-LittleSLAM�͊w�K�p�v���O�����ł���A��{�`���炢�����̉��ǂ��o��
-��������悤�ɃJ�X�^�}�C�Y�ł��܂��B  
-�ڍׂ�[������](doc/customize.md)���Q�Ƃ��Ă��������B
+LittleSLAMは学習用プログラムであり、基本形からいくつかの改良を経て
+完成するようにカスタマイズできます。  
+詳細は[こちら](doc/customize.md)を参照してください。
 
-## �Q�l����
+## 参考書籍
 
-���L�̏��Ђ�SLAM�̉�����ł��BSLAM�̈�ʓI�ȉ��������ƂƂ��ɁA
-��̗�Ƃ���LittleSLAM�����ނɗp���A���̃\�[�X�R�[�h�̏ڍׂ�������Ă��܂��B
+下記の書籍はSLAMの解説書です。SLAMの一般的な解説をするとともに、
+具体例としてLittleSLAMを教材に用い、そのソースコードの詳細を説明しています。
 
-[1] �F�[���T�A�uSLAM���� -- ���{�b�g�̎��Ȉʒu����ƒn�}�\�z�̋Z�p�v�A�I�[���ЁA2018�N  
+[1] 友納正裕、「SLAM入門 -- ロボットの自己位置推定と地図構築の技術」、オーム社、2018年  
 
-## ���C�Z���X
+## ライセンス
 
-- LittleSLAM�́AMPL-2.0���C�Z���X�ɂ��ƂÂ��Ă��܂��B
+- LittleSLAMは、MPL-2.0ライセンスにもとづいています。
 

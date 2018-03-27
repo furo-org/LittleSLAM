@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -20,14 +20,14 @@
 
 ///////////
 
-// •”•ª’n}
+// éƒ¨åˆ†åœ°å›³
 struct Submap
 {
-  double atdS;                              // •”•ª’n}‚Ìn“_‚Å‚Ì—İÏ‘–s‹——£
-  size_t cntS;                              // •”•ª’n}‚ÌÅ‰‚ÌƒXƒLƒƒƒ“”Ô†
-  size_t cntE;                              // •”•ª’n}‚ÌÅŒã‚ÌƒXƒLƒƒƒ“”Ô†
+  double atdS;                              // éƒ¨åˆ†åœ°å›³ã®å§‹ç‚¹ã§ã®ç´¯ç©èµ°è¡Œè·é›¢
+  size_t cntS;                              // éƒ¨åˆ†åœ°å›³ã®æœ€åˆã®ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
+  size_t cntE;                              // éƒ¨åˆ†åœ°å›³ã®æœ€å¾Œã®ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
 
-  std::vector<LPoint2D> mps;                // •”•ª’n}“à‚ÌƒXƒLƒƒƒ““_ŒQ
+  std::vector<LPoint2D> mps;                // éƒ¨åˆ†åœ°å›³å†…ã®ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
 
   Submap() : atdS(0), cntS(0), cntE(-1) {
   }
@@ -47,18 +47,18 @@ struct Submap
 
 ///////////
 
-// •”•ª’n}‚©‚ç\¬‚³‚ê‚é“_ŒQ’n}
+// éƒ¨åˆ†åœ°å›³ã‹ã‚‰æ§‹æˆã•ã‚Œã‚‹ç‚¹ç¾¤åœ°å›³
 class PointCloudMapLP : public PointCloudMap
 {
 public:
-  static double atdThre;                    // •”•ª’n}‚Ì‹æØ‚è‚Æ‚È‚é—İÏ‘–s‹——£(atd)[m]
-  double atd;                               // Œ»İ‚Ì—İÏ‘–s‹——£(accumulated travel distance)
-  std::vector<Submap> submaps;              // •”•ª’n}
+  static double atdThre;                    // éƒ¨åˆ†åœ°å›³ã®åŒºåˆ‡ã‚Šã¨ãªã‚‹ç´¯ç©èµ°è¡Œè·é›¢(atd)[m]
+  double atd;                               // ç¾åœ¨ã®ç´¯ç©èµ°è¡Œè·é›¢(accumulated travel distance)
+  std::vector<Submap> submaps;              // éƒ¨åˆ†åœ°å›³
 
 public:
   PointCloudMapLP() {
     Submap submap;
-    submaps.emplace_back(submap);           // Å‰‚Ì•”•ª’n}‚ğì‚Á‚Ä‚¨‚­
+    submaps.emplace_back(submap);           // æœ€åˆã®éƒ¨åˆ†åœ°å›³ã‚’ä½œã£ã¦ãŠã
   }
 
   ~PointCloudMapLP() {
