@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,61 +16,61 @@
 
 using namespace std;
 
-////////// Gnuplot‚É‚æ‚é’n}•`‰æ //////////
+////////// Gnuplotã«ã‚ˆã‚‹åœ°å›³æç”» //////////
 
-// ’n}‚Æ‹OÕ‚ğ•`‰æ
+// åœ°å›³ã¨è»Œè·¡ã‚’æç”»
 void MapDrawer::drawMapGp(const PointCloudMap &pcmap) {
-  const vector<LPoint2D> &lps = pcmap.globalMap;         // ’n}‚Ì“_ŒQ
-  const vector<Pose2D> &poses = pcmap.poses;             // ƒƒ{ƒbƒg‹OÕ
+  const vector<LPoint2D> &lps = pcmap.globalMap;         // åœ°å›³ã®ç‚¹ç¾¤
+  const vector<Pose2D> &poses = pcmap.poses;             // ãƒ­ãƒœãƒƒãƒˆè»Œè·¡
   drawGp(lps, poses);
 }
 
-// ƒXƒLƒƒƒ“1ŒÂ‚ğ•`‰æ
+// ã‚¹ã‚­ãƒ£ãƒ³1å€‹ã‚’æç”»
 void MapDrawer::drawScanGp(const Scan2D &scan) {
   vector<Pose2D> poses;
-  Pose2D pose;                   // Œ´“_
-  poses.emplace_back(pose);      // drawGp‚ğg‚¤‚½‚ß‚Évector‚É“ü‚ê‚é
+  Pose2D pose;                   // åŸç‚¹
+  poses.emplace_back(pose);      // drawGpã‚’ä½¿ã†ãŸã‚ã«vectorã«å…¥ã‚Œã‚‹
   drawGp(scan.lps, poses);
 }
 
-// ƒƒ{ƒbƒg‹OÕ‚¾‚¯‚ğ•`‰æ
+// ãƒ­ãƒœãƒƒãƒˆè»Œè·¡ã ã‘ã‚’æç”»
 void MapDrawer::drawTrajectoryGp(const vector<Pose2D> &poses) {
-  vector<LPoint2D> lps;          // drawGp‚ğg‚¤‚½‚ß‚Ìƒ_ƒ~[i‹ój
+  vector<LPoint2D> lps;          // drawGpã‚’ä½¿ã†ãŸã‚ã®ãƒ€ãƒŸãƒ¼ï¼ˆç©ºï¼‰
   drawGp(lps, poses);
 }
 
 //////////
 
 void MapDrawer::drawGp(const vector<LPoint2D> &lps, const vector<Pose2D> &poses, bool flush) {
-  printf("drawGp: lps.size=%lu\n", lps.size());     // “_”‚ÌŠm”F—p
+  printf("drawGp: lps.size=%lu\n", lps.size());     // ç‚¹æ•°ã®ç¢ºèªç”¨
 
-  // gnuplotİ’è
+  // gnuplotè¨­å®š
   fprintf(gp, "set multiplot\n");
 //  fprintf(gp, "plot '-' w p pt 7 ps 0.1, '-' with vector\n");
   fprintf(gp, "plot '-' w p pt 7 ps 0.1 lc rgb 0x0, '-' with vector\n");
 
-  // “_ŒQ‚Ì•`‰æ
-  int step1=1;                  // “_‚ÌŠÔˆø‚«ŠÔŠuB•`‰æ‚ªd‚¢‚Æ‚«‘å‚«‚­‚·‚é
+  // ç‚¹ç¾¤ã®æç”»
+  int step1=1;                  // ç‚¹ã®é–“å¼•ãé–“éš”ã€‚æç”»ãŒé‡ã„ã¨ãå¤§ããã™ã‚‹
   for (size_t i=0; i<lps.size(); i+=step1) {
     const LPoint2D &lp = lps[i];
-    fprintf(gp, "%lf %lf\n", lp.x, lp.y);    // “_‚Ì•`‰æ
+    fprintf(gp, "%lf %lf\n", lp.x, lp.y);    // ç‚¹ã®æç”»
   }
   fprintf(gp, "e\n");
 
-  // ƒƒ{ƒbƒg‹OÕ‚Ì•`‰æ
-  int step2=10;                      // ƒƒ{ƒbƒgˆÊ’u‚ÌŠÔˆø‚«ŠÔŠu
+  // ãƒ­ãƒœãƒƒãƒˆè»Œè·¡ã®æç”»
+  int step2=10;                      // ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®é–“å¼•ãé–“éš”
   for (size_t i=0; i<poses.size(); i+=step2) {
     const Pose2D &pose = poses[i];
-    double cx = pose.tx;             // •ÀiˆÊ’u
+    double cx = pose.tx;             // ä¸¦é€²ä½ç½®
     double cy = pose.ty;
-    double cs = pose.Rmat[0][0];     // ‰ñ“]Šp‚É‚æ‚écos
-    double sn = pose.Rmat[1][0];     // ‰ñ“]Šp‚É‚æ‚ésin
+    double cs = pose.Rmat[0][0];     // å›è»¢è§’ã«ã‚ˆã‚‹cos
+    double sn = pose.Rmat[1][0];     // å›è»¢è§’ã«ã‚ˆã‚‹sin
 
-    // ƒƒ{ƒbƒgÀ•WŒn‚ÌˆÊ’u‚ÆŒü‚«‚ğ•`‚­
+    // ãƒ­ãƒœãƒƒãƒˆåº§æ¨™ç³»ã®ä½ç½®ã¨å‘ãã‚’æã
     double dd = 0.4;
-    double x1 = cs*dd;              // ƒƒ{ƒbƒgÀ•WŒn‚Ìx²
+    double x1 = cs*dd;              // ãƒ­ãƒœãƒƒãƒˆåº§æ¨™ç³»ã®xè»¸
     double y1 = sn*dd;
-    double x2 = -sn*dd;             // ƒƒ{ƒbƒgÀ•WŒn‚Ìy²
+    double x2 = -sn*dd;             // ãƒ­ãƒœãƒƒãƒˆåº§æ¨™ç³»ã®yè»¸
     double y2 = cs*dd;
     fprintf(gp, "%lf %lf %lf %lf\n", cx, cy, x1, y1);
     fprintf(gp, "%lf %lf %lf %lf\n", cx, cy, x2, y2);
@@ -78,5 +78,5 @@ void MapDrawer::drawGp(const vector<LPoint2D> &lps, const vector<Pose2D> &poses,
   fprintf(gp, "e\n");
 
   if (flush)
-    fflush(gp);         // ƒoƒbƒtƒ@‚Ìƒf[ƒ^‚ğ‘‚«o‚·B‚±‚ê‚µ‚È‚¢‚Æ•`‰æ‚ª‚æ‚­‚È‚¢
+    fflush(gp);         // ãƒãƒƒãƒ•ã‚¡ã®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãå‡ºã™ã€‚ã“ã‚Œã—ãªã„ã¨æç”»ãŒã‚ˆããªã„
 }

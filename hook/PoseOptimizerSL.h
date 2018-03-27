@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,7 +17,7 @@
 
 #include "PoseOptimizer.h"
 
-// ’¼ü’Tõ‚Â‚«‚ÌÅ‹}~‰º–@‚ÅƒRƒXƒgŠÖ”‚ğÅ¬‰»‚·‚é
+// ç›´ç·šæ¢ç´¢ã¤ãã®æœ€æ€¥é™ä¸‹æ³•ã§ã‚³ã‚¹ãƒˆé–¢æ•°ã‚’æœ€å°åŒ–ã™ã‚‹
 class PoseOptimizerSL : public PoseOptimizer
 {
 public:

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,15 +24,15 @@
 class PoseOptimizer
 {
 public:
-  int allN;             // ŒJ‚è•Ô‚µ‘”BƒeƒXƒg—p
-  double sum;           // c·‡ŒvBƒeƒXƒg—p
+  int allN;             // ç¹°ã‚Šè¿”ã—ç·æ•°ã€‚ãƒ†ã‚¹ãƒˆç”¨
+  double sum;           // æ®‹å·®åˆè¨ˆã€‚ãƒ†ã‚¹ãƒˆç”¨
 
 protected:
-  double evthre;                // ƒRƒXƒg•Ï‰»è‡’lB•Ï‰»—Ê‚ª‚±‚êˆÈ‰º‚È‚çŒJ‚è•Ô‚µI—¹
-  double dd;                    // ”’l”÷•ª‚Ì‚İi•Àij
-  double da;                    // ”’l”÷•ª‚Ì‚İi‰ñ“]j
+  double evthre;                // ã‚³ã‚¹ãƒˆå¤‰åŒ–é–¾å€¤ã€‚å¤‰åŒ–é‡ãŒã“ã‚Œä»¥ä¸‹ãªã‚‰ç¹°ã‚Šè¿”ã—çµ‚äº†
+  double dd;                    // æ•°å€¤å¾®åˆ†ã®åˆ»ã¿ï¼ˆä¸¦é€²ï¼‰
+  double da;                    // æ•°å€¤å¾®åˆ†ã®åˆ»ã¿ï¼ˆå›è»¢ï¼‰
 
-  CostFunction *cfunc;          // ƒRƒXƒgŠÖ”
+  CostFunction *cfunc;          // ã‚³ã‚¹ãƒˆé–¢æ•°
 
 public:
   PoseOptimizer(): evthre(0.000001), dd(0.00001), da(0.00001), cfunc(nullptr) {

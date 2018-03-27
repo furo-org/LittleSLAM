@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,24 +17,24 @@
 #include "SlamLauncher.h"
 #include "ScanPointResampler.h"
 
-using namespace std;                       // C++•W€ƒ‰ƒCƒuƒ‰ƒŠ‚Ì–¼‘O‹óŠÔ‚ğg‚¤
+using namespace std;                       // C++æ¨™æº–ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åå‰ç©ºé–“ã‚’ä½¿ã†
 
 //////////
 
 void SlamLauncher::run() {
-  mdrawer.initGnuplot();                   // gnuplot‰Šú‰»
-  mdrawer.setAspectRatio(-0.9);            // x²‚Æy²‚Ì”äi•‰‚É‚·‚é‚Æ’†g‚ªˆê’èj
+  mdrawer.initGnuplot();                   // gnuplotåˆæœŸåŒ–
+  mdrawer.setAspectRatio(-0.9);            // xè»¸ã¨yè»¸ã®æ¯”ï¼ˆè² ã«ã™ã‚‹ã¨ä¸­èº«ãŒä¸€å®šï¼‰
   
-  size_t cnt = 0;                          // ˆ—‚Ì˜_—
+  size_t cnt = 0;                          // å‡¦ç†ã®è«–ç†æ™‚åˆ»
   if (startN > 0)
-    skipData(startN);                      // startN‚Ü‚Åƒf[ƒ^‚ğ“Ç‚İ”ò‚Î‚·
+    skipData(startN);                      // startNã¾ã§ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿é£›ã°ã™
 
   double totalTime=0, totalTimeDraw=0, totalTimeRead=0;
   Scan2D scan;
-  bool eof = sreader.loadScan(cnt, scan);  // ƒtƒ@ƒCƒ‹‚©‚çƒXƒLƒƒƒ“‚ğ1ŒÂ“Ç‚İ‚Ş
+  bool eof = sreader.loadScan(cnt, scan);  // ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã‚¹ã‚­ãƒ£ãƒ³ã‚’1å€‹èª­ã¿è¾¼ã‚€
   boost::timer tim;
   while(!eof) {
-    if (odometryOnly) {                      // ƒIƒhƒƒgƒŠ‚É‚æ‚é’n}\’ziSLAM‚æ‚è—Dæj
+    if (odometryOnly) {                      // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰ï¼ˆSLAMã‚ˆã‚Šå„ªå…ˆï¼‰
       if (cnt == 0) {
         ipose = scan.pose;
         ipose.calRmat();
@@ -42,22 +42,22 @@ void SlamLauncher::run() {
       mapByOdometry(&scan);
     }
     else 
-      sfront.process(scan);                // SLAM‚É‚æ‚é’n}\’z
+      sfront.process(scan);                // SLAMã«ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰
 
     double t1 = 1000*tim.elapsed();
 
-    if (cnt%drawSkip == 0) {               // drawSkip‚¨‚«‚ÉŒ‹‰Ê‚ğ•`‰æ
+    if (cnt%drawSkip == 0) {               // drawSkipãŠãã«çµæœã‚’æç”»
       mdrawer.drawMapGp(*pcmap);
     }
     double t2 = 1000*tim.elapsed();
 
-    ++cnt;                                 // ˜_—XV
-    eof = sreader.loadScan(cnt, scan);     // Ÿ‚ÌƒXƒLƒƒƒ“‚ğ“Ç‚İ‚Ş
+    ++cnt;                                 // è«–ç†æ™‚åˆ»æ›´æ–°
+    eof = sreader.loadScan(cnt, scan);     // æ¬¡ã®ã‚¹ã‚­ãƒ£ãƒ³ã‚’èª­ã¿è¾¼ã‚€
 
     double t3 = 1000*tim.elapsed();
-    totalTime = t3;                        // ‘S‘Ìˆ—ŠÔ
-    totalTimeDraw += (t2-t1);              // •`‰æŠÔ‚Ì‡Œv
-    totalTimeRead += (t3-t2);              // ƒ[ƒhŠÔ‚Ì‡Œv
+    totalTime = t3;                        // å…¨ä½“å‡¦ç†æ™‚é–“
+    totalTimeDraw += (t2-t1);              // æç”»æ™‚é–“ã®åˆè¨ˆ
+    totalTimeRead += (t3-t2);              // ãƒ­ãƒ¼ãƒ‰æ™‚é–“ã®åˆè¨ˆ
 
     printf("---- SlamLauncher: cnt=%lu ends ----\n", cnt);
   }
@@ -66,41 +66,41 @@ void SlamLauncher::run() {
   printf("Elapsed time: mapping=%g, drawing=%g, reading=%g\n", (totalTime-totalTimeDraw-totalTimeRead), totalTimeDraw, totalTimeRead);
   printf("SlamLauncher finished.\n");
 
-  // ˆ—I—¹Œã‚à•`‰æ‰æ–Ê‚ğc‚·‚½‚ß‚Ésleep‚Å–³ŒÀƒ‹[ƒv‚É‚·‚éBctrl-C‚ÅI—¹B
+  // å‡¦ç†çµ‚äº†å¾Œã‚‚æç”»ç”»é¢ã‚’æ®‹ã™ãŸã‚ã«sleepã§ç„¡é™ãƒ«ãƒ¼ãƒ—ã«ã™ã‚‹ã€‚ctrl-Cã§çµ‚äº†ã€‚
   while(true) {
 #ifdef _WIN32
-    Sleep(1000);                            // Windows‚Å‚ÍSleep
+    Sleep(1000);                            // Windowsã§ã¯Sleep
 #elif __linux__
-    usleep(1000000);                        // Linux‚Å‚Íusleep
+    usleep(1000000);                        // Linuxã§ã¯usleep
 #endif
   }
 }
 
-// ŠJn‚©‚çnumŒÂ‚ÌƒXƒLƒƒƒ“‚Ü‚Å“Ç‚İ”ò‚Î‚·
+// é–‹å§‹ã‹ã‚‰numå€‹ã®ã‚¹ã‚­ãƒ£ãƒ³ã¾ã§èª­ã¿é£›ã°ã™
 void SlamLauncher::skipData(int num) {
   Scan2D scan;
   bool eof = sreader.loadScan(0, scan);
-  for (int i=0; !eof && i<num; i++) {       // numŒÂ‹ó“Ç‚İ‚·‚é
+  for (int i=0; !eof && i<num; i++) {       // numå€‹ç©ºèª­ã¿ã™ã‚‹
     eof = sreader.loadScan(0, scan);
   }
 }
 
-///////// ƒIƒhƒƒgƒŠ‚Ì‚æ‚é’n}\’z //////////
+///////// ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰ //////////
 
 void SlamLauncher::mapByOdometry(Scan2D *scan) {
-//  Pose2D &pose = scan->pose;               // ƒXƒLƒƒƒ“æ“¾‚ÌƒIƒhƒƒgƒŠˆÊ’u
+//  Pose2D &pose = scan->pose;               // ã‚¹ã‚­ãƒ£ãƒ³å–å¾—æ™‚ã®ã‚ªãƒ‰ãƒ¡ãƒˆãƒªä½ç½®
   Pose2D pose;
   Pose2D::calRelativePose(scan->pose, ipose, pose);
-  vector<LPoint2D> &lps = scan->lps;       // ƒXƒLƒƒƒ““_ŒQ
-  vector<LPoint2D> glps;                   // ’n}À•WŒn‚Å‚Ì“_ŒQ
+  vector<LPoint2D> &lps = scan->lps;       // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
+  vector<LPoint2D> glps;                   // åœ°å›³åº§æ¨™ç³»ã§ã®ç‚¹ç¾¤
   for (size_t j=0; j<lps.size(); j++) {
     LPoint2D &lp = lps[j];
     LPoint2D glp;
-    pose.globalPoint(lp, glp);             // ƒZƒ“ƒTÀ•WŒn‚©‚ç’n}À•WŒn‚É•ÏŠ·
+    pose.globalPoint(lp, glp);             // ã‚»ãƒ³ã‚µåº§æ¨™ç³»ã‹ã‚‰åœ°å›³åº§æ¨™ç³»ã«å¤‰æ›
     glps.emplace_back(glp);
   }
 
-  // “_ŒQ’n}pcmap‚Éƒf[ƒ^‚ğŠi”[
+  // ç‚¹ç¾¤åœ°å›³pcmapã«ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´
   pcmap->addPose(pose);
   pcmap->addPoints(glps);
   pcmap->makeGlobalMap();
@@ -108,32 +108,32 @@ void SlamLauncher::mapByOdometry(Scan2D *scan) {
   printf("Odom pose: tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);
 }
 
-////////// ƒXƒLƒƒƒ“•`‰æ ////////
+////////// ã‚¹ã‚­ãƒ£ãƒ³æç”» ////////
 
 void SlamLauncher::showScans() {
   mdrawer.initGnuplot();
-  mdrawer.setRange(6);                     // •`‰æ”ÍˆÍBƒXƒLƒƒƒ“‚ª6ml•û‚Ìê‡
-  mdrawer.setAspectRatio(-0.9);            // x²‚Æy²‚Ì”äi•‰‚É‚·‚é‚Æ’†g‚ªˆê’èj
+  mdrawer.setRange(6);                     // æç”»ç¯„å›²ã€‚ã‚¹ã‚­ãƒ£ãƒ³ãŒ6må››æ–¹ã®å ´åˆ
+  mdrawer.setAspectRatio(-0.9);            // xè»¸ã¨yè»¸ã®æ¯”ï¼ˆè² ã«ã™ã‚‹ã¨ä¸­èº«ãŒä¸€å®šï¼‰
 
   ScanPointResampler spres;
 
-  size_t cnt = 0;                          // ˆ—‚Ì˜_—
+  size_t cnt = 0;                          // å‡¦ç†ã®è«–ç†æ™‚åˆ»
   if (startN > 0)
-    skipData(startN);                      // startN‚Ü‚Åƒf[ƒ^‚ğ“Ç‚İ”ò‚Î‚·
+    skipData(startN);                      // startNã¾ã§ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿é£›ã°ã™
 
   Scan2D scan;
   bool eof = sreader.loadScan(cnt, scan);
   while(!eof) {
-//    spres.resamplePoints(&scan);         // ƒRƒƒ“ƒgƒAƒEƒg‚Í‚¸‚¹‚ÎAƒXƒLƒƒƒ““_ŠÔŠu‚ğ‹Ïˆê‚É‚·‚éB
+//    spres.resamplePoints(&scan);         // ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã¯ãšã›ã°ã€ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”ã‚’å‡ä¸€ã«ã™ã‚‹ã€‚
  
-    // •`‰æŠÔŠu‚ğ‚ ‚¯‚é
+    // æç”»é–“éš”ã‚’ã‚ã‘ã‚‹
 #ifdef _WIN32
-    Sleep(100);                            // Windows‚Å‚ÍSleep
+    Sleep(100);                            // Windowsã§ã¯Sleep
 #elif __linux__
-    usleep(100000);                        // Linux‚Å‚Íusleep
+    usleep(100000);                        // Linuxã§ã¯usleep
 #endif
 
-    mdrawer.drawScanGp(scan);              // ƒXƒLƒƒƒ“•`‰æ
+    mdrawer.drawScanGp(scan);              // ã‚¹ã‚­ãƒ£ãƒ³æç”»
 
     printf("---- scan num=%lu ----\n", cnt);
     eof = sreader.loadScan(cnt, scan);
@@ -143,10 +143,10 @@ void SlamLauncher::showScans() {
   printf("SlamLauncher finished.\n");
 }
 
-//////// ƒXƒLƒƒƒ““Ç‚İ‚İ /////////
+//////// ã‚¹ã‚­ãƒ£ãƒ³èª­ã¿è¾¼ã¿ /////////
 
 bool SlamLauncher::setFilename(char *filename) {
-  bool flag = sreader.openScanFile(filename);        // ƒtƒ@ƒCƒ‹‚ğƒI[ƒvƒ“
+  bool flag = sreader.openScanFile(filename);        // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã‚ªãƒ¼ãƒ—ãƒ³
 
   return(flag);
 }
@@ -156,9 +156,9 @@ bool SlamLauncher::setFilename(char *filename) {
 void SlamLauncher::customizeFramework() {
   fcustom.setSlamFrontEnd(&sfront);
   fcustom.makeFramework();
-//  fcustom.customizeG();                         // ‘Ş‰»‚Ì‘Îˆ‚ğ‚µ‚È‚¢
-//  fcustom.customizeH();                         // ‘Ş‰»‚Ì‘Îˆ‚ğ‚·‚é
-  fcustom.customizeI();                           // ƒ‹[ƒv•Â‚¶‚İ‚ğ‚·‚é
+//  fcustom.customizeG();                         // é€€åŒ–ã®å¯¾å‡¦ã‚’ã—ãªã„
+//  fcustom.customizeH();                         // é€€åŒ–ã®å¯¾å‡¦ã‚’ã™ã‚‹
+  fcustom.customizeI();                           // ãƒ«ãƒ¼ãƒ—é–‰ã˜è¾¼ã¿ã‚’ã™ã‚‹
 
-  pcmap = fcustom.getPointCloudMap();           // customize‚ÌŒã‚É‚â‚é‚±‚Æ
+  pcmap = fcustom.getPointCloudMap();           // customizeã®å¾Œã«ã‚„ã‚‹ã“ã¨
 }

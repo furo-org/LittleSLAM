@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -25,18 +25,18 @@
 
 ////////
 
-// SLAMƒtƒƒ“ƒgƒGƒ“ƒhBƒƒ{ƒbƒgˆÊ’u„’èA’n}¶¬Aƒ‹[ƒv•Â‚¶‚İ‚ğæ‚èdØ‚éB
+// SLAMãƒ•ãƒ­ãƒ³ãƒˆã‚¨ãƒ³ãƒ‰ã€‚ãƒ­ãƒœãƒƒãƒˆä½ç½®æ¨å®šã€åœ°å›³ç”Ÿæˆã€ãƒ«ãƒ¼ãƒ—é–‰ã˜è¾¼ã¿ã‚’å–ã‚Šä»•åˆ‡ã‚‹ã€‚
 class SlamFrontEnd
 {
 private:
-  int cnt;                               // ˜_—
-  int keyframeSkip;                      // ƒL[ƒtƒŒ[ƒ€ŠÔŠu
+  int cnt;                               // è«–ç†æ™‚åˆ»
+  int keyframeSkip;                      // ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ é–“éš”
 
-  PointCloudMap *pcmap;                  // “_ŒQ’n}
-  PoseGraph *pg;                         // ƒ|[ƒYƒOƒ‰ƒt
-  ScanMatcher2D *smat;                   // ƒXƒLƒƒƒ“ƒ}ƒbƒ`ƒ“ƒO
-  LoopDetector *lpd;                     // ƒ‹[ƒvŒŸoŠí
-  SlamBackEnd sback;                     // SLAMƒoƒbƒNƒGƒ“ƒh
+  PointCloudMap *pcmap;                  // ç‚¹ç¾¤åœ°å›³
+  PoseGraph *pg;                         // ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•
+  ScanMatcher2D *smat;                   // ã‚¹ã‚­ãƒ£ãƒ³ãƒãƒƒãƒãƒ³ã‚°
+  LoopDetector *lpd;                     // ãƒ«ãƒ¼ãƒ—æ¤œå‡ºå™¨
+  SlamBackEnd sback;                     // SLAMãƒãƒƒã‚¯ã‚¨ãƒ³ãƒ‰
 
 public:
   SlamFrontEnd()  : cnt(0), keyframeSkip(10), smat(nullptr), lpd(nullptr) {
@@ -83,12 +83,12 @@ public:
     smat->setDgCheck(p);
   }
 
-  // ƒfƒoƒbƒO—p
+  // ãƒ‡ãƒãƒƒã‚°ç”¨
   std::vector<LoopMatch> &getLoopMatches() {
     return(lpd->getLoopMatches());
   }
 
-  // ƒfƒoƒbƒO—p
+  // ãƒ‡ãƒãƒƒã‚°ç”¨
   std::vector<PoseCov> &getPoseCovs() {
     return(smat->getPoseCovs());
   }

@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -23,12 +23,12 @@
 class MapDrawer
 {
 private:
-  FILE *gp;               // gnuplot‚Ö‚ÌƒpƒCƒv
-  double xmin;            // •`‰æ”ÍˆÍ[m]
+  FILE *gp;               // gnuplotã¸ã®ãƒ‘ã‚¤ãƒ—
+  double xmin;            // æç”»ç¯„å›²[m]
   double xmax;
   double ymin;
   double ymax;
-  double aspectR;         // xy”ä
+  double aspectR;         // xyæ¯”
 
 public:
   MapDrawer() : gp(nullptr), xmin(-10), xmax(10), ymin(-10), ymax(10), aspectR(-1.0) {
@@ -42,9 +42,9 @@ public:
 
   void initGnuplot() {
 #ifdef _WIN32
-    gp = _popen("gnuplot", "w");      // ƒpƒCƒvƒI[ƒvƒ“.Windows
+    gp = _popen("gnuplot", "w");      // ãƒ‘ã‚¤ãƒ—ã‚ªãƒ¼ãƒ—ãƒ³.Windows
 #elif __linux__
-    gp = popen("gnuplot", "w");       // ƒpƒCƒvƒI[ƒvƒ“.Linux
+    gp = popen("gnuplot", "w");       // ãƒ‘ã‚¤ãƒ—ã‚ªãƒ¼ãƒ—ãƒ³.Linux
 #endif
   }
 
@@ -62,14 +62,14 @@ public:
     fprintf(gp, "set size ratio %lf\n", aspectR);
   }
 
-  void setRange(double R) {              // •`‰æ”ÍˆÍ‚ğRl•û‚É‚·‚é
+  void setRange(double R) {              // æç”»ç¯„å›²ã‚’Rå››æ–¹ã«ã™ã‚‹
     xmin = ymin = -R;
     xmax = ymax = R;
     fprintf(gp, "set xrange [%lf:%lf]\n", xmin, xmax);
     fprintf(gp, "set yrange [%lf:%lf]\n", ymin, ymax);
   }
 
-  void setRange(double xR, double yR) {  // •`‰æ”ÍˆÍ‚ğ}xRA}yR‚É‚·‚é
+  void setRange(double xR, double yR) {  // æç”»ç¯„å›²ã‚’Â±xRã€Â±yRã«ã™ã‚‹
     xmin = -xR;
     xmax = xR;
     ymin = -yR; 
@@ -78,7 +78,7 @@ public:
     fprintf(gp, "set yrange [%lf:%lf]\n", ymin, ymax);
   }
 
-  void setRange(double xm, double xM, double ym, double yM) {  // •`‰æ”ÍˆÍ‚ğ‘S•”w’è
+  void setRange(double xm, double xM, double ym, double yM) {  // æç”»ç¯„å›²ã‚’å…¨éƒ¨æŒ‡å®š
     xmin = xm;
     xmax = xM;
     ymin = ym; 

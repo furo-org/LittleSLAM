@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -14,25 +14,25 @@
 
 #include "Pose2D.h"
 
-// ƒOƒ[ƒoƒ‹À•WŒn‚Å‚Ì“_p‚ğA©•ªiPose2Dj‚Ì‹ÇŠÀ•WŒn‚É•ÏŠ·
+// ã‚°ãƒ­ãƒ¼ãƒãƒ«åº§æ¨™ç³»ã§ã®ç‚¹pã‚’ã€è‡ªåˆ†ï¼ˆPose2Dï¼‰ã®å±€æ‰€åº§æ¨™ç³»ã«å¤‰æ›
 LPoint2D Pose2D::relativePoint(const LPoint2D &p) const {
   double dx = p.x - tx;
   double dy = p.y - ty;
-  double x = dx*Rmat[0][0] + dy*Rmat[1][0];  // ‰ñ“]‚Ì‹ts—ñ
+  double x = dx*Rmat[0][0] + dy*Rmat[1][0];  // å›è»¢ã®é€†è¡Œåˆ—
   double y = dx*Rmat[0][1] + dy*Rmat[1][1];
   return LPoint2D(p.sid, x, y);
 }
 
 ////////
 
-// ©•ªiPose2Dj‚Ì‹ÇŠÀ•WŒn‚Å‚Ì“_p‚ğAƒOƒ[ƒoƒ‹À•WŒn‚É•ÏŠ·
+// è‡ªåˆ†ï¼ˆPose2Dï¼‰ã®å±€æ‰€åº§æ¨™ç³»ã§ã®ç‚¹pã‚’ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«åº§æ¨™ç³»ã«å¤‰æ›
 LPoint2D Pose2D::globalPoint(const LPoint2D &p) const {
   double x = Rmat[0][0]*p.x + Rmat[0][1]*p.y + tx;
   double y = Rmat[1][0]*p.x + Rmat[1][1]*p.y + ty;
   return LPoint2D(p.sid, x, y);
 }
 
-// ©•ªiPose2Dj‚Ì‹ÇŠÀ•WŒn‚Å‚Ì“_p‚ğAƒOƒ[ƒoƒ‹À•WŒn‚É•ÏŠ·‚µ‚Äpo‚É“ü‚ê‚é
+// è‡ªåˆ†ï¼ˆPose2Dï¼‰ã®å±€æ‰€åº§æ¨™ç³»ã§ã®ç‚¹pã‚’ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«åº§æ¨™ç³»ã«å¤‰æ›ã—ã¦poã«å…¥ã‚Œã‚‹
 void Pose2D::globalPoint(const LPoint2D &pi, LPoint2D &po) const {
   po.x = Rmat[0][0]*pi.x + Rmat[0][1]*pi.y + tx;
   po.y = Rmat[1][0]*pi.x + Rmat[1][1]*pi.y + ty;
@@ -40,19 +40,19 @@ void Pose2D::globalPoint(const LPoint2D &pi, LPoint2D &po) const {
 
 ///////
 
-// Šî€À•WŒnbpose‚©‚çŒ©‚½Œ»À•WŒnnpose‚Ì‘Š‘ÎˆÊ’urelPose‚ğ‹‚ß‚éiInverse compounding operatorj
+// åŸºæº–åº§æ¨™ç³»bposeã‹ã‚‰è¦‹ãŸç¾åº§æ¨™ç³»nposeã®ç›¸å¯¾ä½ç½®relPoseã‚’æ±‚ã‚ã‚‹ï¼ˆInverse compounding operatorï¼‰
 void Pose2D::calRelativePose(const Pose2D &npose, const Pose2D &bpose, Pose2D &relPose) {
-  const double (*R0)[2] = bpose.Rmat;           // Šî€À•WŒn
-  const double (*R1)[2] = npose.Rmat;           // Œ»À•WŒn
-  double (*R2)[2] = relPose.Rmat;               // ‘Š‘ÎˆÊ’u
+  const double (*R0)[2] = bpose.Rmat;           // åŸºæº–åº§æ¨™ç³»
+  const double (*R1)[2] = npose.Rmat;           // ç¾åº§æ¨™ç³»
+  double (*R2)[2] = relPose.Rmat;               // ç›¸å¯¾ä½ç½®
 
-  // •Ài
+  // ä¸¦é€²
   double dx = npose.tx - bpose.tx;
   double dy = npose.ty - bpose.ty;
   relPose.tx = R0[0][0]*dx + R0[1][0]*dy;
   relPose.ty = R0[0][1]*dx + R0[1][1]*dy;
 
-  // ‰ñ“]
+  // å›è»¢
   double th = npose.th - bpose.th;
   if (th < -180)
     th += 360;
@@ -63,19 +63,19 @@ void Pose2D::calRelativePose(const Pose2D &npose, const Pose2D &bpose, Pose2D &r
   relPose.calRmat();
 }
 
-// Šî€À•WŒnbpose‚©‚ç‘Š‘ÎˆÊ’urelPose‚¾‚¯i‚ñ‚¾AÀ•WŒnnpose‚ğ‹‚ß‚éiCompounding operatorj
+// åŸºæº–åº§æ¨™ç³»bposeã‹ã‚‰ç›¸å¯¾ä½ç½®relPoseã ã‘é€²ã‚“ã ã€åº§æ¨™ç³»nposeã‚’æ±‚ã‚ã‚‹ï¼ˆCompounding operatorï¼‰
 void Pose2D::calGlobalPose(const Pose2D &relPose, const Pose2D &bpose, Pose2D &npose) {
-  const double (*R0)[2] = bpose.Rmat;           // Šî€À•WŒn
-  const double (*R1)[2] = relPose.Rmat;         // ‘Š‘ÎˆÊ’u
-  double (*R2)[2] = npose.Rmat;                 // VÀ•WŒn
+  const double (*R0)[2] = bpose.Rmat;           // åŸºæº–åº§æ¨™ç³»
+  const double (*R1)[2] = relPose.Rmat;         // ç›¸å¯¾ä½ç½®
+  double (*R2)[2] = npose.Rmat;                 // æ–°åº§æ¨™ç³»
 
-  // •Ài
+  // ä¸¦é€²
   double tx = relPose.tx;
   double ty = relPose.ty;
   npose.tx =  R0[0][0]*tx + R0[0][1]*ty + bpose.tx;
   npose.ty =  R0[1][0]*tx + R0[1][1]*ty + bpose.ty;
 
-  // Šp“x
+  // è§’åº¦
   double th = bpose.th + relPose.th;
   if (th < -180)
     th += 360;

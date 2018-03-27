@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -15,27 +15,27 @@
 #include "SlamLauncher.h"
 
 int main(int argc, char *argv[]) {
-  bool scanCheck=false;              // ƒXƒLƒƒƒ“•\¦‚Ì‚İ‚©
-  bool odometryOnly=false;           // ƒIƒhƒƒgƒŠ‚É‚æ‚é’n}\’z‚©
-  char *filename;                    // ƒf[ƒ^ƒtƒ@ƒCƒ‹–¼
-  int startN=0;                      // ŠJnƒXƒLƒƒƒ“”Ô†
+  bool scanCheck=false;              // ã‚¹ã‚­ãƒ£ãƒ³è¡¨ç¤ºã®ã¿ã‹
+  bool odometryOnly=false;           // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰ã‹
+  char *filename;                    // ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«å
+  int startN=0;                      // é–‹å§‹ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·
 
   if (argc < 2) {
     printf("Error: too few arguments.\n");
     return(1);
   }
 
-  // ƒRƒ}ƒ“ƒhˆø”‚Ìˆ—
+  // ã‚³ãƒãƒ³ãƒ‰å¼•æ•°ã®å‡¦ç†
   int idx=1;
-  // ƒRƒ}ƒ“ƒhƒIƒvƒVƒ‡ƒ“‚Ì‰ğßi'-'‚Ì‚Â‚¢‚½ˆø”j
+  // ã‚³ãƒãƒ³ãƒ‰ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®è§£é‡ˆï¼ˆ'-'ã®ã¤ã„ãŸå¼•æ•°ï¼‰
   if (argv[1][0] == '-') {
     for (int i=1; ; i++) {
       char option = argv[1][i];
       if (option == NULL)
         break;
-      else if (option == 's')        // ƒXƒLƒƒƒ“•\¦‚Ì‚İ
+      else if (option == 's')        // ã‚¹ã‚­ãƒ£ãƒ³è¡¨ç¤ºã®ã¿
         scanCheck = true;
-      else if (option == 'o')        // ƒIƒhƒƒgƒŠ‚É‚æ‚é’n}\’z
+      else if (option == 'o')        // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹åœ°å›³æ§‹ç¯‰
         odometryOnly = true;
     }
     if (argc == 2) {
@@ -44,9 +44,9 @@ int main(int argc, char *argv[]) {
     }
     ++idx;
   }
-  if (argc >= idx+1)                 // '-'‚ ‚éê‡idx=2A‚È‚¢ê‡idx=1
+  if (argc >= idx+1)                 // '-'ã‚ã‚‹å ´åˆidx=2ã€ãªã„å ´åˆidx=1
     filename = argv[idx];
-  if (argc == idx+2)                 // argc‚ªidx‚æ‚è2‘å‚«‚¯‚ê‚ÎstartN‚ª‚ ‚é
+  if (argc == idx+2)                 // argcãŒidxã‚ˆã‚Š2å¤§ãã‘ã‚Œã°startNãŒã‚ã‚‹
     startN = atoi(argv[idx+1]);
   else if (argc >= idx+2) {
     printf("Error: invalid arguments.\n");
@@ -56,18 +56,18 @@ int main(int argc, char *argv[]) {
   printf("SlamLauncher: startN=%d, scanCheck=%d, odometryOnly=%d\n", startN, scanCheck, odometryOnly);
   printf("filename=%s\n", filename);
 
-  // ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+  // ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
   SlamLauncher sl;
   bool flag = sl.setFilename(filename);
   if (!flag)
     return(1);
 
-  sl.setStartN(startN);              // ŠJnƒXƒLƒƒƒ“”Ô†‚Ìİ’è
+  sl.setStartN(startN);              // é–‹å§‹ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®è¨­å®š
 
-  // ˆ—–{‘Ì
+  // å‡¦ç†æœ¬ä½“
   if (scanCheck)
     sl.showScans();
-  else {                             // ƒXƒLƒƒƒ“•\¦ˆÈŠO‚ÍSlamLauncher“à‚Åê‡•ª‚¯
+  else {                             // ã‚¹ã‚­ãƒ£ãƒ³è¡¨ç¤ºä»¥å¤–ã¯SlamLauncherå†…ã§å ´åˆåˆ†ã‘
     sl.setOdometryOnly(odometryOnly);
     sl.customizeFramework();
     sl.run();

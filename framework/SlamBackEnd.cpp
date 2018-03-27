@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,7 +17,7 @@
 
 using namespace std;
 
-////////// ƒ|[ƒY’²® //////////
+////////// ãƒãƒ¼ã‚ºèª¿æ•´ //////////
 
 Pose2D SlamBackEnd::adjustPoses() {
 //  pg->printArcs();
@@ -26,7 +26,7 @@ Pose2D SlamBackEnd::adjustPoses() {
   newPoses.clear();
 
   P2oDriver2D p2o;
-  p2o.doP2o(*pg, newPoses, 5);                 // 5‰ñ‚­‚è•Ô‚·
+  p2o.doP2o(*pg, newPoses, 5);                 // 5å›ãã‚Šè¿”ã™
 
   return(newPoses.back());
 }
@@ -34,15 +34,15 @@ Pose2D SlamBackEnd::adjustPoses() {
 /////////////////////////////
 
 void SlamBackEnd::remakeMaps() {
-  // PoseGraph‚ÌC³
-  vector<PoseNode*> &pnodes = pg->nodes;      // ƒ|[ƒYƒm[ƒh
+  // PoseGraphã®ä¿®æ­£
+  vector<PoseNode*> &pnodes = pg->nodes;      // ãƒãƒ¼ã‚ºãƒãƒ¼ãƒ‰
   for (size_t i=0; i<newPoses.size(); i++) {
     Pose2D &npose = newPoses[i];
-    PoseNode *pnode = pnodes[i];              // ƒm[ƒh‚Íƒƒ{ƒbƒgˆÊ’u‚Æ1:1‘Î‰
-    pnode->setPose(npose);                    // Šeƒm[ƒh‚ÌˆÊ’u‚ğXV
+    PoseNode *pnode = pnodes[i];              // ãƒãƒ¼ãƒ‰ã¯ãƒ­ãƒœãƒƒãƒˆä½ç½®ã¨1:1å¯¾å¿œ
+    pnode->setPose(npose);                    // å„ãƒãƒ¼ãƒ‰ã®ä½ç½®ã‚’æ›´æ–°
   }
   printf("newPoses.size=%lu, nodes.size=%lu\n", newPoses.size(), pnodes.size());
 
-  // PointCloudMap‚ÌC³
+  // PointCloudMapã®ä¿®æ­£
   pcmap->remakeMaps(newPoses);
 }

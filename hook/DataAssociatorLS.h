@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,11 +17,11 @@
 
 #include "DataAssociator.h"
 
-// üŒ`’Tõ‚ğ—p‚¢‚ÄAŒ»İƒXƒLƒƒƒ“‚ÆQÆƒXƒLƒƒƒ“ŠÔ‚Ì“_‚Ì‘Î‰‚Ã‚¯‚ğs‚¤
+// ç·šå½¢æ¢ç´¢ã‚’ç”¨ã„ã¦ã€ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã¨å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³é–“ã®ç‚¹ã®å¯¾å¿œã¥ã‘ã‚’è¡Œã†
 class DataAssociatorLS : public DataAssociator
 {
 private:
-  std::vector<const LPoint2D*> baseLps;              // QÆƒXƒLƒƒƒ“‚Ì“_‚ğŠi”[‚µ‚Ä‚¨‚­Bì‹Æ—p
+  std::vector<const LPoint2D*> baseLps;              // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ã‚’æ ¼ç´ã—ã¦ãŠãã€‚ä½œæ¥­ç”¨
 
 public:
   DataAssociatorLS() {
@@ -30,11 +30,11 @@ public:
   ~DataAssociatorLS() {
   }
 
-  // QÆƒXƒLƒƒƒ“‚Ì“_rlps‚ğƒ|ƒCƒ“ƒ^‚É‚µ‚ÄbaseLps‚É“ü‚ê‚é
+  // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹rlpsã‚’ãƒã‚¤ãƒ³ã‚¿ã«ã—ã¦baseLpsã«å…¥ã‚Œã‚‹
   virtual void setRefBase(const std::vector<LPoint2D> &rlps) {
     baseLps.clear();
     for (size_t i=0; i<rlps.size(); i++)
-      baseLps.push_back(&rlps[i]);                // ƒ|ƒCƒ“ƒ^‚É‚µ‚ÄŠi”[
+      baseLps.push_back(&rlps[i]);                // ãƒã‚¤ãƒ³ã‚¿ã«ã—ã¦æ ¼ç´
   }
 
 /////////

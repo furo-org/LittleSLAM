@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -20,14 +20,14 @@
 #include "LPoint2D.h"
 #include "Pose2D.h"
 
-// ICP‚É‚æ‚é„’è’l‚Ì‹¤•ªUA‚¨‚æ‚ÑAƒIƒhƒƒgƒŠ‚É‚æ‚é„’è’l‚Ì‹¤•ªU‚ğŒvZ‚·‚éB
+// ICPã«ã‚ˆã‚‹æ¨å®šå€¤ã®å…±åˆ†æ•£ã€ãŠã‚ˆã³ã€ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹æ¨å®šå€¤ã®å…±åˆ†æ•£ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 class CovarianceCalculator
 {
 private:
-  double dd;                      // ”’l”÷•ª‚Ì‚İ
-  double da;                      // ”’l”÷•ª‚Ì‚İ
-  double a1;                      // ƒIƒhƒƒgƒŠ‹¤•ªU‚ÌŒW”
-  double a2;                      // ƒIƒhƒƒgƒŠ‹¤•ªU‚ÌŒW”
+  double dd;                      // æ•°å€¤å¾®åˆ†ã®åˆ»ã¿
+  double da;                      // æ•°å€¤å¾®åˆ†ã®åˆ»ã¿
+  double a1;                      // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå…±åˆ†æ•£ã®ä¿‚æ•°
+  double a2;                      // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå…±åˆ†æ•£ã®ä¿‚æ•°
 
 public:
   CovarianceCalculator() : dd(0.00001), da(0.00001) {

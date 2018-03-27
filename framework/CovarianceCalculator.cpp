@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -16,38 +16,38 @@
 
 using namespace std;
 
-////////// ICP‚É‚æ‚é„’è’l‚Ì‹¤•ªU /////////
+////////// ICPã«ã‚ˆã‚‹æ¨å®šå€¤ã®å…±åˆ†æ•£ /////////
 
-// ICP‚É‚æ‚éƒƒ{ƒbƒgˆÊ’u‚Ì„’è’l‚Ì‹¤•ªUcov‚ğ‹‚ß‚éB
-// „’èˆÊ’uposeAŒ»İƒXƒLƒƒƒ““_ŒQcurLpsAQÆƒXƒLƒƒƒ““_ŒQrefLps
+// ICPã«ã‚ˆã‚‹ãƒ­ãƒœãƒƒãƒˆä½ç½®ã®æ¨å®šå€¤ã®å…±åˆ†æ•£covã‚’æ±‚ã‚ã‚‹ã€‚
+// æ¨å®šä½ç½®poseã€ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤curLpsã€å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤refLps
 double CovarianceCalculator::calIcpCovariance(const Pose2D &pose, std::vector<const LPoint2D*> &curLps, std::vector<const LPoint2D*> &refLps, Eigen::Matrix3d &cov) {
   double tx = pose.tx;
   double ty = pose.ty;
   double th = pose.th;
   double a = DEG2RAD(th);
-  vector<double> Jx;                                         // ƒ„ƒRƒrs—ñ‚Ìx‚Ì—ñ
-  vector<double> Jy;                                         // ƒ„ƒRƒrs—ñ‚Ìy‚Ì—ñ
-  vector<double> Jt;                                         // ƒ„ƒRƒrs—ñ‚Ìth‚Ì—ñ
+  vector<double> Jx;                                         // ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã®xã®åˆ—
+  vector<double> Jy;                                         // ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã®yã®åˆ—
+  vector<double> Jt;                                         // ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã®thã®åˆ—
 
   for (size_t i=0; i<curLps.size(); i++) {
-    const LPoint2D *clp = curLps[i];                         // Œ»İƒXƒLƒƒƒ“‚Ì“_
-    const LPoint2D *rlp = refLps[i];                         // QÆƒXƒLƒƒƒ“‚Ì“_
+    const LPoint2D *clp = curLps[i];                         // ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹
+    const LPoint2D *rlp = refLps[i];                         // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹
 
-    if (rlp->type == ISOLATE)                                // ŒÇ—§“_‚ÍœŠO
+    if (rlp->type == ISOLATE)                                // å­¤ç«‹ç‚¹ã¯é™¤å¤–
       continue;
 
-    double pd0 = calPDistance(clp, rlp, tx, ty, a);         // ƒRƒXƒgŠÖ”’l
-    double pdx = calPDistance(clp, rlp, tx+dd, ty, a);      // x‚ğ­‚µ•Ï‚¦‚½ƒRƒXƒgŠÖ”’l
-    double pdy = calPDistance(clp, rlp, tx, ty+dd, a);      // y‚ğ­‚µ•Ï‚¦‚½ƒRƒXƒgŠÖ”’l
-    double pdt = calPDistance(clp, rlp, tx, ty, a+da);      // th‚ğ­‚µ•Ï‚¦‚½ƒRƒXƒgŠÖ”’l
+    double pd0 = calPDistance(clp, rlp, tx, ty, a);         // ã‚³ã‚¹ãƒˆé–¢æ•°å€¤
+    double pdx = calPDistance(clp, rlp, tx+dd, ty, a);      // xã‚’å°‘ã—å¤‰ãˆãŸã‚³ã‚¹ãƒˆé–¢æ•°å€¤
+    double pdy = calPDistance(clp, rlp, tx, ty+dd, a);      // yã‚’å°‘ã—å¤‰ãˆãŸã‚³ã‚¹ãƒˆé–¢æ•°å€¤
+    double pdt = calPDistance(clp, rlp, tx, ty, a+da);      // thã‚’å°‘ã—å¤‰ãˆãŸã‚³ã‚¹ãƒˆé–¢æ•°å€¤
 
-    Jx.push_back((pdx - pd0)/dd);                            // •Î”÷•ªix¬•ªj
-    Jy.push_back((pdy - pd0)/dd);                            // •Î”÷•ªiy¬•ªj
-    Jt.push_back((pdt - pd0)/da);                            // •Î”÷•ªith¬•ªj
+    Jx.push_back((pdx - pd0)/dd);                            // åå¾®åˆ†ï¼ˆxæˆåˆ†ï¼‰
+    Jy.push_back((pdy - pd0)/dd);                            // åå¾®åˆ†ï¼ˆyæˆåˆ†ï¼‰
+    Jt.push_back((pdt - pd0)/da);                            // åå¾®åˆ†ï¼ˆthæˆåˆ†ï¼‰
   }
 
-  // ƒwƒbƒZs—ñ‚Ì‹ß—J^TJ‚ÌŒvZ
-  Eigen::Matrix3d hes = Eigen::Matrix3d::Zero(3,3);          // ‹ß—ƒwƒbƒZs—ñB0‚Å‰Šú‰»
+  // ãƒ˜ãƒƒã‚»è¡Œåˆ—ã®è¿‘ä¼¼J^TJã®è¨ˆç®—
+  Eigen::Matrix3d hes = Eigen::Matrix3d::Zero(3,3);          // è¿‘ä¼¼ãƒ˜ãƒƒã‚»è¡Œåˆ—ã€‚0ã§åˆæœŸåŒ–
   for (size_t i=0; i<Jx.size(); i++) {
     hes(0,0) += Jx[i]*Jx[i];
     hes(0,1) += Jx[i]*Jy[i];
@@ -56,43 +56,43 @@ double CovarianceCalculator::calIcpCovariance(const Pose2D &pose, std::vector<co
     hes(1,2) += Jy[i]*Jt[i];
     hes(2,2) += Jt[i]*Jt[i];
   }
-  // J^TJ‚ª‘ÎÌs—ñ‚Å‚ ‚é‚±‚Æ‚ğ—˜—p
+  // J^TJãŒå¯¾ç§°è¡Œåˆ—ã§ã‚ã‚‹ã“ã¨ã‚’åˆ©ç”¨
   hes(1,0) = hes(0,1);
   hes(2,0) = hes(0,2);
   hes(2,1) = hes(1,2);
 
-  // ‹¤•ªUs—ñ‚Íi‹ß—jƒwƒbƒZs—ñ‚Ì‹ts—ñ
+  // å…±åˆ†æ•£è¡Œåˆ—ã¯ï¼ˆè¿‘ä¼¼ï¼‰ãƒ˜ãƒƒã‚»è¡Œåˆ—ã®é€†è¡Œåˆ—
 //  cov = hes.inverse();
-  cov = MyUtil::svdInverse(hes);                              // SVD‚ğg‚¤•û‚ª­‚µ‚æ‚¢
+  cov = MyUtil::svdInverse(hes);                              // SVDã‚’ä½¿ã†æ–¹ãŒå°‘ã—ã‚ˆã„
 
   double vals[2], vec1[2], vec2[2];
-  double ratio = calEigen(cov, vals, vec1, vec2);            // ŒÅ—L’lŒvZ‚µ‚ÄA‘Ş‰»‹ï‡‚ğ’²‚×‚é
+  double ratio = calEigen(cov, vals, vec1, vec2);            // å›ºæœ‰å€¤è¨ˆç®—ã—ã¦ã€é€€åŒ–å…·åˆã‚’èª¿ã¹ã‚‹
 
-  // •K—v‚É‰‚¶‚Ä‹¤•ªUs—ñ‚ÌƒXƒP[ƒ‹‚ğ’²®‚·‚é
-//  double kk = 1;          // ‘Ş‰»‚Å‹É’[‚É‚¸‚ê‚éê‡
-  double kk = 0.1;       // ’Êí
+  // å¿…è¦ã«å¿œã˜ã¦å…±åˆ†æ•£è¡Œåˆ—ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’èª¿æ•´ã™ã‚‹
+//  double kk = 1;          // é€€åŒ–ã§æ¥µç«¯ã«ãšã‚Œã‚‹å ´åˆ
+  double kk = 0.1;       // é€šå¸¸
   cov *= kk;
 
   return(ratio);
 }
 
-// ‚’¼‹——£‚ğ—p‚¢‚½ŠÏ‘ªƒ‚ƒfƒ‹‚Ì®
+// å‚ç›´è·é›¢ã‚’ç”¨ã„ãŸè¦³æ¸¬ãƒ¢ãƒ‡ãƒ«ã®å¼
 double CovarianceCalculator::calPDistance(const LPoint2D *clp, const LPoint2D *rlp, double tx, double ty, double th) {
-  double x = cos(th)*clp->x - sin(th)*clp->y + tx;                     // clp‚ğ„’èˆÊ’u‚ÅÀ•W•ÏŠ·
+  double x = cos(th)*clp->x - sin(th)*clp->y + tx;                     // clpã‚’æ¨å®šä½ç½®ã§åº§æ¨™å¤‰æ›
   double y = sin(th)*clp->x + cos(th)*clp->y + ty;
-  double pdis = (x - rlp->x)*rlp->nx + (y - rlp->y)*rlp->ny;           // À•W•ÏŠ·‚µ‚½“_‚©‚çrlp‚Ö‚Ì‚’¼‹——£
+  double pdis = (x - rlp->x)*rlp->nx + (y - rlp->y)*rlp->ny;           // åº§æ¨™å¤‰æ›ã—ãŸç‚¹ã‹ã‚‰rlpã¸ã®å‚ç›´è·é›¢
 
   return(pdis);
 }
 
-///////// ‰^“®ƒ‚ƒfƒ‹‚ÌŒvZ /////////
+///////// é‹å‹•ãƒ¢ãƒ‡ãƒ«ã®è¨ˆç®— /////////
 
 void CovarianceCalculator::calMotionCovarianceSimple(const Pose2D &motion, double dT, Eigen::Matrix3d &cov) {
-  double dis = sqrt(motion.tx*motion.tx + motion.ty*motion.ty);   // ˆÚ“®‹——£
-  double vt = dis/dT;                    // •Ài‘¬“x[m/s]
-  double wt = DEG2RAD(motion.th)/dT;     // Šp‘¬“x[rad/s]
-  double vthre = 0.02;                   // vt‚Ì‰ºŒÀ’lB“¯Šú‚¸‚ê‚Å0‚É‚È‚éê‡‚Ì‘Îˆ
-  double wthre = 0.05;                   // wt‚Ì‰ºŒÀ’l
+  double dis = sqrt(motion.tx*motion.tx + motion.ty*motion.ty);   // ç§»å‹•è·é›¢
+  double vt = dis/dT;                    // ä¸¦é€²é€Ÿåº¦[m/s]
+  double wt = DEG2RAD(motion.th)/dT;     // è§’é€Ÿåº¦[rad/s]
+  double vthre = 0.02;                   // vtã®ä¸‹é™å€¤ã€‚åŒæœŸãšã‚Œã§0ã«ãªã‚‹å ´åˆã®å¯¾å‡¦
+  double wthre = 0.05;                   // wtã®ä¸‹é™å€¤
 
   if (vt < vthre)
     vt = vthre;
@@ -104,18 +104,18 @@ void CovarianceCalculator::calMotionCovarianceSimple(const Pose2D &motion, doubl
   double da = wt;
 
   Eigen::Matrix3d C1;
-  C1.setZero();                          // ‘ÎŠp—v‘f‚¾‚¯“ü‚ê‚é
-  C1(0,0) = 0.001*dx*dx;                 // •Ài¬•ªx
-  C1(1,1) = 0.005*dy*dy;                 // •Ài¬•ªy
-//  C1(2,2) = 0.005*da*da;                 // ‰ñ“]¬•ª
-  C1(2,2) = 0.05*da*da;                 // ‰ñ“]¬•ª
+  C1.setZero();                          // å¯¾è§’è¦ç´ ã ã‘å…¥ã‚Œã‚‹
+  C1(0,0) = 0.001*dx*dx;                 // ä¸¦é€²æˆåˆ†x
+  C1(1,1) = 0.005*dy*dy;                 // ä¸¦é€²æˆåˆ†y
+//  C1(2,2) = 0.005*da*da;                 // å›è»¢æˆåˆ†
+  C1(2,2) = 0.05*da*da;                 // å›è»¢æˆåˆ†
 
-  // ƒXƒP[ƒ‹’²®
-//  double kk = 100;                     // ƒIƒhƒƒgƒŠ‚Ì‚¸‚ê‚ª‘å‚«‚¢ê‡
-  double kk = 1;                         // ’Êí
+  // ã‚¹ã‚±ãƒ¼ãƒ«èª¿æ•´
+//  double kk = 100;                     // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã®ãšã‚ŒãŒå¤§ãã„å ´åˆ
+  double kk = 1;                         // é€šå¸¸
   cov = kk*C1;
 
-  // Šm”F—p
+  // ç¢ºèªç”¨
   printf("calMotionCovarianceSimple\n");
   printf("vt=%g, wt=%g\n", vt, wt);
   double vals[2], vec1[2], vec2[2];
@@ -123,22 +123,22 @@ void CovarianceCalculator::calMotionCovarianceSimple(const Pose2D &motion, doubl
   printf("cov : %g %g %g %g %g %g\n", cov(0,0), cov(0,1), cov(0,2), cov(1,1), cov(1,2), cov(2,2));
 }
 
-///////// ‰^“®ƒ‚ƒfƒ‹‚ÌŒvZ /////////
+///////// é‹å‹•ãƒ¢ãƒ‡ãƒ«ã®è¨ˆç®— /////////
 
-// 1ƒtƒŒ[ƒ€•ª‚Ì‘–s‚É‚æ‚éŒë·BdT‚Í1ƒtƒŒ[ƒ€‚ÌŠÔBmotion‚Í‚»‚ÌŠÔ‚ÌˆÚ“®—ÊB
+// 1ãƒ•ãƒ¬ãƒ¼ãƒ åˆ†ã®èµ°è¡Œã«ã‚ˆã‚‹èª¤å·®ã€‚dTã¯1ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ™‚é–“ã€‚motionã¯ãã®é–“ã®ç§»å‹•é‡ã€‚
 void CovarianceCalculator::calMotionCovariance(double th, double dx, double dy, double dth, double dt, Eigen::Matrix3d &cov, bool accum) {
   setAlpha(1, 5);
-  double dis = sqrt(dx*dx + dy*dy);   // ‘–s‹——£
-  double vt = dis/dt;                 // •Ài‘¬“x[m/s]
-  double wt = dth/dt;                 // Šp‘¬“x[rad/s]
-  double vthre = 0.001;               // vt‚Ì‰ºŒÀ’lBƒ^ƒCƒ~ƒ“ƒO‚É‚æ‚è0‚É‚È‚é‚Ì‚ğ–h‚®B
-  double wthre = 0.01;                // wt‚Ì‰ºŒÀ’l
+  double dis = sqrt(dx*dx + dy*dy);   // èµ°è¡Œè·é›¢
+  double vt = dis/dt;                 // ä¸¦é€²é€Ÿåº¦[m/s]
+  double wt = dth/dt;                 // è§’é€Ÿåº¦[rad/s]
+  double vthre = 0.001;               // vtã®ä¸‹é™å€¤ã€‚ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã«ã‚ˆã‚Š0ã«ãªã‚‹ã®ã‚’é˜²ãã€‚
+  double wthre = 0.01;                // wtã®ä¸‹é™å€¤
   if (vt < vthre)
     vt = vthre;
   if (wt < wthre)
     wt = wthre;
 
- // —İÏ‚·‚éê‡‚ÍAt-1‚Ì‹¤•ªUs—ñsigma‚©‚çAt‚Ì‹¤•ªUs—ñ‚ğŒvZ
+ // ç´¯ç©ã™ã‚‹å ´åˆã¯ã€æ™‚åˆ»t-1ã®å…±åˆ†æ•£è¡Œåˆ—sigmaã‹ã‚‰ã€æ™‚åˆ»tã®å…±åˆ†æ•£è¡Œåˆ—ã‚’è¨ˆç®—
   Eigen::Matrix3d A = Eigen::Matrix3d::Zero(3,3);
   if (accum) {
     Eigen::Matrix3d Jxk;
@@ -164,7 +164,7 @@ void CovarianceCalculator::calUk(double vt, double wt, Eigen::Matrix2d &Uk) {
         0, a2*wt*wt;
 }
 
-// ƒƒ{ƒbƒgp¨‚ÉŠÖ‚·‚éƒ„ƒRƒrs—ñBvt‚Íƒƒ{ƒbƒg‚Ì‘¬“xAth‚Íƒƒ{ƒbƒg‚Ì•ûŒü(ƒ‰ƒWƒAƒ“)Adt‚ÍŠÔ
+// ãƒ­ãƒœãƒƒãƒˆå§¿å‹¢ã«é–¢ã™ã‚‹ãƒ¤ã‚³ãƒ“è¡Œåˆ—ã€‚vtã¯ãƒ­ãƒœãƒƒãƒˆã®é€Ÿåº¦ã€thã¯ãƒ­ãƒœãƒƒãƒˆã®æ–¹å‘(ãƒ©ã‚¸ã‚¢ãƒ³)ã€dtã¯æ™‚é–“
 void CovarianceCalculator::calJxk(double th, double vt, double dt, Eigen::Matrix3d &Jxk) {
   double cs = cos(th);
   double sn = sin(th);
@@ -184,18 +184,18 @@ void CovarianceCalculator::calJuk(double th, double dt, Eigen::Matrix<double, 3,
 
 ////////////////
 
-// ‹¤•ªUs—ñcov‚Ì•Ài¬•ª‚¾‚¯‚ğŒÅ—L’l•ª‰ğ‚µAŒÅ—L’l‚ğvals‚ÉAŒÅ—LƒxƒNƒgƒ‹‚ğvec1‚Ævec2‚É“ü‚ê‚éB
+// å…±åˆ†æ•£è¡Œåˆ—covã®ä¸¦é€²æˆåˆ†ã ã‘ã‚’å›ºæœ‰å€¤åˆ†è§£ã—ã€å›ºæœ‰å€¤ã‚’valsã«ã€å›ºæœ‰ãƒ™ã‚¯ãƒˆãƒ«ã‚’vec1ã¨vec2ã«å…¥ã‚Œã‚‹ã€‚
 double CovarianceCalculator::calEigen(const Eigen::Matrix3d &cov, double *vals, double *vec1, double *vec2) {
-  // •Ài•”•ª‚¾‚¯æ‚èo‚·
+  // ä¸¦é€²éƒ¨åˆ†ã ã‘å–ã‚Šå‡ºã™
   double cv2[2][2];
   for (int i=0; i<2; i++) 
     for (int j=0; j<2; j++) 
       cv2[i][j] = cov(i,j);
 
-  MyUtil::calEigen2D(cv2, vals, vec1, vec2);        // ŒÅ—L’l•ª‰ğ
+  MyUtil::calEigen2D(cv2, vals, vec1, vec2);        // å›ºæœ‰å€¤åˆ†è§£
   double ratio = vals[0]/vals[1];
 
-  // Šm”F—p
+  // ç¢ºèªç”¨
   printf("Eigen: ratio=%g, val1=%g, val2=%g\n", ratio, vals[0], vals[1]);
   printf("Eigen: vec1=(%g, %g), ang=%g\n", vec1[0], vec1[1], RAD2DEG(atan2(vec1[1], vec1[0])));
 
@@ -204,7 +204,7 @@ double CovarianceCalculator::calEigen(const Eigen::Matrix3d &cov, double *vals, 
 
 //////////////
 
-// ‹¤•ªUs—ñ‚Ì—İÏB‘O‰ñˆÊ’u‚Ì‹¤•ªUs—ñprevCov‚ÉˆÚ“®—Ê‚Ì‹¤•ªUs—ñmcov‚ğ‰Á‚¦‚ÄAŒ»İˆÊ’u‚Ì‹¤•ªUs—ñcurCov‚ğ‹‚ß‚éB
+// å…±åˆ†æ•£è¡Œåˆ—ã®ç´¯ç©ã€‚å‰å›ä½ç½®ã®å…±åˆ†æ•£è¡Œåˆ—prevCovã«ç§»å‹•é‡ã®å…±åˆ†æ•£è¡Œåˆ—mcovã‚’åŠ ãˆã¦ã€ç¾åœ¨ä½ç½®ã®å…±åˆ†æ•£è¡Œåˆ—curCovã‚’æ±‚ã‚ã‚‹ã€‚
 void CovarianceCalculator::accumulateCovariance(const Pose2D &curPose, const Pose2D &prevPose, const Eigen::Matrix3d &prevCov, const Eigen::Matrix3d &mcov, Eigen::Matrix3d &curCov) {
   Eigen::Matrix3d J1, J2;
   J1 << 1, 0, -(curPose.ty - prevPose.ty),
@@ -222,11 +222,11 @@ void CovarianceCalculator::accumulateCovariance(const Pose2D &curPose, const Pos
 
 /////////////
 
-// ‹¤•ªUs—ñcov‚ğpose‚ÌŠp“x•ª‚¾‚¯‰ñ“]‚³‚¹‚é
+// å…±åˆ†æ•£è¡Œåˆ—covã‚’poseã®è§’åº¦åˆ†ã ã‘å›è»¢ã•ã›ã‚‹
 void CovarianceCalculator::rotateCovariance(const Pose2D &pose, const Eigen::Matrix3d &cov, Eigen::Matrix3d &icov, bool reverse) {
-  double cs = cos(DEG2RAD(pose.th));            // pose‚Ì‰ñ“]¬•ªth‚É‚æ‚écos
+  double cs = cos(DEG2RAD(pose.th));            // poseã®å›è»¢æˆåˆ†thã«ã‚ˆã‚‹cos
   double sn = sin(DEG2RAD(pose.th));
-  Eigen::Matrix3d J;                            // ‰ñ“]‚Ìƒ„ƒRƒrs—ñ
+  Eigen::Matrix3d J;                            // å›è»¢ã®ãƒ¤ã‚³ãƒ“è¡Œåˆ—
   J << cs, -sn, 0,
        sn, cs, 0,
        0, 0, 1;
@@ -234,7 +234,7 @@ void CovarianceCalculator::rotateCovariance(const Pose2D &pose, const Eigen::Mat
   Eigen::Matrix3d JT = J.transpose();
 
   if (reverse)
-    icov = JT*cov*J;                              // ‹t‰ñ“]•ÏŠ·
+    icov = JT*cov*J;                              // é€†å›è»¢å¤‰æ›
   else
-    icov = J*cov*JT;                              // ‰ñ“]•ÏŠ·
+    icov = J*cov*JT;                              // å›è»¢å¤‰æ›
 }

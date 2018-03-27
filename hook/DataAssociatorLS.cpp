@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,40 +17,40 @@
 
 using namespace std;
 
-// Œ»İƒXƒLƒƒƒ“curScan‚ÌŠeƒXƒLƒƒƒ““_‚É‘Î‰‚·‚é“_‚ğbaseLps‚©‚çŒ©‚Â‚¯‚é
+// ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³curScanã®å„ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã«å¯¾å¿œã™ã‚‹ç‚¹ã‚’baseLpsã‹ã‚‰è¦‹ã¤ã‘ã‚‹
 double DataAssociatorLS::findCorrespondence(const Scan2D *curScan, const Pose2D &predPose) {
-  boost::timer tim;                                 // ˆ—ŠÔ‘ª’è—p
+  boost::timer tim;                                 // å‡¦ç†æ™‚é–“æ¸¬å®šç”¨
 
-  double dthre = 0.2;                               // ‚±‚ê‚æ‚è‰“‚¢“_‚ÍœŠO‚·‚é[m]
-  curLps.clear();                                   // ‘Î‰‚Ã‚¯Œ»İƒXƒLƒƒƒ““_ŒQ‚ğ‹ó‚É‚·‚é
-  refLps.clear();                                   // ‘Î‰‚Ã‚¯QÆƒXƒLƒƒƒ““_ŒQ‚ğ‹ó‚É‚·‚é
+  double dthre = 0.2;                               // ã“ã‚Œã‚ˆã‚Šé ã„ç‚¹ã¯é™¤å¤–ã™ã‚‹[m]
+  curLps.clear();                                   // å¯¾å¿œã¥ã‘ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’ç©ºã«ã™ã‚‹
+  refLps.clear();                                   // å¯¾å¿œã¥ã‘å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’ç©ºã«ã™ã‚‹
   for (size_t i=0; i<curScan->lps.size(); i++) {
-    const LPoint2D *clp = &(curScan->lps[i]);       // Œ»İƒXƒLƒƒƒ“‚Ì“_Bƒ|ƒCƒ“ƒ^‚ÅB
+    const LPoint2D *clp = &(curScan->lps[i]);       // ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ã€‚ãƒã‚¤ãƒ³ã‚¿ã§ã€‚
 
-    // ƒXƒLƒƒƒ““_lp‚ğpredPose‚ÅÀ•W•ÏŠ·‚µ‚½ˆÊ’u‚ÉÅ‚à‹ß‚¢“_‚ğŒ©‚Â‚¯‚é
-    LPoint2D glp;                                   // clp‚Ì—\‘ªˆÊ’u
-    predPose.globalPoint(*clp, glp);                // predPose‚ÅÀ•W•ÏŠ·
+    // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹lpã‚’predPoseã§åº§æ¨™å¤‰æ›ã—ãŸä½ç½®ã«æœ€ã‚‚è¿‘ã„ç‚¹ã‚’è¦‹ã¤ã‘ã‚‹
+    LPoint2D glp;                                   // clpã®äºˆæ¸¬ä½ç½®
+    predPose.globalPoint(*clp, glp);                // predPoseã§åº§æ¨™å¤‰æ›
 
-    double dmin = HUGE_VAL;                         // ‹——£Å¬’l
-    const LPoint2D *rlpmin = nullptr;               // Å‚à‹ß‚¢“_
+    double dmin = HUGE_VAL;                         // è·é›¢æœ€å°å€¤
+    const LPoint2D *rlpmin = nullptr;               // æœ€ã‚‚è¿‘ã„ç‚¹
     for (size_t j=0; j<baseLps.size(); j++) {
-      const LPoint2D *rlp = baseLps[j];             // QÆƒXƒLƒƒƒ““_
+      const LPoint2D *rlp = baseLps[j];             // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç‚¹
       double d = (glp.x - rlp->x)*(glp.x - rlp->x) + (glp.y - rlp->y)*(glp.y - rlp->y);
-      if (d <= dthre*dthre && d < dmin) {           // dthre“à‚Å‹——£‚ªÅ¬‚Æ‚È‚é“_‚ğ•Û‘¶
+      if (d <= dthre*dthre && d < dmin) {           // dthreå†…ã§è·é›¢ãŒæœ€å°ã¨ãªã‚‹ç‚¹ã‚’ä¿å­˜
         dmin = d;
         rlpmin = rlp;
       }
     }
-    if (rlpmin != nullptr) {                        // Å‹ß–T“_‚ª‚ ‚ê‚Î“o˜^
+    if (rlpmin != nullptr) {                        // æœ€è¿‘å‚ç‚¹ãŒã‚ã‚Œã°ç™»éŒ²
       curLps.push_back(clp);
       refLps.push_back(rlpmin);
     }
   }
   
-  double ratio = (1.0*curLps.size())/curScan->lps.size();         // ‘Î‰‚ª‚Æ‚ê‚½“_‚Ì”ä—¦
+  double ratio = (1.0*curLps.size())/curScan->lps.size();         // å¯¾å¿œãŒã¨ã‚ŒãŸç‚¹ã®æ¯”ç‡
 //  printf("ratio=%g, clps.size=%lu\n", ratio, curScan->lps.size());
 
-//  double t1 = 1000*tim.elapsed();                               // ˆ—ŠÔ
+//  double t1 = 1000*tim.elapsed();                               // å‡¦ç†æ™‚é–“
 //  printf("Elapsed time: dassLS=%g\n", t1);
 
   return(ratio);

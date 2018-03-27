@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,10 +24,10 @@
 class CostFunction
 {
 protected:
-  std::vector<const LPoint2D*> curLps;         // ‘Î‰‚ª‚Æ‚ê‚½Œ»İƒXƒLƒƒƒ“‚Ì“_ŒQ
-  std::vector<const LPoint2D*> refLps;         // ‘Î‰‚ª‚Æ‚ê‚½QÆƒXƒLƒƒƒ“‚Ì“_ŒQ
-  double evlimit;                              // ƒ}ƒbƒ`ƒ“ƒO‚Å‘Î‰‚ª‚Æ‚ê‚½‚ÆŒ©‚È‚·‹——£è‡’l
-  double pnrate;                               // Œë·‚ªevlimitˆÈ“à‚Å‘Î‰‚ª‚Æ‚ê‚½“_‚Ì”ä—¦
+  std::vector<const LPoint2D*> curLps;         // å¯¾å¿œãŒã¨ã‚ŒãŸç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤
+  std::vector<const LPoint2D*> refLps;         // å¯¾å¿œãŒã¨ã‚ŒãŸå‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤
+  double evlimit;                              // ãƒãƒƒãƒãƒ³ã‚°ã§å¯¾å¿œãŒã¨ã‚ŒãŸã¨è¦‹ãªã™è·é›¢é–¾å€¤
+  double pnrate;                               // èª¤å·®ãŒevlimitä»¥å†…ã§å¯¾å¿œãŒã¨ã‚ŒãŸç‚¹ã®æ¯”ç‡
 
 public:
   CostFunction() : evlimit(0), pnrate(0) {
@@ -42,7 +42,7 @@ public:
     evlimit = e;
   }
 
-  // DataAssociator‚Å‘Î‰‚Ì‚Æ‚ê‚½“_ŒQcur, ref‚ğİ’è
+  // DataAssociatorã§å¯¾å¿œã®ã¨ã‚ŒãŸç‚¹ç¾¤cur, refã‚’è¨­å®š
   void setPoints(std::vector<const LPoint2D*> &cur, std::vector<const LPoint2D*> &ref) {
     curLps = cur;
     refLps = ref;

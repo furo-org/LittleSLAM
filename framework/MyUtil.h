@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -20,15 +20,15 @@
 #include <Eigen/Eigen>
 
 #ifndef M_PI
-#define M_PI 3.14159265358979             // ‰~ü—¦
+#define M_PI 3.14159265358979             // å††å‘¨ç‡
 #endif
 
 #ifndef NULL
-#define NULL 0                     // Šî–{“I‚É‚ÍAC++11‚Ìnullptr‚ğg‚¤
+#define NULL 0                     // åŸºæœ¬çš„ã«ã¯ã€C++11ã®nullptrã‚’ä½¿ã†
 #endif
 
-#define DEG2RAD(x) ((x)*M_PI/180)  // “x‚©‚çƒ‰ƒWƒAƒ“
-#define RAD2DEG(x) ((x)*180/M_PI)  // ƒ‰ƒWƒAƒ“‚©‚ç“x
+#define DEG2RAD(x) ((x)*M_PI/180)  // åº¦ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³
+#define RAD2DEG(x) ((x)*180/M_PI)  // ãƒ©ã‚¸ã‚¢ãƒ³ã‹ã‚‰åº¦
 
 typedef unsigned char uchar;
 

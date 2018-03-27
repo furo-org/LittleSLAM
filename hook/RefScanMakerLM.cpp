@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,13 +18,13 @@ using namespace std;
 
 
 const Scan2D *RefScanMakerLM::makeRefScan() {
-  vector<LPoint2D> &refLps = refScan.lps;         // QÆƒXƒLƒƒƒ“‚Ì“_ŒQ‚ÌƒRƒ“ƒeƒi
+  vector<LPoint2D> &refLps = refScan.lps;         // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤ã®ã‚³ãƒ³ãƒ†ãƒŠ
   refLps.clear();
 
-  const vector<LPoint2D> &localMap = pcmap->localMap;  // “_ŒQ’n}‚Ì‹ÇŠ’n}
+  const vector<LPoint2D> &localMap = pcmap->localMap;  // ç‚¹ç¾¤åœ°å›³ã®å±€æ‰€åœ°å›³
   for (size_t i=0; i<localMap.size(); i++) {
     const LPoint2D &rp = localMap[i];
-    refLps.emplace_back(rp);                           // ’P‚ÉƒRƒs[
+    refLps.emplace_back(rp);                           // å˜ã«ã‚³ãƒ”ãƒ¼
   }
 
   return(&refScan);

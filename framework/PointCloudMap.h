@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -21,23 +21,23 @@
 #include "Pose2D.h"
 #include "Scan2D.h"
 
-// “_ŒQ’n}‚ÌŠî’êƒNƒ‰ƒX
+// ç‚¹ç¾¤åœ°å›³ã®åŸºåº•ã‚¯ãƒ©ã‚¹
 class PointCloudMap
 {
 public:
-  static const int MAX_POINT_NUM=1000000;          // globalMap‚ÌÅ‘å“_”
+  static const int MAX_POINT_NUM=1000000;          // globalMapã®æœ€å¤§ç‚¹æ•°
 
-  int nthre;                                       // Šiqƒe[ƒuƒ‹ƒZƒ‹“_”è‡’l(GT‚ÆLP‚Ì‚İj
+  int nthre;                                       // æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã‚»ãƒ«ç‚¹æ•°é–¾å€¤(GTã¨LPã®ã¿ï¼‰
 
-  std::vector<Pose2D> poses;                       // ƒƒ{ƒbƒg‹OÕ
-  Pose2D lastPose;                                 // ÅŒã‚É„’è‚µ‚½ƒƒ{ƒbƒgˆÊ’u
-  Scan2D lastScan;                                 // ÅŒã‚Éˆ—‚µ‚½ƒXƒLƒƒƒ“
+  std::vector<Pose2D> poses;                       // ãƒ­ãƒœãƒƒãƒˆè»Œè·¡
+  Pose2D lastPose;                                 // æœ€å¾Œã«æ¨å®šã—ãŸãƒ­ãƒœãƒƒãƒˆä½ç½®
+  Scan2D lastScan;                                 // æœ€å¾Œã«å‡¦ç†ã—ãŸã‚¹ã‚­ãƒ£ãƒ³
 
-  std::vector<LPoint2D> globalMap;                 // ‘S‘Ì’n}BŠÔˆø‚«Œã‚Ì“_
-  std::vector<LPoint2D> localMap;                  // Œ»İˆÊ’u‹ß–T‚Ì‹ÇŠ’n}BƒXƒLƒƒƒ“ƒ}ƒbƒ`ƒ“ƒO‚Ég‚¤
+  std::vector<LPoint2D> globalMap;                 // å…¨ä½“åœ°å›³ã€‚é–“å¼•ãå¾Œã®ç‚¹
+  std::vector<LPoint2D> localMap;                  // ç¾åœ¨ä½ç½®è¿‘å‚ã®å±€æ‰€åœ°å›³ã€‚ã‚¹ã‚­ãƒ£ãƒ³ãƒãƒƒãƒãƒ³ã‚°ã«ä½¿ã†
 
   PointCloudMap() : nthre(1) {
-    globalMap.reserve(MAX_POINT_NUM);              // Å‰‚ÉŠm•Û
+    globalMap.reserve(MAX_POINT_NUM);              // æœ€åˆã«ç¢ºä¿
   }
 
   ~PointCloudMap() {

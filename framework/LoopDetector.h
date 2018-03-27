@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,15 +24,15 @@
 
 ///////
 
-// ƒ‹[ƒvƒA[ƒNİ’èî•ñ
+// ãƒ«ãƒ¼ãƒ—ã‚¢ãƒ¼ã‚¯è¨­å®šæƒ…å ±
 struct LoopInfo
 {
-  bool arcked;                   // ‚·‚Å‚Éƒ|[ƒYƒA[ƒN‚ğ’£‚Á‚½‚©
-  int curId;                     // Œ»İƒL[ƒtƒŒ[ƒ€idiƒXƒLƒƒƒ“j
-  int refId;                     // QÆƒL[ƒtƒŒ[ƒ€idiƒXƒLƒƒƒ“C‚Ü‚½‚ÍCLocalGridMap2Dj
-  Pose2D pose;                   // Œ»İƒL[ƒtƒŒ[ƒ€‚ªQÆƒL[ƒtƒŒ[ƒ€‚Éƒ}ƒbƒ`‚·‚éƒOƒ[ƒoƒ‹p¨iGridƒx[ƒX‚Ìê‡‚Í‹tj
-  double score;                  // ICPƒ}ƒbƒ`ƒ“ƒOƒXƒRƒA
-  Eigen::Matrix3d cov;           // ‹¤•ªU
+  bool arcked;                   // ã™ã§ã«ãƒãƒ¼ã‚ºã‚¢ãƒ¼ã‚¯ã‚’å¼µã£ãŸã‹
+  int curId;                     // ç¾åœ¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ idï¼ˆã‚¹ã‚­ãƒ£ãƒ³ï¼‰
+  int refId;                     // å‚ç…§ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ idï¼ˆã‚¹ã‚­ãƒ£ãƒ³ï¼Œã¾ãŸã¯ï¼ŒLocalGridMap2Dï¼‰
+  Pose2D pose;                   // ç¾åœ¨ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ãŒå‚ç…§ã‚­ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒãƒƒãƒã™ã‚‹ã‚°ãƒ­ãƒ¼ãƒãƒ«å§¿å‹¢ï¼ˆGridãƒ™ãƒ¼ã‚¹ã®å ´åˆã¯é€†ï¼‰
+  double score;                  // ICPãƒãƒƒãƒãƒ³ã‚°ã‚¹ã‚³ã‚¢
+  Eigen::Matrix3d cov;           // å…±åˆ†æ•£
 
   LoopInfo() : arcked(false), curId(-1), refId(-1), score(-1) {
   }
@@ -47,7 +47,7 @@ struct LoopInfo
 
 //////////////
 
-// ƒfƒoƒbƒO—pƒf[ƒ^
+// ãƒ‡ãƒãƒƒã‚°ç”¨ãƒ‡ãƒ¼ã‚¿
 struct LoopMatch
 {
   Scan2D curScan;
@@ -69,8 +69,8 @@ struct LoopMatch
 class LoopDetector
 {
 protected:  
-  PoseGraph *pg;                               // ƒ|[ƒYƒOƒ‰ƒt
-  std::vector<LoopMatch> loopMatches;          // ƒfƒoƒbƒO—p
+  PoseGraph *pg;                               // ãƒãƒ¼ã‚ºã‚°ãƒ©ãƒ•
+  std::vector<LoopMatch> loopMatches;          // ãƒ‡ãƒãƒƒã‚°ç”¨
 
 public:
   LoopDetector() {
@@ -81,7 +81,7 @@ public:
 
 ////////
 
-  // ƒfƒoƒbƒO—p
+  // ãƒ‡ãƒãƒƒã‚°ç”¨
   std::vector<LoopMatch> &getLoopMatches() {
     return(loopMatches);
   }

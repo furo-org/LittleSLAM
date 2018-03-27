@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -24,17 +24,17 @@ struct Vector2D
 
 ////////////////////////
 
-enum ptype {UNKNOWN=0, LINE=1, CORNER=2, ISOLATE=3};    // “_‚Ìƒ^ƒCƒvF–¢’mA’¼üAƒR[ƒiAŒÇ—§
+enum ptype {UNKNOWN=0, LINE=1, CORNER=2, ISOLATE=3};    // ç‚¹ã®ã‚¿ã‚¤ãƒ—ï¼šæœªçŸ¥ã€ç›´ç·šã€ã‚³ãƒ¼ãƒŠã€å­¤ç«‹
 
 struct LPoint2D
 {
-  int sid;                 // ƒtƒŒ[ƒ€”Ô†iƒXƒLƒƒƒ“”Ô†j
-  double x;                // ˆÊ’ux
-  double y;                // ˆÊ’uy
-  double nx;               // –@üƒxƒNƒgƒ‹
-  double ny;               // –@üƒxƒNƒgƒ‹
-  double atd;              // —İÏ‘–s‹——£(accumulated travel distance)
-  ptype type;              // “_‚Ìƒ^ƒCƒv
+  int sid;                 // ãƒ•ãƒ¬ãƒ¼ãƒ ç•ªå·ï¼ˆã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ï¼‰
+  double x;                // ä½ç½®x
+  double y;                // ä½ç½®y
+  double nx;               // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+  double ny;               // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
+  double atd;              // ç´¯ç©èµ°è¡Œè·é›¢(accumulated travel distance)
+  ptype type;              // ç‚¹ã®ã‚¿ã‚¤ãƒ—
 
   LPoint2D() : sid(-1), x(0), y(0) {
     init();
@@ -67,14 +67,14 @@ struct LPoint2D
     y = _y;
   }
 
-  // range‚Æangle‚©‚çxy‚ğ‹‚ß‚é(‰EèŒn)
+  // rangeã¨angleã‹ã‚‰xyã‚’æ±‚ã‚ã‚‹(å³æ‰‹ç³»)
   void calXY(double range, double angle) {
     double a = DEG2RAD(angle);
     x = range*cos(a);
     y = range*sin(a);
   }
 
-  // range‚Æangle‚©‚çxy‚ğ‹‚ß‚é(¶èŒnj
+  // rangeã¨angleã‹ã‚‰xyã‚’æ±‚ã‚ã‚‹(å·¦æ‰‹ç³»ï¼‰
   void calXYi(double range, double angle) {
     double a = DEG2RAD(angle);
     x = range*cos(a);

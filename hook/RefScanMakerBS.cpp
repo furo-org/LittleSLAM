@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -17,24 +17,24 @@
 using namespace std;
 
 const Scan2D *RefScanMakerBS::makeRefScan() {
-  vector<LPoint2D> &refLps = refScan.lps;         // QÆƒXƒLƒƒƒ“‚Ì“_ŒQ‚ÌƒRƒ“ƒeƒi
+  vector<LPoint2D> &refLps = refScan.lps;         // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹ç¾¤ã®ã‚³ãƒ³ãƒ†ãƒŠ
   refLps.clear();
 
-  Pose2D lastPose = pcmap->getLastPose();         // “_ŒQ’n}‚É•Û‘¶‚µ‚½ÅŒã‚Ì„’èˆÊ’u
+  Pose2D lastPose = pcmap->getLastPose();         // ç‚¹ç¾¤åœ°å›³ã«ä¿å­˜ã—ãŸæœ€å¾Œã®æ¨å®šä½ç½®
   double (*R)[2] = lastPose.Rmat;
   double tx = lastPose.tx;
   double ty = lastPose.ty;
 
-  // “_ŒQ’n}‚É•Û‘¶‚µ‚½ÅŒã‚ÌƒXƒLƒƒƒ“‚ğQÆƒXƒLƒƒƒ“‚É‚·‚é
+  // ç‚¹ç¾¤åœ°å›³ã«ä¿å­˜ã—ãŸæœ€å¾Œã®ã‚¹ã‚­ãƒ£ãƒ³ã‚’å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã«ã™ã‚‹
   const vector<LPoint2D> &lps = pcmap->lastScan.lps;
   for (size_t i=0; i<lps.size(); i++) {
-    const LPoint2D &mp = lps[i];                  // QÆƒXƒLƒƒƒ“‚Ì“_
+    const LPoint2D &mp = lps[i];                  // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç‚¹
 
-    // ƒXƒLƒƒƒ“‚Íƒƒ{ƒbƒgÀ•WŒn‚È‚Ì‚ÅA’n}À•WŒn‚É•ÏŠ·
+    // ã‚¹ã‚­ãƒ£ãƒ³ã¯ãƒ­ãƒœãƒƒãƒˆåº§æ¨™ç³»ãªã®ã§ã€åœ°å›³åº§æ¨™ç³»ã«å¤‰æ›
     LPoint2D rp;
-    rp.x = R[0][0]*mp.x + R[0][1]*mp.y + tx;      // “_‚ÌˆÊ’u
+    rp.x = R[0][0]*mp.x + R[0][1]*mp.y + tx;      // ç‚¹ã®ä½ç½®
     rp.y = R[1][0]*mp.x + R[1][1]*mp.y + ty;
-    rp.nx = R[0][0]*mp.nx + R[0][1]*mp.ny;        // –@üƒxƒNƒgƒ‹
+    rp.nx = R[0][0]*mp.nx + R[0][1]*mp.ny;        // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«
     rp.ny = R[1][0]*mp.nx + R[1][1]*mp.ny;
     refLps.emplace_back(rp);
   }

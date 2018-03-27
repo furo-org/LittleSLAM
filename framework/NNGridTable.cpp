@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,28 +18,28 @@ using namespace std;
 
 ////////////
 
-// Šiqƒe[ƒuƒ‹‚ÉƒXƒLƒƒƒ““_lp‚ğ“o˜^‚·‚é
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã«ã‚¹ã‚­ãƒ£ãƒ³ç‚¹lpã‚’ç™»éŒ²ã™ã‚‹
 void NNGridTable::addPoint(const LPoint2D *lp) {
-  // ƒe[ƒuƒ‹ŒŸõ‚ÌƒCƒ“ƒfƒbƒNƒXŒvZB‚Ü‚¸A‘ÎÛ—Ìˆæ“à‚É‚ ‚é‚©ƒ`ƒFƒbƒN‚·‚éB
+  // ãƒ†ãƒ¼ãƒ–ãƒ«æ¤œç´¢ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹è¨ˆç®—ã€‚ã¾ãšã€å¯¾è±¡é ˜åŸŸå†…ã«ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚
   int xi = static_cast<int>(lp->x/csize) + tsize;
-  if (xi < 0 || xi > 2*tsize)                      // ‘ÎÛ—Ìˆæ‚ÌŠO
+  if (xi < 0 || xi > 2*tsize)                      // å¯¾è±¡é ˜åŸŸã®å¤–
     return;
   int yi = static_cast<int>(lp->y/csize) + tsize;
-  if (yi < 0 || yi > 2*tsize)                      // ‘ÎÛ—Ìˆæ‚ÌŠO
+  if (yi < 0 || yi > 2*tsize)                      // å¯¾è±¡é ˜åŸŸã®å¤–
     return;
 
-  size_t idx = static_cast<size_t>(yi*(2*tsize +1) + xi);   // ƒe[ƒuƒ‹‚ÌƒCƒ“ƒfƒbƒNƒX
-  table[idx].lps.push_back(lp);                             // –Ú“I‚ÌƒZƒ‹‚É“ü‚ê‚é
+  size_t idx = static_cast<size_t>(yi*(2*tsize +1) + xi);   // ãƒ†ãƒ¼ãƒ–ãƒ«ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+  table[idx].lps.push_back(lp);                             // ç›®çš„ã®ã‚»ãƒ«ã«å…¥ã‚Œã‚‹
 }
 
 ///////////
 
-// ƒXƒLƒƒƒ““_clp‚ğpredPose‚ÅÀ•W•ÏŠ·‚µ‚½ˆÊ’u‚ÉÅ‚à‹ß‚¢“_‚ğŠiqƒe[ƒuƒ‹‚©‚çŒ©‚Â‚¯‚é
+// ã‚¹ã‚­ãƒ£ãƒ³ç‚¹clpã‚’predPoseã§åº§æ¨™å¤‰æ›ã—ãŸä½ç½®ã«æœ€ã‚‚è¿‘ã„ç‚¹ã‚’æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã‹ã‚‰è¦‹ã¤ã‘ã‚‹
 const LPoint2D *NNGridTable::findClosestPoint(const LPoint2D *clp, const Pose2D &predPose) {
-  LPoint2D glp;                           // clp‚Ì—\‘ªˆÊ’u
-  predPose.globalPoint(*clp, glp);         // relPose‚ÅÀ•W•ÏŠ·
+  LPoint2D glp;                           // clpã®äºˆæ¸¬ä½ç½®
+  predPose.globalPoint(*clp, glp);         // relPoseã§åº§æ¨™å¤‰æ›
 
-  // clp‚Ìƒe[ƒuƒ‹ƒCƒ“ƒfƒbƒNƒXB‘ÎÛ—Ìˆæ“à‚É‚ ‚é‚©ƒ`ƒFƒbƒN‚·‚éB
+  // clpã®ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã€‚å¯¾è±¡é ˜åŸŸå†…ã«ã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹ã€‚
   int cxi = static_cast<int>(glp.x/csize) + tsize;
   if (cxi < 0 || cxi > 2*tsize)
     return(nullptr);
@@ -47,30 +47,30 @@ const LPoint2D *NNGridTable::findClosestPoint(const LPoint2D *clp, const Pose2D 
   if (cyi < 0 || cyi > 2*tsize)
     return(nullptr);
 
-  size_t pn=0;                            // ’T‚µ‚½ƒZƒ‹“à‚Ì“_‚Ì‘”BŠm”F—p
+  size_t pn=0;                            // æ¢ã—ãŸã‚»ãƒ«å†…ã®ç‚¹ã®ç·æ•°ã€‚ç¢ºèªç”¨
   double dmin=1000000;
-  const LPoint2D *lpmin = nullptr;        // Å‚à‹ß‚¢“_i–Ú“I‚Ì“_j
-  double dthre=0.2;                       // ‚±‚ê‚æ‚è‰“‚¢“_‚ÍœŠO‚·‚é[m]
+  const LPoint2D *lpmin = nullptr;        // æœ€ã‚‚è¿‘ã„ç‚¹ï¼ˆç›®çš„ã®ç‚¹ï¼‰
+  double dthre=0.2;                       // ã“ã‚Œã‚ˆã‚Šé ã„ç‚¹ã¯é™¤å¤–ã™ã‚‹[m]
   int R=static_cast<int>(dthre/csize);
 
-  // }Rl•û‚ğ’T‚·
+  // Â±Rå››æ–¹ã‚’æ¢ã™
   for (int i=-R; i<=R; i++) {
-    int yi = cyi+i;                       // cyi‚©‚çL‚°‚é
+    int yi = cyi+i;                       // cyiã‹ã‚‰åºƒã’ã‚‹
     if (yi < 0 || yi > 2*tsize)
       continue;
     for (int j=-R; j<=R; j++) {
-      int xi = cxi+j;                     // cxi‚©‚çL‚°‚é
+      int xi = cxi+j;                     // cxiã‹ã‚‰åºƒã’ã‚‹
       if (xi < 0 || xi > 2*tsize)
         continue;
 
-      size_t idx = yi*(2*tsize+1) + xi;             // ƒe[ƒuƒ‹ƒCƒ“ƒfƒbƒNƒX
-      NNGridCell &cell = table[idx];                // ‚»‚ÌƒZƒ‹
-      vector<const LPoint2D*> &lps = cell.lps;      // ƒZƒ‹‚ª‚à‚ÂƒXƒLƒƒƒ““_ŒQ
+      size_t idx = yi*(2*tsize+1) + xi;             // ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+      NNGridCell &cell = table[idx];                // ãã®ã‚»ãƒ«
+      vector<const LPoint2D*> &lps = cell.lps;      // ã‚»ãƒ«ãŒã‚‚ã¤ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
       for (size_t k=0; k<lps.size(); k++) {
         const LPoint2D *lp = lps[k];
         double d = (lp->x - glp.x)*(lp->x - glp.x) + (lp->y - glp.y)*(lp->y - glp.y);
 
-        if (d <= dthre*dthre && d < dmin) {         // dthre“à‚Å‹——£‚ªÅ¬‚Æ‚È‚é“_‚ğ•Û‘¶
+        if (d <= dthre*dthre && d < dmin) {         // dthreå†…ã§è·é›¢ãŒæœ€å°ã¨ãªã‚‹ç‚¹ã‚’ä¿å­˜
           dmin = d;
           lpmin = lp;
         }
@@ -78,51 +78,51 @@ const LPoint2D *NNGridTable::findClosestPoint(const LPoint2D *clp, const Pose2D 
       pn += lps.size();
     }
   }
-//  printf("pn=%d\n", pn);                 // ’T‚µ‚½ƒZƒ‹“à‚Ì“_‚Ì‘”BŠm”F—p
+//  printf("pn=%d\n", pn);                 // æ¢ã—ãŸã‚»ãƒ«å†…ã®ç‚¹ã®ç·æ•°ã€‚ç¢ºèªç”¨
 
   return(lpmin);
 }
 
 ////////////
 
-// Šiqƒe[ƒuƒ‹‚ÌŠeƒZƒ‹‚Ì‘ã•\“_‚ğì‚Á‚Äps‚ÉŠi”[‚·‚éB
+// æ ¼å­ãƒ†ãƒ¼ãƒ–ãƒ«ã®å„ã‚»ãƒ«ã®ä»£è¡¨ç‚¹ã‚’ä½œã£ã¦psã«æ ¼ç´ã™ã‚‹ã€‚
 void NNGridTable::makeCellPoints(int nthre, vector<LPoint2D> &ps) {
-  // Œ»ó‚ÍƒZƒ‹“à‚ÌŠe“_‚ÌƒXƒLƒƒƒ“”Ô†‚Ì•½‹Ï‚ğ‚Æ‚éB
-  // ƒXƒLƒƒƒ“”Ô†‚ÌÅV’l‚ğ‚Æ‚éê‡‚ÍA‚»‚Ì•”•ª‚ÌƒRƒƒ“ƒg‚ğ‚Í‚¸‚µA
-  // •½‹Ï‚Æ‚éê‡i2sj‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚éB
+  // ç¾çŠ¶ã¯ã‚»ãƒ«å†…ã®å„ç‚¹ã®ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®å¹³å‡ã‚’ã¨ã‚‹ã€‚
+  // ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®æœ€æ–°å€¤ã‚’ã¨ã‚‹å ´åˆã¯ã€ãã®éƒ¨åˆ†ã®ã‚³ãƒ¡ãƒ³ãƒˆã‚’ã¯ãšã—ã€
+  // å¹³å‡ã¨ã‚‹å ´åˆï¼ˆ2è¡Œï¼‰ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ã€‚
 
-  size_t nn=0;                           // ƒe[ƒuƒ‹“à‚Ì‘SƒZƒ‹”BŠm”F—p
+  size_t nn=0;                           // ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã®å…¨ã‚»ãƒ«æ•°ã€‚ç¢ºèªç”¨
   for (size_t i=0; i<table.size(); i++) {
-    vector<const LPoint2D*> &lps = table[i].lps;      // ƒZƒ‹‚ÌƒXƒLƒƒƒ““_ŒQ
+    vector<const LPoint2D*> &lps = table[i].lps;      // ã‚»ãƒ«ã®ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤
     nn += lps.size();
-    if (lps.size() >= nthre) {           // “_”‚ªnthre‚æ‚è‘½‚¢ƒZƒ‹‚¾‚¯ˆ—‚·‚é
-      double gx=0, gy=0;                 // “_ŒQ‚ÌdSˆÊ’u
-      double nx=0, ny=0;                 // “_ŒQ‚Ì–@üƒxƒNƒgƒ‹‚Ì•½‹Ï
+    if (lps.size() >= nthre) {           // ç‚¹æ•°ãŒnthreã‚ˆã‚Šå¤šã„ã‚»ãƒ«ã ã‘å‡¦ç†ã™ã‚‹
+      double gx=0, gy=0;                 // ç‚¹ç¾¤ã®é‡å¿ƒä½ç½®
+      double nx=0, ny=0;                 // ç‚¹ç¾¤ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã®å¹³å‡
       int sid=0;
       for (size_t j=0; j<lps.size(); j++) {
         const LPoint2D *lp = lps[j];
-        gx += lp->x;                     // ˆÊ’u‚ğ—İÏ
+        gx += lp->x;                     // ä½ç½®ã‚’ç´¯ç©
         gy += lp->y;
-        nx += lp->nx;                    // –@üƒxƒNƒgƒ‹¬•ª‚ğ—İÏ
+        nx += lp->nx;                    // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«æˆåˆ†ã‚’ç´¯ç©
         ny += lp->ny;
-        sid += lp->sid;                  // ƒXƒLƒƒƒ“”Ô†‚Ì•½‹Ï‚Æ‚éê‡
-//        if (lp->sid > sid)             // ƒXƒLƒƒƒ“”Ô†‚ÌÅV’l‚Æ‚éê‡
+        sid += lp->sid;                  // ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®å¹³å‡ã¨ã‚‹å ´åˆ
+//        if (lp->sid > sid)             // ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®æœ€æ–°å€¤ã¨ã‚‹å ´åˆ
 //          sid = lp->sid;
 //        printf("sid=%d\n", lp->sid);
       }
-      gx /= lps.size();                  // •½‹Ï
+      gx /= lps.size();                  // å¹³å‡
       gy /= lps.size();
       double L = sqrt(nx*nx + ny*ny);
-      nx /=  L;                          // •½‹Ïi³‹K‰»j
+      nx /=  L;                          // å¹³å‡ï¼ˆæ­£è¦åŒ–ï¼‰
       ny /=  L;
-      sid /= lps.size();                 // ƒXƒLƒƒƒ“”Ô†‚Ì•½‹Ï‚Æ‚éê‡
+      sid /= lps.size();                 // ã‚¹ã‚­ãƒ£ãƒ³ç•ªå·ã®å¹³å‡ã¨ã‚‹å ´åˆ
 
-      LPoint2D newLp(sid, gx, gy);       // ƒZƒ‹‚Ì‘ã•\“_‚ğ¶¬
-      newLp.setNormal(nx, ny);           // –@üƒxƒNƒgƒ‹İ’è
-      newLp.setType(LINE);               // ƒ^ƒCƒv‚Í’¼ü‚É‚·‚é
-      ps.emplace_back(newLp);            // ps‚É’Ç‰Á
+      LPoint2D newLp(sid, gx, gy);       // ã‚»ãƒ«ã®ä»£è¡¨ç‚¹ã‚’ç”Ÿæˆ
+      newLp.setNormal(nx, ny);           // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«è¨­å®š
+      newLp.setType(LINE);               // ã‚¿ã‚¤ãƒ—ã¯ç›´ç·šã«ã™ã‚‹
+      ps.emplace_back(newLp);            // psã«è¿½åŠ 
     }
   }
 
-//  printf("nn=%d\n", nn);               // ƒe[ƒuƒ‹“à‚Ì‘SƒZƒ‹”BŠm”F—p
+//  printf("nn=%d\n", nn);               // ãƒ†ãƒ¼ãƒ–ãƒ«å†…ã®å…¨ã‚»ãƒ«æ•°ã€‚ç¢ºèªç”¨
 }

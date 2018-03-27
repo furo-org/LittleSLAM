@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -20,7 +20,7 @@ using namespace Eigen;
 
 /////////
 
-// Šp“x‚Ì‰ÁZB-180‚©‚ç180‚É³‹K‰»
+// è§’åº¦ã®åŠ ç®—ã€‚-180ã‹ã‚‰180ã«æ­£è¦åŒ–
 int MyUtil::add(int a1, int a2) {
   int sum = a1 + a2;
   if (sum < -180)
@@ -31,7 +31,7 @@ int MyUtil::add(int a1, int a2) {
   return(sum);
 }
 
-// Šp“x‚Ì‰ÁZB-180‚©‚ç180‚É³‹K‰»
+// è§’åº¦ã®åŠ ç®—ã€‚-180ã‹ã‚‰180ã«æ­£è¦åŒ–
 double MyUtil::add(double a1, double a2) {
   double sum = a1 + a2;
   if (sum < -180)
@@ -42,7 +42,7 @@ double MyUtil::add(double a1, double a2) {
   return(sum);
 }
 
-// Šp“x‚Ì‰ÁZiƒ‰ƒWƒAƒ“jB-pi‚©‚çpi‚É³‹K‰»
+// è§’åº¦ã®åŠ ç®—ï¼ˆãƒ©ã‚¸ã‚¢ãƒ³ï¼‰ã€‚-piã‹ã‚‰piã«æ­£è¦åŒ–
 double MyUtil::addR(double a1, double a2) {
   double sum = a1 + a2;
   if (sum < -M_PI)
@@ -55,7 +55,7 @@ double MyUtil::addR(double a1, double a2) {
 
 ////////////
 
-// SVD‚ğ—p‚¢‚½‹ts—ñŒvZ
+// SVDã‚’ç”¨ã„ãŸé€†è¡Œåˆ—è¨ˆç®—
 Eigen::Matrix3d MyUtil::svdInverse(const Matrix3d &A) {
   size_t m = A.rows();
   size_t n = A.cols();
@@ -68,7 +68,7 @@ Eigen::Matrix3d MyUtil::svdInverse(const Matrix3d &A) {
 
   MatrixXd M1(m, n);
   for (size_t i=0; i<n; i++) {
-//    if (eS[i] < 1.0E-10)                   // A‚ªSingular‚©‚Ç‚¤‚©‚Ìƒ`ƒFƒbƒNB¡‰ñ‚Í‚µ‚È‚¢
+//    if (eS[i] < 1.0E-10)                   // AãŒSingularã‹ã©ã†ã‹ã®ãƒã‚§ãƒƒã‚¯ã€‚ä»Šå›ã¯ã—ãªã„
 //      return;
     for (size_t j=0; j<n; j++) {
       M1(i,j) = eU(j,i)/eS[i];
@@ -89,7 +89,7 @@ Eigen::Matrix3d MyUtil::svdInverse(const Matrix3d &A) {
 
 /////////
 
-// 2Ÿ³•ûs—ñ‚ÌŒÅ—L’l•ª‰ğ
+// 2æ¬¡æ­£æ–¹è¡Œåˆ—ã®å›ºæœ‰å€¤åˆ†è§£
 void MyUtil::calEigen2D( double (*mat)[2], double *vals, double *vec1, double *vec2) {
   double a = mat[0][0];
   double b = mat[0][1];
@@ -99,23 +99,23 @@ void MyUtil::calEigen2D( double (*mat)[2], double *vals, double *vec1, double *v
   double B = sqrt((a+d)*(a+d) - 4*(a*d-b*c));
   double x1 = ((a+d) + B)/2;
   double x2 = ((a+d) - B)/2;
-  vals[0] = x1;                    // ŒÅ—L’l
+  vals[0] = x1;                    // å›ºæœ‰å€¤
   vals[1] = x2;
 
   double m00 = a-x1;
   double m01 = b;
   double L = sqrt(m00*m00 + m01*m01);
-  vec1[0] = m01/L;                 // ŒÅ—LƒxƒNƒgƒ‹
+  vec1[0] = m01/L;                 // å›ºæœ‰ãƒ™ã‚¯ãƒˆãƒ«
   vec1[1] = -m00/L;
 
   m00 = a-x2;
   m01 = b;
   L = sqrt(m00*m00 + m01*m01);
-  vec2[0] = m01/L;                 // ŒÅ—LƒxƒNƒgƒ‹
+  vec2[0] = m01/L;                 // å›ºæœ‰ãƒ™ã‚¯ãƒˆãƒ«
   vec2[1] = -m00/L;
 
 /*
-  // ŒŸZ
+  // æ¤œç®—
   double ax1 = a*vec1[0] + b*vec1[1];
   double ax2 = x1*vec1[0];
   double ay1 = c*vec1[0] + d*vec1[1];

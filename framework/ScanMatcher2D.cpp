@@ -1,4 +1,4 @@
-/****************************************************************************
+ï»¿/****************************************************************************
  * LittleSLAM: 2D-Laser SLAM for educational use
  * Copyright (C) 2017-2018 Masahiro Tomono
  * Copyright (C) 2018 Future Robotics Technology Center (fuRo),
@@ -18,71 +18,71 @@ using namespace std;
 
 /////////
 
-// ƒXƒLƒƒƒ“ƒ}ƒbƒ`ƒ“ƒO‚ÌÀs
+// ã‚¹ã‚­ãƒ£ãƒ³ãƒãƒƒãƒãƒ³ã‚°ã®å®Ÿè¡Œ
 bool ScanMatcher2D::matchScan(Scan2D &curScan) {
   ++cnt;
 
   printf("----- ScanMatcher2D: cnt=%d start -----\n", cnt);
 
-  // spres‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚ÎAƒXƒLƒƒƒ““_ŠÔŠu‚ğ‹Ïˆê‰»‚·‚é
+  // spresãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°ã€ã‚¹ã‚­ãƒ£ãƒ³ç‚¹é–“éš”ã‚’å‡ä¸€åŒ–ã™ã‚‹
   if (spres != nullptr)
     spres->resamplePoints(&curScan);
 
-  // spana‚ªİ’è‚³‚ê‚Ä‚¢‚ê‚ÎAƒXƒLƒƒƒ““_‚Ì–@ü‚ğŒvZ‚·‚é
+  // spanaãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°ã€ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ã®æ³•ç·šã‚’è¨ˆç®—ã™ã‚‹
   if (spana != nullptr)
     spana->analysePoints(curScan.lps);
 
-  // Å‰‚ÌƒXƒLƒƒƒ“‚Í’P‚É’n}‚É“ü‚ê‚é‚¾‚¯
+  // æœ€åˆã®ã‚¹ã‚­ãƒ£ãƒ³ã¯å˜ã«åœ°å›³ã«å…¥ã‚Œã‚‹ã ã‘
   if (cnt == 0) {
     growMap(curScan, initPose);
-    prevScan = curScan;                      // ’¼‘OƒXƒLƒƒƒ“‚Ìİ’è
+    prevScan = curScan;                      // ç›´å‰ã‚¹ã‚­ãƒ£ãƒ³ã®è¨­å®š
     return(true);
   }
 
-  // Scan‚É“ü‚Á‚Ä‚¢‚éƒIƒhƒƒgƒŠ’l‚ğ—p‚¢‚ÄˆÚ“®—Ê‚ğŒvZ‚·‚é
-  Pose2D odoMotion;                                                   // ƒIƒhƒƒgƒŠ‚ÉŠî‚Ã‚­ˆÚ“®—Ê
-  Pose2D::calRelativePose(curScan.pose, prevScan.pose, odoMotion);    // ‘OƒXƒLƒƒƒ“‚Æ‚Ì‘Š‘ÎˆÊ’u‚ªˆÚ“®—Ê
+  // Scanã«å…¥ã£ã¦ã„ã‚‹ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå€¤ã‚’ç”¨ã„ã¦ç§»å‹•é‡ã‚’è¨ˆç®—ã™ã‚‹
+  Pose2D odoMotion;                                                   // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«åŸºã¥ãç§»å‹•é‡
+  Pose2D::calRelativePose(curScan.pose, prevScan.pose, odoMotion);    // å‰ã‚¹ã‚­ãƒ£ãƒ³ã¨ã®ç›¸å¯¾ä½ç½®ãŒç§»å‹•é‡
 
-  Pose2D lastPose = pcmap->getLastPose();                        // ’¼‘OˆÊ’u
-  Pose2D predPose;                                               // ƒIƒhƒƒgƒŠ‚É‚æ‚é—\‘ªˆÊ’u
-  Pose2D::calGlobalPose(odoMotion, lastPose, predPose);          // ’¼‘OˆÊ’u‚ÉˆÚ“®—Ê‚ğ‰Á‚¦‚Ä—\‘ªˆÊ’u‚ğ“¾‚é
+  Pose2D lastPose = pcmap->getLastPose();                        // ç›´å‰ä½ç½®
+  Pose2D predPose;                                               // ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹äºˆæ¸¬ä½ç½®
+  Pose2D::calGlobalPose(odoMotion, lastPose, predPose);          // ç›´å‰ä½ç½®ã«ç§»å‹•é‡ã‚’åŠ ãˆã¦äºˆæ¸¬ä½ç½®ã‚’å¾—ã‚‹
 
-  const Scan2D *refScan = rsm->makeRefScan();                    // QÆƒXƒLƒƒƒ“‚Ì¶¬
-  estim->setScanPair(&curScan, refScan);                         // ICP‚ÉƒXƒLƒƒƒ“‚ğİ’è
+  const Scan2D *refScan = rsm->makeRefScan();                    // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ã®ç”Ÿæˆ
+  estim->setScanPair(&curScan, refScan);                         // ICPã«ã‚¹ã‚­ãƒ£ãƒ³ã‚’è¨­å®š
   printf("curScan.size=%lu, refScan.size=%lu\n", curScan.lps.size(), refScan->lps.size());
 
-  Pose2D estPose;                                                // ICP‚É‚æ‚é„’èˆÊ’u
-  double score = estim->estimatePose(predPose, estPose);         // —\‘ªˆÊ’u‚ğ‰Šú’l‚É‚µ‚ÄICP‚ğÀs
+  Pose2D estPose;                                                // ICPã«ã‚ˆã‚‹æ¨å®šä½ç½®
+  double score = estim->estimatePose(predPose, estPose);         // äºˆæ¸¬ä½ç½®ã‚’åˆæœŸå€¤ã«ã—ã¦ICPã‚’å®Ÿè¡Œ
   size_t usedNum = estim->getUsedNum();
 
-  bool successful;                                               // ƒXƒLƒƒƒ“ƒ}ƒbƒ`ƒ“ƒO‚É¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
-  if (score <= scthre && usedNum >= nthre)                       // ƒXƒRƒA‚ªè‡’l‚æ‚è¬‚³‚¯‚ê‚Î¬Œ÷‚Æ‚·‚é
+  bool successful;                                               // ã‚¹ã‚­ãƒ£ãƒ³ãƒãƒƒãƒãƒ³ã‚°ã«æˆåŠŸã—ãŸã‹ã©ã†ã‹
+  if (score <= scthre && usedNum >= nthre)                       // ã‚¹ã‚³ã‚¢ãŒé–¾å€¤ã‚ˆã‚Šå°ã•ã‘ã‚Œã°æˆåŠŸã¨ã™ã‚‹
     successful = true;
   else 
     successful = false;
   printf("score=%g, usedNum=%lu, successful=%d\n", score, usedNum, successful);
 
-  if (dgcheck) {                         // ‘Ş‰»‚Ì‘Îˆ‚ğ‚·‚éê‡
+  if (dgcheck) {                         // é€€åŒ–ã®å¯¾å‡¦ã‚’ã™ã‚‹å ´åˆ
     if (successful) {
-      Pose2D fusedPose;                       // —Z‡Œ‹‰Ê
-      Eigen::Matrix3d fusedCov;               // ƒZƒ“ƒT—Z‡Œã‚Ì‹¤•ªU
+      Pose2D fusedPose;                       // èåˆçµæœ
+      Eigen::Matrix3d fusedCov;               // ã‚»ãƒ³ã‚µèåˆå¾Œã®å…±åˆ†æ•£
       pfu->setRefScan(refScan);
-      // ƒZƒ“ƒT—Z‡Šípfu‚ÅAICPŒ‹‰Ê‚ÆƒIƒhƒƒgƒŠ’l‚ğ—Z‡‚·‚é
+      // ã‚»ãƒ³ã‚µèåˆå™¨pfuã§ã€ICPçµæœã¨ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå€¤ã‚’èåˆã™ã‚‹
       double ratio = pfu->fusePose(&curScan, estPose, odoMotion, lastPose, fusedPose, fusedCov);
       estPose = fusedPose;
       cov = fusedCov;
-      printf("ratio=%g. Pose fused.\n", ratio);     // ratio‚Í‘Ş‰»“xBŠm”F—p
+      printf("ratio=%g. Pose fused.\n", ratio);     // ratioã¯é€€åŒ–åº¦ã€‚ç¢ºèªç”¨
 
-      // ‹¤•ªU‚ğ—İÏ‚·‚é
-      Eigen::Matrix3d covL;               // ˆÚ“®—Ê‚Ì‹¤•ªU
-      CovarianceCalculator::rotateCovariance(lastPose, fusedCov, covL, true);          // ˆÚ“®—Ê‚Ì‹¤•ªU‚É•ÏŠ·
-      Eigen::Matrix3d tcov;                // —İÏŒã‚Ì‹¤•ªU
+      // å…±åˆ†æ•£ã‚’ç´¯ç©ã™ã‚‹
+      Eigen::Matrix3d covL;               // ç§»å‹•é‡ã®å…±åˆ†æ•£
+      CovarianceCalculator::rotateCovariance(lastPose, fusedCov, covL, true);          // ç§»å‹•é‡ã®å…±åˆ†æ•£ã«å¤‰æ›
+      Eigen::Matrix3d tcov;                // ç´¯ç©å¾Œã®å…±åˆ†æ•£
       CovarianceCalculator::accumulateCovariance(lastPose, estPose, totalCov, covL, tcov);
       totalCov = tcov;
     }
-    else {                                   // ICP¬Œ÷‚Å‚È‚¯‚ê‚ÎAƒIƒhƒƒgƒŠ‚É‚æ‚é—\‘ªˆÊ’u‚ğg‚¤
+    else {                                   // ICPæˆåŠŸã§ãªã‘ã‚Œã°ã€ã‚ªãƒ‰ãƒ¡ãƒˆãƒªã«ã‚ˆã‚‹äºˆæ¸¬ä½ç½®ã‚’ä½¿ã†
       estPose = predPose;
-      pfu->calOdometryCovariance(odoMotion, lastPose, cov);       // cov‚ÍƒIƒhƒƒgƒŠ‹¤•ªU‚¾‚¯
+      pfu->calOdometryCovariance(odoMotion, lastPose, cov);       // covã¯ã‚ªãƒ‰ãƒ¡ãƒˆãƒªå…±åˆ†æ•£ã ã‘
     }
   }
   else {
@@ -90,26 +90,26 @@ bool ScanMatcher2D::matchScan(Scan2D &curScan) {
       estPose = predPose;
   }
 
-  growMap(curScan, estPose);               // ’n}‚ÉƒXƒLƒƒƒ““_ŒQ‚ğ’Ç‰Á
-  prevScan = curScan;                      // ’¼‘OƒXƒLƒƒƒ“‚Ìİ’è
+  growMap(curScan, estPose);               // åœ°å›³ã«ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤ã‚’è¿½åŠ 
+  prevScan = curScan;                      // ç›´å‰ã‚¹ã‚­ãƒ£ãƒ³ã®è¨­å®š
 
-  // Šm”F—p
+  // ç¢ºèªç”¨
 //  printf("lastPose: tx=%g, ty=%g, th=%g\n", lastPose.tx, lastPose.ty, lastPose.th);
-  printf("predPose: tx=%g, ty=%g, th=%g\n", predPose.tx, predPose.ty, predPose.th);     // Šm”F—p
+  printf("predPose: tx=%g, ty=%g, th=%g\n", predPose.tx, predPose.ty, predPose.th);     // ç¢ºèªç”¨
   printf("estPose: tx=%g, ty=%g, th=%g\n", estPose.tx, estPose.ty, estPose.th);
   printf("cov: %g, %g, %g, %g\n", totalCov(0,0), totalCov(0,1), totalCov(1,0), totalCov(1,1));
   printf("mcov: %g, %g, %g, %g\n", pfu->mcov(0,0), pfu->mcov(0,1), pfu->mcov(1,0), pfu->mcov(1,1));
   printf("ecov: %g, %g, %g, %g\n", pfu->ecov(0,0), pfu->ecov(0,1), pfu->ecov(1,0), pfu->ecov(1,1));
 
-  // ‹¤•ªU‚Ì•Û‘¶iŠm”F—pj
+  // å…±åˆ†æ•£ã®ä¿å­˜ï¼ˆç¢ºèªç”¨ï¼‰
 //  PoseCov pcov(estPose, cov);
 //  PoseCov pcov(estPose, totalCov);
 //  PoseCov pcov(estPose, pfu->mcov);
   PoseCov pcov(estPose, pfu->ecov);
   poseCovs.emplace_back(pcov);
 
-  // —İÏ‘–s‹——£‚ÌŒvZiŠm”F—pj
-  Pose2D estMotion;                                                    // „’èˆÚ“®—Ê
+  // ç´¯ç©èµ°è¡Œè·é›¢ã®è¨ˆç®—ï¼ˆç¢ºèªç”¨ï¼‰
+  Pose2D estMotion;                                                    // æ¨å®šç§»å‹•é‡
   Pose2D::calRelativePose(estPose, lastPose, estMotion);
   atd += sqrt(estMotion.tx*estMotion.tx + estMotion.ty*estMotion.ty); 
   printf("atd=%g\n", atd);
@@ -119,35 +119,35 @@ bool ScanMatcher2D::matchScan(Scan2D &curScan) {
 
 ////////////////////
 
-// Œ»İƒXƒLƒƒƒ“‚ğ’Ç‰Á‚µ‚ÄA’n}‚ğ¬’·‚³‚¹‚é
+// ç¾åœ¨ã‚¹ã‚­ãƒ£ãƒ³ã‚’è¿½åŠ ã—ã¦ã€åœ°å›³ã‚’æˆé•·ã•ã›ã‚‹
 void ScanMatcher2D::growMap(const Scan2D &scan, const Pose2D &pose) {
-  const vector<LPoint2D> &lps = scan.lps;                // ƒXƒLƒƒƒ““_ŒQ(ƒƒ{ƒbƒgÀ•WŒn)
-  const double (*R)[2] = pose.Rmat;                      // „’è‚µ‚½ƒƒ{ƒbƒgˆÊ’u
+  const vector<LPoint2D> &lps = scan.lps;                // ã‚¹ã‚­ãƒ£ãƒ³ç‚¹ç¾¤(ãƒ­ãƒœãƒƒãƒˆåº§æ¨™ç³»)
+  const double (*R)[2] = pose.Rmat;                      // æ¨å®šã—ãŸãƒ­ãƒœãƒƒãƒˆä½ç½®
   double tx = pose.tx;
   double ty = pose.ty;
 
-  vector<LPoint2D> scanG;                                // ’n}À•WŒn‚Å‚Ì“_ŒQ
+  vector<LPoint2D> scanG;                                // åœ°å›³åº§æ¨™ç³»ã§ã®ç‚¹ç¾¤
   for(size_t i=0; i<lps.size(); i++) {
     const LPoint2D &lp = lps[i];
-    if (lp.type == ISOLATE)                              // ŒÇ—§“_i–@ü‚È‚µj‚ÍœŠO
+    if (lp.type == ISOLATE)                              // å­¤ç«‹ç‚¹ï¼ˆæ³•ç·šãªã—ï¼‰ã¯é™¤å¤–
       continue;
-    double x = R[0][0]*lp.x + R[0][1]*lp.y + tx;         // ’n}À•WŒn‚É•ÏŠ·
+    double x = R[0][0]*lp.x + R[0][1]*lp.y + tx;         // åœ°å›³åº§æ¨™ç³»ã«å¤‰æ›
     double y = R[1][0]*lp.x + R[1][1]*lp.y + ty;
-    double nx = R[0][0]*lp.nx + R[0][1]*lp.ny;           // –@üƒxƒNƒgƒ‹‚à•ÏŠ·
+    double nx = R[0][0]*lp.nx + R[0][1]*lp.ny;           // æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚‚å¤‰æ›
     double ny = R[1][0]*lp.nx + R[1][1]*lp.ny;
 
-    LPoint2D mlp(cnt, x, y);                             // V‹K‚É“_‚ğ¶¬
+    LPoint2D mlp(cnt, x, y);                             // æ–°è¦ã«ç‚¹ã‚’ç”Ÿæˆ
     mlp.setNormal(nx, ny);
     mlp.setType(lp.type);
-    scanG.emplace_back(mlp);                             // mlp‚Ívector“à‚ÉƒRƒs[‚³‚ê‚é
+    scanG.emplace_back(mlp);                             // mlpã¯vectorå†…ã«ã‚³ãƒ”ãƒ¼ã•ã‚Œã‚‹
   }
 
-  // “_ŒQ’n}pcmap‚É“o˜^
+  // ç‚¹ç¾¤åœ°å›³pcmapã«ç™»éŒ²
   pcmap->addPose(pose);
   pcmap->addPoints(scanG);
   pcmap->setLastPose(pose);
-  pcmap->setLastScan(scan);          // QÆƒXƒLƒƒƒ“—p‚É•Û‘¶
-  pcmap->makeLocalMap();             // ‹ÇŠ’n}‚ğ¶¬
+  pcmap->setLastScan(scan);          // å‚ç…§ã‚¹ã‚­ãƒ£ãƒ³ç”¨ã«ä¿å­˜
+  pcmap->makeLocalMap();             // å±€æ‰€åœ°å›³ã‚’ç”Ÿæˆ
   
-  printf("ScanMatcher: estPose: tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);    // Šm”F—p
+  printf("ScanMatcher: estPose: tx=%g, ty=%g, th=%g\n", pose.tx, pose.ty, pose.th);    // ç¢ºèªç”¨
 }
