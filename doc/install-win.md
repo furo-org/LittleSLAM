@@ -46,7 +46,6 @@ git clone --recursive https://github.com/furo-org/LittleSLAM.git
 この方法を使った場合は次の「p2oの展開」の操作は不要です。
 
 - p2oの展開   
-"C:\abc\LittleSLAM"の下に"p2o"フォルダを作成します。  
 前述のp2o-master.zipの中のファイル"p2o.h"を"C:\abc\LittleSLAM\p2o"の下にコピーします。  
 
 - buildフォルダの作成  
