@@ -40,6 +40,10 @@ LittleSLAM-master.zipをダウンロードします。
 LittleSLAM-master.zipの中の"LittleSLAM-master"フォルダの下の
 4個のフォルダと3個のファイルを"C:\abc\LittleSLAM"の下にコピーします。  
 (B) gitを使って、リポジトリをcloneします。  
+```
+git clone --recursive https://github.com/furo-org/LittleSLAM.git
+```
+この方法を使った場合は次の「p2oの展開」の操作は不要です。
 
 - p2oの展開   
 "C:\abc\LittleSLAM"の下に"p2o"フォルダを作成します。  
